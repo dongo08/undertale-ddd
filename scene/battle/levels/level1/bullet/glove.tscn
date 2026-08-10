@@ -1,0 +1,24 @@
+[gd_scene format=3 uid="uid://b4up8bwqk0hhb"]
+
+[ext_resource type="Script" uid="uid://cspenvdti3f5f" path="res://scripts/battle/bullets/base_bullet.gd" id="1_68ks6"]
+[ext_resource type="Texture2D" uid="uid://bkw2vmlc5pb3l" path="res://assets/sprites/levels/level1/bullet/Glove.png" id="2_68ks6"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_htemk"]
+radius = 12.0
+
+[node name="CircleFireballSingle" type="Area2D" unique_id=178014954]
+collision_layer = 4
+collision_mask = 2
+script = ExtResource("1_68ks6")
+damage = 4.0
+lifetime = 999999.0
+metadata/_custom_type_script = "uid://cspenvdti3f5f"
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=2085730807]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_68ks6")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=148250693]
+shape = SubResource("CircleShape2D_htemk")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]

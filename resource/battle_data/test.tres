@@ -1,0 +1,129 @@
+[gd_resource type="Resource" script_class="BattleData" format=3 uid="uid://olxqlmr77bo7"]
+
+[ext_resource type="Script" uid="uid://bow5y3q3seleq" path="res://scripts/battle/enemy_status.gd" id="1_700o5"]
+[ext_resource type="Script" uid="uid://b6innblij3fdk" path="res://scripts/battle/battle_data.gd" id="2_g0110"]
+[ext_resource type="Script" uid="uid://bgsmn2fvofrpt" path="res://scripts/player/player_status.gd" id="2_miks1"]
+[ext_resource type="Script" uid="uid://calkgasaaikbk" path="res://scripts/player/item.gd" id="2_resvl"]
+[ext_resource type="Script" uid="uid://cesf1257lem3k" path="res://scripts/battle/enemy_round.gd" id="3_yiiu4"]
+[ext_resource type="Script" uid="uid://bk7lyrbkni0wr" path="res://scripts/dialog/base_dialog.gd" id="4_vak8k"]
+[ext_resource type="Script" uid="uid://c4j8w0e5b3a8e" path="res://scripts/battle/levels/test/round0.gd" id="6_resvl"]
+[ext_resource type="Script" uid="uid://5krrw1y54av1" path="res://scripts/battle/levels/test/round1.gd" id="7_j2st4"]
+[ext_resource type="Script" uid="uid://cgo2bao1v0p73" path="res://scripts/battle/levels/test/round2.gd" id="8_uhwnn"]
+[ext_resource type="Script" uid="uid://cqdg5ggj6e7k2" path="res://scripts/battle/levels/test/round3.gd" id="9_55jil"]
+
+[sub_resource type="Resource" id="Resource_miks1"]
+resource_local_to_scene = true
+script = ExtResource("1_700o5")
+id = "EANARO"
+max_hp = 20000.0
+hp = 20000.0
+descriptive_attack = "???"
+descriptive_defense = "???"
+metadata/_custom_type_script = "uid://bow5y3q3seleq"
+
+[sub_resource type="Resource" id="Resource_htemk"]
+resource_local_to_scene = true
+script = ExtResource("2_miks1")
+metadata/_custom_type_script = "uid://bgsmn2fvofrpt"
+
+[sub_resource type="Resource" id="Resource_v6wlq"]
+script = ExtResource("4_vak8k")
+content = "* ?!114514!?"
+metadata/_custom_type_script = "uid://bk7lyrbkni0wr"
+
+[sub_resource type="Resource" id="Resource_occno"]
+script = ExtResource("4_vak8k")
+content = "你好"
+metadata/_custom_type_script = "uid://bk7lyrbkni0wr"
+
+[sub_resource type="Resource" id="Resource_wd1qt"]
+script = ExtResource("4_vak8k")
+content = "妈妈妈妈妈妈妈妈妈妈妈妈妈妈妈妈妈妈妈妈妈妈妈妈妈妈妈妈妈妈妈妈妈妈妈妈妈妈妈妈妈妈妈妈"
+metadata/_custom_type_script = "uid://bk7lyrbkni0wr"
+
+[sub_resource type="Resource" id="Resource_6jj7y"]
+script = ExtResource("3_yiiu4")
+dialog_list = Array[ExtResource("4_vak8k")]([SubResource("Resource_occno"), SubResource("Resource_wd1qt")])
+battleframe_text = SubResource("Resource_v6wlq")
+manager = ExtResource("6_resvl")
+metadata/_custom_type_script = "uid://cesf1257lem3k"
+
+[sub_resource type="Resource" id="Resource_dfgbn"]
+script = ExtResource("4_vak8k")
+content = "* 你应该攻击他
+* 因为他是妈妈"
+metadata/_custom_type_script = "uid://bk7lyrbkni0wr"
+
+[sub_resource type="Resource" id="Resource_hk05n"]
+script = ExtResource("4_vak8k")
+content = "????????????????????????"
+metadata/_custom_type_script = "uid://bk7lyrbkni0wr"
+
+[sub_resource type="Resource" id="Resource_8qtvr"]
+script = ExtResource("4_vak8k")
+content = "?  1!!/1?!/??  ?! / d/d d d  "
+metadata/_custom_type_script = "uid://bk7lyrbkni0wr"
+
+[sub_resource type="Resource" id="Resource_ivfpn"]
+script = ExtResource("3_yiiu4")
+dialog_list = Array[ExtResource("4_vak8k")]([SubResource("Resource_hk05n"), SubResource("Resource_8qtvr")])
+battleframe_text = SubResource("Resource_dfgbn")
+manager = ExtResource("7_j2st4")
+metadata/_custom_type_script = "uid://cesf1257lem3k"
+
+[sub_resource type="Resource" id="Resource_hq0h4"]
+script = ExtResource("4_vak8k")
+content = "* 接下来会[w:0.2]打 的 很 ... [p:1]慢"
+metadata/_custom_type_script = "uid://bk7lyrbkni0wr"
+
+[sub_resource type="Resource" id="Resource_resvl"]
+script = ExtResource("4_vak8k")
+content = "别打搅了"
+metadata/_custom_type_script = "uid://bk7lyrbkni0wr"
+
+[sub_resource type="Resource" id="Resource_kk2li"]
+script = ExtResource("4_vak8k")
+content = "打太快对身体并不好"
+metadata/_custom_type_script = "uid://bk7lyrbkni0wr"
+
+[sub_resource type="Resource" id="Resource_fo0pf"]
+script = ExtResource("4_vak8k")
+content = "不可太快，最好能够保持在15分钟以上，切莫贪图高潮快感，以免过早的阳痿、早泄。"
+metadata/_custom_type_script = "uid://bk7lyrbkni0wr"
+
+[sub_resource type="Resource" id="Resource_3diee"]
+script = ExtResource("4_vak8k")
+content = "我要[w:0.2]慢慢地打😋😋😋"
+metadata/_custom_type_script = "uid://bk7lyrbkni0wr"
+
+[sub_resource type="Resource" id="Resource_vak8k"]
+script = ExtResource("3_yiiu4")
+dialog_list = Array[ExtResource("4_vak8k")]([SubResource("Resource_resvl"), SubResource("Resource_kk2li"), SubResource("Resource_fo0pf"), SubResource("Resource_3diee")])
+battleframe_text = SubResource("Resource_hq0h4")
+manager = ExtResource("8_uhwnn")
+metadata/_custom_type_script = "uid://cesf1257lem3k"
+
+[sub_resource type="Resource" id="Resource_j2st4"]
+script = ExtResource("4_vak8k")
+content = "* 3000压力测试！"
+metadata/_custom_type_script = "uid://bk7lyrbkni0wr"
+
+[sub_resource type="Resource" id="Resource_uhwnn"]
+script = ExtResource("4_vak8k")
+content = "..."
+metadata/_custom_type_script = "uid://bk7lyrbkni0wr"
+
+[sub_resource type="Resource" id="Resource_sev40"]
+script = ExtResource("3_yiiu4")
+dialog_list = Array[ExtResource("4_vak8k")]([SubResource("Resource_uhwnn")])
+battleframe_text = SubResource("Resource_j2st4")
+manager = ExtResource("9_55jil")
+metadata/_custom_type_script = "uid://cesf1257lem3k"
+
+[resource]
+resource_local_to_scene = true
+script = ExtResource("2_g0110")
+player_status = SubResource("Resource_htemk")
+enemys = Array[ExtResource("1_700o5")]([SubResource("Resource_miks1")])
+rounds = Array[ExtResource("3_yiiu4")]([SubResource("Resource_6jj7y"), SubResource("Resource_ivfpn"), SubResource("Resource_vak8k"), SubResource("Resource_sev40")])
+metadata/_custom_type_script = "uid://b6innblij3fdk"

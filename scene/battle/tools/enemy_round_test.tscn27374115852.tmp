@@ -1,0 +1,83 @@
+[gd_scene format=3 uid="uid://cmyb810k6dw7d"]
+
+[ext_resource type="Script" uid="uid://but4ur02fb1sx" path="res://scene/battle/tools/enemy_round_test.gd" id="1_3uysb"]
+[ext_resource type="Script" uid="uid://bojbumb324e7n" path="res://scripts/battle/levels/level0/round6.gd" id="2_i8eta"]
+[ext_resource type="Script" uid="uid://bxxkmygk51k30" path="res://scene/battle/battle_frame/battle_frame_border.gd" id="3_ago2a"]
+[ext_resource type="PackedScene" uid="uid://b5ry1mecij7jb" path="res://scene/battle/battle_frame/attack_bar.tscn" id="4_mjwdl"]
+[ext_resource type="Script" uid="uid://calkgasaaikbk" path="res://scripts/item.gd" id="6_i8eta"]
+[ext_resource type="Script" uid="uid://bgsmn2fvofrpt" path="res://scripts/player_status.gd" id="7_jepsn"]
+[ext_resource type="PackedScene" uid="uid://b82oy4rbbvmky" path="res://scene/battle/soul/soul.tscn" id="15_agd3p"]
+[ext_resource type="AudioStream" uid="uid://bxr8labkw3e11" path="res://assets/sounds/UI/snd_squeak.wav" id="16_6evwu"]
+[ext_resource type="AudioStream" uid="uid://c0m2og28em48w" path="res://assets/sounds/UI/snd_select.wav" id="17_l3awm"]
+[ext_resource type="AudioStream" uid="uid://co1mrm3wris8w" path="res://assets/sounds/UI/text/SND_TXT2.wav" id="18_u5o5o"]
+[ext_resource type="AudioStream" uid="uid://b0exrudoitwdv" path="res://assets/sounds/UI/text/SND_TXT1.wav" id="19_gj1uw"]
+[ext_resource type="AudioStream" uid="uid://cebhob2kiur6x" path="res://assets/audio/battle/level1/[Undertale Remix] SharaX - Heartache 7.mp3" id="20_4t1b3"]
+
+[sub_resource type="Resource" id="Resource_lgenn"]
+script = ExtResource("7_jepsn")
+max_hp = 2000
+hp = 2000
+metadata/_custom_type_script = "uid://bgsmn2fvofrpt"
+
+[sub_resource type="AudioStreamPolyphonic" id="AudioStreamPolyphonic_5xun6"]
+
+[node name="EnemyRoundTest" type="Control" unique_id=1547424377 node_paths=PackedStringArray("soul", "battle_frame_border", "bullet_player")]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_3uysb")
+m = ExtResource("2_i8eta")
+soul = NodePath("BattleFrame/Soul")
+battle_frame_border = NodePath("BattleFrame/FrameBorder")
+bullet_player = NodePath("Audio/BulletPlayer")
+
+[node name="BattleFrame" type="Node2D" parent="." unique_id=684076872]
+z_index = 1
+
+[node name="FrameBorder" type="AnimatableBody2D" parent="BattleFrame" unique_id=1548236264 node_paths=PackedStringArray("collision")]
+position = Vector2(1, 2)
+script = ExtResource("3_ago2a")
+collision = NodePath("CollisionPolygon2D")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="BattleFrame/FrameBorder" unique_id=1750688588]
+build_mode = 1
+polygon = PackedVector2Array(28, 288, 612, 288, 612, 420, 28, 420)
+
+[node name="Attack" parent="BattleFrame" unique_id=1466610130 instance=ExtResource("4_mjwdl")]
+position = Vector2(1, 2)
+
+[node name="Soul" parent="BattleFrame" unique_id=172666121 instance=ExtResource("15_agd3p")]
+z_index = 5
+position = Vector2(315, 356)
+player_status = SubResource("Resource_lgenn")
+
+[node name="Audio" type="Node" parent="." unique_id=1105997151]
+
+[node name="SqueakPlayer" type="AudioStreamPlayer" parent="Audio" unique_id=2042504004]
+stream = ExtResource("16_6evwu")
+bus = &"Sounds"
+
+[node name="SelectPlayer" type="AudioStreamPlayer" parent="Audio" unique_id=225345088]
+stream = ExtResource("17_l3awm")
+bus = &"Sounds"
+
+[node name="SndTxt" type="AudioStreamPlayer" parent="Audio" unique_id=1454050915]
+stream = ExtResource("18_u5o5o")
+bus = &"Sounds"
+
+[node name="SndTxt2" type="AudioStreamPlayer" parent="Audio" unique_id=1746558020]
+stream = ExtResource("19_gj1uw")
+bus = &"Sounds"
+
+[node name="BGMPlayer" type="AudioStreamPlayer" parent="Audio" unique_id=324695126]
+stream = ExtResource("20_4t1b3")
+bus = &"BGM"
+
+[node name="BulletPlayer" type="AudioStreamPlayer" parent="Audio" unique_id=2096933325]
+stream = SubResource("AudioStreamPolyphonic_5xun6")
+autoplay = true
+bus = &"Sounds"
+
+[node name="Timer" type="Timer" parent="." unique_id=318774725]
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

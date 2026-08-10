@@ -1,0 +1,137 @@
+[gd_scene format=3 uid="uid://b5ry1mecij7jb"]
+
+[ext_resource type="Script" uid="uid://clrer0ihh0mna" path="res://scene/battle/battle_frame/attack_bar.gd" id="1_ih3xh"]
+[ext_resource type="Texture2D" uid="uid://8lmk1x41vyjt" path="res://assets/sprites/UI/battle_screen/attack/spr_dumbtarget_0.png" id="2_7a37t"]
+[ext_resource type="PackedScene" uid="uid://c7mom2rcnb6ns" path="res://scene/battle/battle_frame/attack_cursor.tscn" id="3_6rt12"]
+[ext_resource type="Texture2D" uid="uid://cs7m1nad1y8tv" path="res://assets/sprites/UI/battle_screen/attack/spr_slice_o_0.png" id="4_7c7dd"]
+[ext_resource type="Texture2D" uid="uid://bs63da31msixn" path="res://assets/sprites/UI/battle_screen/attack/spr_slice_o_1.png" id="5_j1y74"]
+[ext_resource type="Texture2D" uid="uid://k6fcssuceqj0" path="res://assets/sprites/UI/battle_screen/attack/spr_slice_o_2.png" id="6_4y4rh"]
+[ext_resource type="Texture2D" uid="uid://mypnfa8l6hd4" path="res://assets/sprites/UI/battle_screen/attack/spr_slice_o_3.png" id="7_x0cdb"]
+[ext_resource type="Texture2D" uid="uid://cnmkyoekr8qyb" path="res://assets/sprites/UI/battle_screen/attack/spr_slice_o_4.png" id="8_8mhqs"]
+[ext_resource type="Texture2D" uid="uid://bf53hhgtmfhkr" path="res://assets/sprites/UI/battle_screen/attack/spr_slice_o_5.png" id="9_n5rlh"]
+[ext_resource type="Texture2D" uid="uid://b4d3lt4rnas8" path="res://assets/sprites/UI/battle_screen/attack/spr_dmgmiss_o_0.png" id="10_hyh6q"]
+[ext_resource type="FontFile" uid="uid://b7ctt1c5gy6ox" path="res://assets/font/玩家造成伤害字体.TTF" id="11_eu0n7"]
+[ext_resource type="AudioStream" uid="uid://fjlhk0erd1n7" path="res://assets/sounds/UI/attack/snd_laz.wav" id="12_ycokq"]
+[ext_resource type="AudioStream" uid="uid://bhu4bby0ndlr" path="res://assets/sounds/UI/attack/snd_damage.wav" id="13_7a37t"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_htemk"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_7c7dd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_j1y74")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_4y4rh")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_x0cdb")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_8mhqs")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_n5rlh")
+}, {
+"duration": 1.0,
+"texture": null
+}],
+"loop": 0,
+"name": &"default",
+"speed": 8.0
+}]
+
+[sub_resource type="LabelSettings" id="LabelSettings_htemk"]
+font = ExtResource("11_eu0n7")
+font_size = 32
+font_color = Color(1, 0, 0, 1)
+shadow_size = 12
+shadow_color = Color(0, 0, 0, 1)
+
+[sub_resource type="Gradient" id="Gradient_bvdym"]
+colors = PackedColorArray(0.5027185, 0.50271857, 0.5027184, 1, 0.500095, 0.50009507, 0.500095, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_14cdr"]
+gradient = SubResource("Gradient_bvdym")
+width = 16
+height = 16
+
+[sub_resource type="Gradient" id="Gradient_nt6hb"]
+colors = PackedColorArray(0, 1, 0, 1, 0, 1, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_htemk"]
+gradient = SubResource("Gradient_nt6hb")
+width = 2
+height = 2
+
+[node name="Attack" type="Node2D" unique_id=1466610130 node_paths=PackedStringArray("dumb_target", "attack_cursor", "attack_effect", "dmg_miss", "damage_label", "hp_bar")]
+script = ExtResource("1_ih3xh")
+dumb_target = NodePath("DumbTarget")
+attack_cursor = NodePath("AttackCursor")
+attack_effect = NodePath("AnimatedSprite2D")
+dmg_miss = NodePath("DmgMiss")
+damage_label = NodePath("Label")
+hp_bar = NodePath("ProgressBar")
+
+[node name="DumbTarget" type="Sprite2D" parent="." unique_id=219963683]
+visible = false
+position = Vector2(320, 358)
+texture = ExtResource("2_7a37t")
+
+[node name="AttackCursor" parent="." unique_id=1642209633 instance=ExtResource("3_6rt12")]
+visible = false
+position = Vector2(596, 356)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=845511428]
+visible = false
+position = Vector2(323, 130)
+sprite_frames = SubResource("SpriteFrames_htemk")
+
+[node name="DmgMiss" type="Sprite2D" parent="." unique_id=96134342]
+visible = false
+position = Vector2(319, 145)
+texture = ExtResource("10_hyh6q")
+
+[node name="Label" type="Label" parent="." unique_id=2045835827]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 120.0
+offset_top = 111.0
+offset_right = 520.0
+offset_bottom = 143.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "12341515151"
+label_settings = SubResource("LabelSettings_htemk")
+horizontal_alignment = 1
+
+[node name="ProgressBar" type="TextureProgressBar" parent="." unique_id=1070038509]
+visible = false
+custom_minimum_size = Vector2(240, 24)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 200.0
+offset_top = 154.0
+offset_right = 440.0
+offset_bottom = 178.0
+grow_horizontal = 2
+grow_vertical = 2
+step = 0.0
+nine_patch_stretch = true
+texture_under = SubResource("GradientTexture2D_14cdr")
+texture_progress = SubResource("GradientTexture2D_htemk")
+
+[node name="SndLaz" type="AudioStreamPlayer" parent="." unique_id=112479038]
+stream = ExtResource("12_ycokq")
+
+[node name="SndDamage" type="AudioStreamPlayer" parent="." unique_id=938202987]
+stream = ExtResource("13_7a37t")

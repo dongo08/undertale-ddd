@@ -1,0 +1,148 @@
+extends Node2D
+class_name BaseEnemyTurnManager
+const BASE_BULLET = preload("uid://dc41q0lfey1qr")
+const EXPLODE_EFFECT = preload("uid://djpv4bs5mo5ui")
+const SE_TAN_00 = preload("uid://oie1o8543ko7")
+const 弹幕嗡声 = preload("uid://xuishfumuwcu")
+const SE_TAN_02 = preload("uid://bhbpd23lvqvvc")
+
+@export var master: BattleManager
+var bullets: Array[BaseBullet]
+var polygon_tween: Tween
+
+var lu: Vector2
+var ru: Vector2
+var rd: Vector2
+var ld: Vector2
+
+signal finished(mgr:BaseEnemyTurnManager)
+
+var _self_player:AudioStreamPlayer
+
+
+# ── 生命周期 ──
+
+func _ready() -> void:
+	_self_player=AudioStreamPlayer.new()
+	_self_player.bus="Sounds"
+	add_child(_self_player)
+	z_index=10
+
+func start():
+	_init_corners()
+	
+
+func end():
+	finished.emit(self)
+	#queue_free()
+
+
+# ── 快捷方法 ──
+
+func wait(t: float):
+	await get_tree().create_timer(t).timeout
+
+func get_soul_pos() -> Vector2:
+	return master.soul.global_position
+
+func get_frame_center() -> Vector2:
+	return (lu + rd) / 2.0
+
+func get_frame_rect() -> Dictionary:
+	return {"left": lu.x, "right": ru.x, "top": lu.y, "bottom": ld.y}
+
+func _init_corners():
+	var p = get_battleframe_polygon()
+	lu = p[0]
+	ru = p[1]
+	rd = p[2]
+	ld = p[3]
+
+
+# ── 灵魂控制 ──
+
+func move_soul(pos: Vector2):
+	if master.soul:
+		master.soul.position = pos
+
+func set_soul_mode(mode: Soul.Type):
+	master.soul.type = mode
+
+func set_soul_gravity(dir: Soul.GDir):
+	master.soul.g_dir = dir
+
+func lock_soul(locked: bool):
+	master.soul.movement_locked = locked
+
+
+# ── 子弹生成 ──
+
+func spawn_base_bullet(pos: Vector2, direction: Vector2, speed: float = 300,lifetime:float=16):
+	var bullet = BASE_BULLET.instantiate() as NormalBullet
+	bullet.position = pos
+	bullet.manager=self
+	bullet.direction=direction
+	bullet.speed=speed
+	bullet.lifetime=lifetime
+	
+	add_child(bullet)
+	
+	bullets.append(bullet)
+	return bullet
+
+
+
+
+func spawn_bullet_fan(origin: Vector2, dir: Vector2, spread: float, count: int, speed: float = 300):
+	for i in range(count):
+		var angle = dir.rotated((i - (count - 1) / 2.0) * spread / float(count - 1))
+		spawn_base_bullet(origin, angle, speed)
+
+func spawn_bullet_circle(center: Vector2, count: int, speed: float = 300, bscale:Vector2=Vector2.ONE, offset_angle: float = 0.0,change_rotate:bool=true):
+	var step = TAU / count
+	for i in range(count):
+		var dir = Vector2.RIGHT.rotated(i * step + offset_angle)
+		var a=spawn_base_bullet(center, dir, speed)
+		if change_rotate:
+			a.rotation=i * step + offset_angle-PI/2
+		a.scale=bscale
+
+
+# ── 战斗框 ──
+
+func direction_to_soul(pos: Vector2) -> Vector2:
+	return master.direction_to_soul(pos)
+
+func get_battleframe_polygon() -> PackedVector2Array:
+	return master.battle_frame_border.collision.polygon
+
+func set_battleframe_polygon(polygon: PackedVector2Array):
+	master.set_battleframe_polygon(polygon)
+
+func set_battleframe_polygon_trans(
+	polygon: PackedVector2Array = [Vector2(100, 260), Vector2(540, 260), Vector2(540, 440), Vector2(100, 440)],
+	duration: float = 0.8
+):
+	if polygon_tween and polygon_tween.is_running():
+		polygon_tween.kill()
+	polygon_tween = create_tween()
+	var p = get_battleframe_polygon()
+	polygon_tween.parallel().tween_method(
+		set_battleframe_polygon, p, polygon, duration
+	).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUAD)
+	await get_tree().create_timer(duration).timeout
+
+func play_sound(stream: AudioStream, from_offset: float = 0, volume_db: float = 0, pitch_scale: float = 1.0):
+	master.play_bullet_sound(stream,from_offset,volume_db,pitch_scale)
+
+func self_play_sound(stream: AudioStream, from_offset: float = 0, volume_db: float = 0, pitch_scale: float = 1.0):
+	_self_player.stream=stream
+	_self_player.volume_db=volume_db
+	_self_player.pitch_scale=pitch_scale
+	_self_player.play(from_offset)
+
+func create_explode_effect(pos:Vector2 ,explode_scale:Vector2=Vector2.ONE):
+	var ex=EXPLODE_EFFECT.instantiate() as Node2D
+	ex.scale=explode_scale
+	ex.position=pos
+	add_child(ex)

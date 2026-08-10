@@ -1,0 +1,46 @@
+[gd_scene format=3 uid="uid://cc31pb8a313ns"]
+
+[ext_resource type="Shader" uid="uid://kfhbqc7xh34e" path="res://shader/beam_shockwave.gdshader" id="1_ilxol"]
+
+[sub_resource type="Gradient" id="Gradient_ugcl7"]
+colors = PackedColorArray(0, 0, 0, 0, 1, 1, 1, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_pj0hq"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_q4lci"]
+noise = SubResource("FastNoiseLite_pj0hq")
+color_ramp = SubResource("Gradient_ugcl7")
+seamless = true
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1jdih"]
+shader = ExtResource("1_ilxol")
+shader_parameter/bar_x = 0.5
+shader_parameter/bar_width = 0.5
+shader_parameter/bar_height = 1.0
+shader_parameter/auto_scan = false
+shader_parameter/scan_speed = 0.3
+shader_parameter/bar_color = Color(1, 1, 1, 1)
+shader_parameter/glow_color = Color(1, 1, 1, 1)
+shader_parameter/glow_width = 0.19400000781797
+shader_parameter/glow_strength = 0.5
+shader_parameter/intensity = 1.3030000618925
+shader_parameter/flow_speed = 2.0
+shader_parameter/noise_scale = 6.0
+shader_parameter/edge_warp = 0.03
+shader_parameter/fog_width = 0.0750000035625
+shader_parameter/inner_flow = 0.4
+shader_parameter/streaks = 0.6
+shader_parameter/noise_tex = SubResource("NoiseTexture2D_q4lci")
+shader_parameter/noise_tex_enabled = true
+shader_parameter/noise_scroll_speed = 2.0490000973275
+shader_parameter/noise_uv_scale = 1.0
+shader_parameter/excite_strength = 1.0130000481175
+
+[node name="Shock" type="ColorRect" unique_id=979192727]
+z_index = 1
+material = SubResource("ShaderMaterial_1jdih")
+custom_minimum_size = Vector2(100, 480)
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_right = 100.0
+grow_vertical = 2

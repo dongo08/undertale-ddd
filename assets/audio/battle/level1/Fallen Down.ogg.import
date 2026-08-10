@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://cmvxrrxxngr20"
+path="res://.godot/imported/Fallen Down.ogg-e9d42b608e1e0f150508df56c8c8a227.oggvorbisstr"
+
+[deps]
+
+source_file="res://assets/audio/battle/level1/Fallen Down.ogg"
+dest_files=["res://.godot/imported/Fallen Down.ogg-e9d42b608e1e0f150508df56c8c8a227.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

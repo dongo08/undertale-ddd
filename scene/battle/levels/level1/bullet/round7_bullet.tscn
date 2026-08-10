@@ -1,0 +1,27 @@
+[gd_scene format=3 uid="uid://cas06lfdkcj87"]
+
+[ext_resource type="Script" uid="uid://cuc3hqigif47c" path="res://scene/battle/levels/level1/bullet/round_7_bullet.gd" id="1_jxnc4"]
+[ext_resource type="Texture2D" uid="uid://bm2sfoc7raclt" path="res://assets/sprites/levels/level1/bullet/flame proj.png" id="2_4dlix"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_htemk"]
+radius = 9.0
+
+[node name="Area2D" type="Area2D" unique_id=750267846]
+physics_interpolation_mode = 1
+position = Vector2(321, 39)
+collision_layer = 4
+collision_mask = 2
+script = ExtResource("1_jxnc4")
+damage = 4.0
+lifetime = 6.0
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1419066035]
+position = Vector2(0, -2)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_4dlix")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1354813921]
+physics_interpolation_mode = 1
+shape = SubResource("CircleShape2D_htemk")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]

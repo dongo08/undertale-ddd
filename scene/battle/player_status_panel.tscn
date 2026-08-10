@@ -1,0 +1,88 @@
+[gd_scene format=3 uid="uid://4elr5pr674ya"]
+
+[ext_resource type="Script" uid="uid://h3swueoxmg34" path="res://scene/battle/player_status.gd" id="1_cvv8e"]
+[ext_resource type="FontFile" uid="uid://cquvig8giyvpd" path="res://assets/font/LV,血量,名字字体.ttf" id="1_nythh"]
+[ext_resource type="FontFile" uid="uid://dchcadn3tsmgf" path="res://assets/font/hp,kr字体.ttf" id="2_cvv8e"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_htemk"]
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 1, 1, 1)
+
+[sub_resource type="Gradient" id="Gradient_p56j5"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(1, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_ougy3"]
+gradient = SubResource("Gradient_p56j5")
+width = 3
+height = 3
+
+[sub_resource type="Gradient" id="Gradient_bdn7b"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(1, 1, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_yyook"]
+gradient = SubResource("Gradient_bdn7b")
+
+[node name="player_status" type="PanelContainer" unique_id=1176279467 node_paths=PackedStringArray("hp_progress_bar", "hp_text", "id_label")]
+offset_right = 261.0
+offset_bottom = 92.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_htemk")
+script = ExtResource("1_cvv8e")
+hp_progress_bar = NodePath("MarginContainer/VBoxContainer/HBoxContainer/ProgressBar")
+hp_text = NodePath("MarginContainer/VBoxContainer/HBoxContainer/HPLabel")
+id_label = NodePath("MarginContainer/VBoxContainer/Label")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=598986292]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=1057193391]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer" unique_id=1571016970]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_nythh")
+theme_override_font_sizes/font_size = 24
+text = "FRISK   lv"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=1747796008]
+custom_minimum_size = Vector2(35, 0)
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=100457649]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_cvv8e")
+theme_override_font_sizes/font_size = 8
+text = "hp"
+
+[node name="ProgressBar" type="TextureProgressBar" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=187226048]
+custom_minimum_size = Vector2(110.4, 20)
+layout_mode = 2
+size_flags_vertical = 4
+max_value = 92.0
+value = 92.0
+nine_patch_stretch = true
+texture_under = SubResource("GradientTexture2D_ougy3")
+texture_progress = SubResource("GradientTexture2D_yyook")
+
+[node name="HPLabel" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=813577724]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_nythh")
+theme_override_font_sizes/font_size = 24
+text = "20 / 20"
+
+[node name="Label3" type="Label" parent="MarginContainer/VBoxContainer" unique_id=154060196]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_nythh")
+theme_override_font_sizes/font_size = 24
+text = "LKINF"

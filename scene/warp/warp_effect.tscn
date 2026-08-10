@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://cn4p1a67gbd2n"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_htemk"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_pj0hq"]
+
+[sub_resource type="Environment" id="env_black"]
+background_mode = 1
+ambient_light_source = 3
+ambient_light_color = Color(0.3, 0.3, 0.3, 1)
+
+[node name="WarpEffect" type="Node3D" unique_id=941028173]
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="." unique_id=1314002731]
+transform = Transform3D(1, 0, 0, 0, 0.99167114, 0.1287956, 0, -0.1287956, 0.99167114, 0, 0.1, -2.9819293)
+process_material = SubResource("ParticleProcessMaterial_htemk")
+draw_pass_1 = SubResource("SphereMesh_pj0hq")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1776849774]
+environment = SubResource("env_black")
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=1124734086]
+transform = Transform3D(1, 0, 0, 0, 0.99167114, 0.1287956, 0, -0.1287956, 0.99167114, 0, 0.1, 0)
+
+[node name="Lines" type="Node3D" parent="." unique_id=1768770616]

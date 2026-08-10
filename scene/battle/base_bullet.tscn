@@ -1,0 +1,23 @@
+[gd_scene format=3 uid="uid://dc41q0lfey1qr"]
+
+[ext_resource type="Script" uid="uid://jmgm34so5o8n" path="res://scripts/battle/bullets/normal_bullet.gd" id="1_nqvua"]
+[ext_resource type="Texture2D" uid="uid://b0ogks3o0ncno" path="res://assets/sprites/UI/battle_screen/bullet/ball16.png" id="2_nqvua"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_htemk"]
+radius = 7.0
+
+[node name="Area2D" type="Area2D" unique_id=750267846]
+modulate = Color(0, 1, 1, 1)
+collision_layer = 4
+collision_mask = 2
+script = ExtResource("1_nqvua")
+type = 1
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1419066035]
+texture = ExtResource("2_nqvua")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1354813921]
+physics_interpolation_mode = 1
+shape = SubResource("CircleShape2D_htemk")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]

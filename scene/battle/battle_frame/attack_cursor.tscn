@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://c7mom2rcnb6ns"]
+
+[ext_resource type="Texture2D" uid="uid://daq6xjbur2bso" path="res://assets/sprites/UI/battle_screen/attack/attack cursor 2.png" id="1_0clop"]
+[ext_resource type="Texture2D" uid="uid://xk5yljl2o7j0" path="res://assets/sprites/UI/battle_screen/attack/attack cursor 1.png" id="1_kk2li"]
+[ext_resource type="Script" uid="uid://b2ci8o5s73wrv" path="res://scene/battle/battle_frame/attack_cursor.gd" id="2_bqvnx"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_htemk"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_kk2li")
+}, {
+"duration": 1.0,
+"texture": ExtResource("1_0clop")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 10.0
+}]
+
+[node name="AttackCursor" type="AnimatedSprite2D" unique_id=1642209633]
+scale = Vector2(0.5, 0.5)
+sprite_frames = SubResource("SpriteFrames_htemk")
+frame_progress = 0.08391995
+script = ExtResource("2_bqvnx")

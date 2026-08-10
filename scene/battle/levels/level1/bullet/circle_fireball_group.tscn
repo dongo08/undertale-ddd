@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://c8a60i6no477r"]
+
+[ext_resource type="Script" uid="uid://ckk0xgxkl5lob" path="res://scene/battle/levels/level1/bullet/circle_fireball_group.gd" id="1_mhp6e"]
+
+[node name="RoundFireballGroup" type="Node2D" unique_id=755021108]
+z_index = 1
+script = ExtResource("1_mhp6e")
+amount = 8

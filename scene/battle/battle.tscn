@@ -1,0 +1,298 @@
+[gd_scene format=3 uid="uid://n8e5jppqeksd"]
+
+[ext_resource type="Script" uid="uid://doialricfl821" path="res://scene/battle/battle.gd" id="1_74lao"]
+[ext_resource type="Resource" uid="uid://olxqlmr77bo7" path="res://resource/battle_data/test.tres" id="2_288au"]
+[ext_resource type="PackedScene" uid="uid://4elr5pr674ya" path="res://scene/battle/player_status_panel.tscn" id="4_1ba6n"]
+[ext_resource type="FontFile" uid="uid://ikbkbdwpo0mf" path="res://assets/font/普通字体.ttf" id="5_j1ccn"]
+[ext_resource type="Script" uid="uid://bxxkmygk51k30" path="res://scene/battle/battle_frame/battle_frame_border.gd" id="5_l2bdv"]
+[ext_resource type="Texture2D" uid="uid://badvkitid30pw" path="res://assets/sprites/UI/battle_screen/spr_fightbt_center_1.png" id="6_45prw"]
+[ext_resource type="Script" uid="uid://ehecvdaehpkh" path="res://scene/battle/battle_frame/choose_grid.gd" id="6_qxgud"]
+[ext_resource type="PackedScene" uid="uid://b82oy4rbbvmky" path="res://scene/battle/soul/soul.tscn" id="6_qyclh"]
+[ext_resource type="Texture2D" uid="uid://ky0glcmhfiq3" path="res://assets/sprites/UI/battle_screen/spr_blconwdshrt_0.png" id="7_6jj7y"]
+[ext_resource type="Script" uid="uid://4qp8jj5pw28t" path="res://scene/battle/action_button.gd" id="7_gwx1q"]
+[ext_resource type="Script" uid="uid://6oxqy74sbkkx" path="res://scene/battle/battle_frame/dialog_panel.gd" id="8_sev40"]
+[ext_resource type="Texture2D" uid="uid://rh6ricecdlbk" path="res://assets/sprites/levels/level0/enemy/Eanaro-1.png" id="9_6jj7y"]
+[ext_resource type="Script" uid="uid://bak4twd7ph5ti" path="res://scene/battle/enemy_illustration.gd" id="9_qxgud"]
+[ext_resource type="Script" uid="uid://dqjycl3clgow6" path="res://scene/battle/battle_frame/battle_frame_text.gd" id="9_v6wlq"]
+[ext_resource type="Texture2D" uid="uid://3c3lvhsqifwx" path="res://assets/sprites/UI/battle_screen/spr_itembt_0.png" id="10_3u8de"]
+[ext_resource type="Texture2D" uid="uid://bsqjsm41smset" path="res://assets/sprites/UI/battle_screen/spr_actbt_center_0.png" id="10_l2bdv"]
+[ext_resource type="Texture2D" uid="uid://6jjmmkw7g1v6" path="res://assets/sprites/UI/battle_screen/spr_sparebt_0.png" id="12_sp28g"]
+[ext_resource type="PackedScene" uid="uid://b5ry1mecij7jb" path="res://scene/battle/battle_frame/attack_bar.tscn" id="13_qxgud"]
+[ext_resource type="AudioStream" uid="uid://bxr8labkw3e11" path="res://assets/sounds/UI/snd_squeak.wav" id="13_rcqy1"]
+[ext_resource type="AudioStream" uid="uid://c0m2og28em48w" path="res://assets/sounds/UI/snd_select.wav" id="14_qyclh"]
+[ext_resource type="AudioStream" uid="uid://co1mrm3wris8w" path="res://assets/sounds/UI/text/SND_TXT2.wav" id="31_6jj7y"]
+[ext_resource type="AudioStream" uid="uid://b0exrudoitwdv" path="res://assets/sounds/UI/text/SND_TXT1.wav" id="32_sev40"]
+[ext_resource type="Texture2D" uid="uid://bhcri1aocaoum" path="res://assets/sprites/UI/spr_test_zbutton_3.png" id="41_hqqfg"]
+[ext_resource type="Texture2D" uid="uid://ddyrq63qmdhb2" path="res://assets/sprites/UI/spr_test_zbutton_2.png" id="42_6p4sc"]
+[ext_resource type="Texture2D" uid="uid://c64m48xjhrqlp" path="res://assets/sprites/UI/spr_test_xbutton_3.png" id="43_slji3"]
+[ext_resource type="Texture2D" uid="uid://rllimxwm6yr4" path="res://assets/sprites/UI/spr_test_xbutton_1.png" id="44_fnkvj"]
+[ext_resource type="Script" uid="uid://q80gar0bkm78" path="res://scripts/typewriter_label.gd" id="50_typewriter"]
+
+[sub_resource type="Theme" id="Theme_14cdr"]
+RichTextLabel/fonts/normal_font = ExtResource("5_j1ccn")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_htemk"]
+texture = ExtResource("7_6jj7y")
+texture_margin_left = 40.0
+texture_margin_top = 16.0
+texture_margin_right = 16.0
+texture_margin_bottom = 16.0
+
+[sub_resource type="AudioStreamPolyphonic" id="AudioStreamPolyphonic_6jj7y"]
+
+[node name="Control" type="Control" unique_id=55133942 node_paths=PackedStringArray("squeak_player", "select_player", "fight_button", "act_button", "item_button", "mercy_button", "soul", "attack_bar", "battle_frame_text", "battle_frame_border", "dialog_panel", "bullet_player", "button_container", "player_status", "enemy_illustration")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_14cdr")
+script = ExtResource("1_74lao")
+squeak_player = NodePath("Audio/SqueakPlayer")
+select_player = NodePath("Audio/SelectPlayer")
+battle_data = ExtResource("2_288au")
+fight_button = NodePath("buttons/FightButton")
+act_button = NodePath("buttons/ActButton")
+item_button = NodePath("buttons/ItemButton")
+mercy_button = NodePath("buttons/MercyButton")
+soul = NodePath("Soul")
+attack_bar = NodePath("BattleFrame/Attack")
+battle_frame_text = NodePath("BattleFrameText")
+battle_frame_border = NodePath("BattleFrame/FrameBorder")
+dialog_panel = NodePath("PanelContainer")
+bullet_player = NodePath("Audio/BulletPlayer")
+button_container = NodePath("buttons")
+player_status = NodePath("player_status")
+enemy_illustration = NodePath("Eanaro1")
+
+[node name="player_status" parent="." unique_id=1176279467 instance=ExtResource("4_1ba6n")]
+layout_mode = 0
+
+[node name="BattleFrameText" type="Control" parent="." unique_id=1084899321 node_paths=PackedStringArray("description", "master", "choices")]
+z_index = 5
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("9_v6wlq")
+description = NodePath("Description")
+master = NodePath("..")
+choices = NodePath("Choices")
+
+[node name="Description" type="RichTextLabel" parent="BattleFrameText" unique_id=1221009599 node_paths=PackedStringArray("snd_txt")]
+layout_mode = 0
+offset_left = 48.0
+offset_top = 308.0
+offset_right = 595.0
+offset_bottom = 420.0
+theme_override_constants/line_separation = 8
+theme_override_fonts/normal_font = ExtResource("5_j1ccn")
+theme_override_font_sizes/normal_font_size = 24
+bbcode_enabled = true
+text = "* 妈妈24frgwrg何意味
+* 124frgwrg何意味"
+visible_characters_behavior = 1
+script = ExtResource("50_typewriter")
+snd_txt = NodePath("../../Audio/SndTxt")
+
+[node name="Choices" type="GridContainer" parent="BattleFrameText" unique_id=1279869868 node_paths=PackedStringArray("choices")]
+layout_mode = 0
+offset_left = 76.0
+offset_top = 308.0
+offset_right = 632.0
+offset_bottom = 408.0
+columns = 2
+script = ExtResource("6_qxgud")
+choices = [NodePath("EnemyChoose"), NodePath("EnemyChoose2"), NodePath("EnemyChoose3"), NodePath("EnemyChoose4")]
+
+[node name="EnemyChoose" type="RichTextLabel" parent="BattleFrameText/Choices" unique_id=1183666763]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_fonts/normal_font = ExtResource("5_j1ccn")
+theme_override_font_sizes/normal_font_size = 24
+text = "1ytr"
+visible_characters_behavior = 1
+
+[node name="EnemyChoose2" type="RichTextLabel" parent="BattleFrameText/Choices" unique_id=1143719176]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_fonts/normal_font = ExtResource("5_j1ccn")
+theme_override_font_sizes/normal_font_size = 24
+text = "2"
+visible_characters_behavior = 1
+
+[node name="EnemyChoose3" type="RichTextLabel" parent="BattleFrameText/Choices" unique_id=1459868376]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_fonts/normal_font = ExtResource("5_j1ccn")
+theme_override_font_sizes/normal_font_size = 24
+text = "3"
+visible_characters_behavior = 1
+
+[node name="EnemyChoose4" type="RichTextLabel" parent="BattleFrameText/Choices" unique_id=1278230641]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_fonts/normal_font = ExtResource("5_j1ccn")
+theme_override_font_sizes/normal_font_size = 24
+text = "4"
+visible_characters_behavior = 1
+
+[node name="Eanaro1" type="Sprite2D" parent="." unique_id=1970804983]
+position = Vector2(317, 147)
+scale = Vector2(0.8, 0.8)
+texture = ExtResource("9_6jj7y")
+script = ExtResource("9_qxgud")
+metadata/_custom_type_script = "uid://bak4twd7ph5ti"
+
+[node name="PanelContainer" type="PanelContainer" parent="." unique_id=174031416 node_paths=PackedStringArray("dialog_label")]
+layout_mode = 0
+offset_left = 355.0
+offset_top = 13.0
+offset_right = 624.0
+offset_bottom = 151.0
+theme_override_styles/panel = SubResource("StyleBoxTexture_htemk")
+script = ExtResource("8_sev40")
+dialog_label = NodePath("DialogText")
+
+[node name="DialogText" type="RichTextLabel" parent="PanelContainer" unique_id=745890034 node_paths=PackedStringArray("snd_txt")]
+clip_contents = false
+layout_mode = 2
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_constants/line_separation = 8
+theme_override_font_sizes/normal_font_size = 16
+bbcode_enabled = true
+text = "if your soul is greenif your soul is greenif your soul is greenif your soul is green"
+scroll_active = false
+visible_characters_behavior = 1
+script = ExtResource("50_typewriter")
+snd_txt = NodePath("../../Audio/SndTxt2")
+
+[node name="Soul" parent="." unique_id=172666121 node_paths=PackedStringArray("game") instance=ExtResource("6_qyclh")]
+position = Vector2(63, 324)
+game = NodePath("..")
+
+[node name="BattleFrame" type="Node2D" parent="." unique_id=1053110815]
+z_index = 1
+
+[node name="FrameBorder" type="AnimatableBody2D" parent="BattleFrame" unique_id=178722229 node_paths=PackedStringArray("collision")]
+position = Vector2(1, 2)
+script = ExtResource("5_l2bdv")
+collision = NodePath("CollisionPolygon2D")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="BattleFrame/FrameBorder" unique_id=292015208]
+build_mode = 1
+polygon = PackedVector2Array(28, 288, 612, 288, 612, 420, 28, 420)
+
+[node name="Attack" parent="BattleFrame" unique_id=1466610130 node_paths=PackedStringArray("master") instance=ExtResource("13_qxgud")]
+master = NodePath("../..")
+
+[node name="buttons" type="HBoxContainer" parent="." unique_id=1982057885]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -290.0
+offset_top = -50.0
+offset_right = 290.0
+offset_bottom = -8.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="FightButton" type="TextureRect" parent="buttons" unique_id=586113080]
+layout_mode = 2
+mouse_filter = 2
+texture = ExtResource("6_45prw")
+script = ExtResource("7_gwx1q")
+
+[node name="Control" type="Control" parent="buttons" unique_id=1960610242]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ActButton" type="TextureRect" parent="buttons" unique_id=1637053516]
+layout_mode = 2
+mouse_filter = 2
+texture = ExtResource("10_l2bdv")
+script = ExtResource("7_gwx1q")
+type = 1
+
+[node name="Control3" type="Control" parent="buttons" unique_id=359069011]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ItemButton" type="TextureRect" parent="buttons" unique_id=362768708]
+layout_mode = 2
+mouse_filter = 2
+texture = ExtResource("10_3u8de")
+script = ExtResource("7_gwx1q")
+type = 2
+
+[node name="Control2" type="Control" parent="buttons" unique_id=1087570725]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="MercyButton" type="TextureRect" parent="buttons" unique_id=197171731]
+layout_mode = 2
+mouse_filter = 2
+texture = ExtResource("12_sp28g")
+script = ExtResource("7_gwx1q")
+type = 3
+
+[node name="Audio" type="Node" parent="." unique_id=1090687409]
+
+[node name="SqueakPlayer" type="AudioStreamPlayer" parent="Audio" unique_id=1979936531]
+stream = ExtResource("13_rcqy1")
+
+[node name="SelectPlayer" type="AudioStreamPlayer" parent="Audio" unique_id=1239444292]
+stream = ExtResource("14_qyclh")
+
+[node name="SndTxt" type="AudioStreamPlayer" parent="Audio" unique_id=1201341170]
+stream = ExtResource("31_6jj7y")
+
+[node name="SndTxt2" type="AudioStreamPlayer" parent="Audio" unique_id=1957019575]
+stream = ExtResource("32_sev40")
+
+[node name="BulletPlayer" type="AudioStreamPlayer" parent="Audio" unique_id=674805961]
+stream = SubResource("AudioStreamPolyphonic_6jj7y")
+bus = &"Sounds"
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1890787532]
+layer = 2
+
+[node name="VirtualJoystick" type="VirtualJoystick" parent="CanvasLayer" unique_id=1614904449]
+offset_left = 33.0
+offset_top = 388.0
+offset_right = 73.0
+offset_bottom = 428.0
+joystick_mode = 1
+action_left = &"left"
+action_right = &"right"
+action_up = &"up"
+action_down = &"down"
+visibility_mode = 1
+
+[node name="TouchScreenButton" type="TouchScreenButton" parent="CanvasLayer" unique_id=1505233899]
+position = Vector2(459, 385)
+scale = Vector2(3.1818182, 2.121212)
+texture_normal = ExtResource("41_hqqfg")
+texture_pressed = ExtResource("42_6p4sc")
+action = "accept"
+visibility_mode = 1
+
+[node name="TouchScreenButton2" type="TouchScreenButton" parent="CanvasLayer" unique_id=474588818]
+position = Vector2(539, 384)
+scale = Vector2(3.1818182, 2.121212)
+texture_normal = ExtResource("43_slji3")
+texture_pressed = ExtResource("44_fnkvj")
+action = "accept"
+visibility_mode = 1
+
+[connection signal="action_selected" from="buttons/FightButton" to="." method="_on_button_action_selected"]
+[connection signal="action_selected" from="buttons/ActButton" to="." method="_on_button_action_selected"]
+[connection signal="action_selected" from="buttons/ItemButton" to="." method="_on_button_action_selected"]
+[connection signal="action_selected" from="buttons/MercyButton" to="." method="_on_button_action_selected"]

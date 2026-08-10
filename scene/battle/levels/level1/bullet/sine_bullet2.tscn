@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://ubghr414qjmg"]
+
+[ext_resource type="Script" uid="uid://c7osbwuc2tdtt" path="res://scene/battle/levels/level1/bullet/sine_bullet_add.gd" id="1_aa1fe"]
+[ext_resource type="Texture2D" uid="uid://bm2sfoc7raclt" path="res://assets/sprites/levels/level1/bullet/flame proj.png" id="2_ondab"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_04v03"]
+radius = 5.0
+
+[node name="SineBullet" type="Area2D" unique_id=1083261664]
+collision_layer = 4
+collision_mask = 2
+script = ExtResource("1_aa1fe")
+damage = 4.0
+lifetime = 8.0
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=55010897]
+position = Vector2(0, -1)
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("2_ondab")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=65963689]
+physics_interpolation_mode = 1
+shape = SubResource("CircleShape2D_04v03")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]

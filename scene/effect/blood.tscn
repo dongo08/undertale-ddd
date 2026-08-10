@@ -1,0 +1,46 @@
+[gd_scene format=3 uid="uid://bqrgv5a3m6dys"]
+
+[ext_resource type="Script" uid="uid://hpup567i0lcc" path="res://scene/effect/blood.gd" id="1_les5y"]
+
+[sub_resource type="Gradient" id="Gradient_les5y"]
+offsets = PackedFloat32Array(0, 0.53072625, 1)
+colors = PackedColorArray(1, 0, 0, 1, 1, 0, 0, 1, 1, 0, 0, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_14cdr"]
+gradient = SubResource("Gradient_les5y")
+width = 6
+height = 12
+fill_from = Vector2(1, 1)
+
+[sub_resource type="Curve" id="Curve_ugcl7"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_pj0hq"]
+curve = SubResource("Curve_ugcl7")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_q4lci"]
+lifetime_randomness = 0.4
+particle_flag_align_y = true
+particle_flag_disable_z = true
+spread = 180.0
+initial_velocity_min = 100.0
+initial_velocity_max = 1000.0
+gravity = Vector3(0, 980, 0)
+damping_min = 10.526001
+damping_max = 10.526001
+color = Color(0.9413647, 0.9413647, 0.94136465, 1)
+alpha_curve = SubResource("CurveTexture_pj0hq")
+
+[node name="Node2D" type="Node2D" unique_id=702693612]
+position = Vector2(305, 230)
+script = ExtResource("1_les5y")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="." unique_id=1833198354]
+emitting = false
+amount = 80
+texture = SubResource("GradientTexture2D_14cdr")
+lifetime = 0.8
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_q4lci")

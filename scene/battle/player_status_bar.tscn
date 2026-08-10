@@ -1,0 +1,63 @@
+[gd_scene format=3 uid="uid://c6txdl820vhkq"]
+
+[ext_resource type="Script" uid="uid://h3swueoxmg34" path="res://scene/battle/player_status.gd" id="1_dvpxl"]
+[ext_resource type="FontFile" uid="uid://cquvig8giyvpd" path="res://assets/font/LV,血量,名字字体.ttf" id="2_78gn5"]
+[ext_resource type="FontFile" uid="uid://dchcadn3tsmgf" path="res://assets/font/hp,kr字体.ttf" id="3_iqbv4"]
+
+[sub_resource type="Gradient" id="Gradient_p56j5"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(1, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_ougy3"]
+gradient = SubResource("Gradient_p56j5")
+width = 3
+height = 3
+
+[sub_resource type="Gradient" id="Gradient_bdn7b"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(1, 1, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_yyook"]
+gradient = SubResource("Gradient_bdn7b")
+
+[node name="player_status" type="HBoxContainer" unique_id=303389071 node_paths=PackedStringArray("hp_progress_bar", "hp_text", "id_label")]
+offset_right = 397.0
+offset_bottom = 24.0
+theme_override_constants/separation = 24
+script = ExtResource("1_dvpxl")
+hp_progress_bar = NodePath("HBoxContainer/ProgressBar")
+hp_text = NodePath("HBoxContainer/HPLabel")
+id_label = NodePath("Label")
+
+[node name="Label" type="Label" parent="." unique_id=1571016970]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_78gn5")
+theme_override_font_sizes/font_size = 24
+text = "FRISK   lv"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=1747796008]
+custom_minimum_size = Vector2(35, 0)
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Label" type="Label" parent="HBoxContainer" unique_id=100457649]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_iqbv4")
+theme_override_font_sizes/font_size = 8
+text = "hp"
+
+[node name="ProgressBar" type="TextureProgressBar" parent="HBoxContainer" unique_id=187226048]
+custom_minimum_size = Vector2(110.4, 20)
+layout_mode = 2
+size_flags_vertical = 4
+max_value = 92.0
+value = 92.0
+nine_patch_stretch = true
+texture_under = SubResource("GradientTexture2D_ougy3")
+texture_progress = SubResource("GradientTexture2D_yyook")
+
+[node name="HPLabel" type="Label" parent="HBoxContainer" unique_id=813577724]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_78gn5")
+theme_override_font_sizes/font_size = 24
+text = "20 / 20"

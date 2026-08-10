@@ -1,0 +1,88 @@
+#!/usr/bin/env python
+"""SCons 构建脚本（可选，与 CMake 二选一）。
+
+用法（在 addons/windows_desktop 目录下执行）：
+    scons platform=windows target=template_debug arch=x86_64
+    scons platform=windows target=template_release arch=x86_64
+
+godot-cpp 缺失时会自动克隆（godot-cpp 4.4 分支）。
+构建产物会自动复制为 bin/windows_desktop.debug.dll / bin/windows_desktop.dll，
+与 windows_desktop.gdextension 中声明的文件名保持一致。
+"""
+
+import os
+import shutil
+import subprocess
+
+from SCons.Action import Action
+
+GODOT_CPP_VERSION = "4.4"
+GODOT_CPP_DIR = "../../godot-cpp"
+GODOT_CPP_SCONSTRUCT = os.path.join(GODOT_CPP_DIR, "SConstruct")
+
+# ---------------------------------------------------------------
+# 1. 确保 godot-cpp 存在（缺失则自动克隆）
+# ---------------------------------------------------------------
+if not os.path.exists(GODOT_CPP_SCONSTRUCT):
+    print("[*] 未找到 godot-cpp，正在克隆 godot-cpp {} ...".format(GODOT_CPP_VERSION))
+    ret = subprocess.call([
+        "git", "clone", "-b", GODOT_CPP_VERSION, "--depth", "1",
+        "https://github.com/godotengine/godot-cpp.git", GODOT_CPP_DIR,
+    ])
+    if ret != 0 or not os.path.exists(GODOT_CPP_SCONSTRUCT):
+        raise SystemExit(
+            "克隆 godot-cpp 失败。请手动执行：\n"
+            "  git clone -b {} --depth 1 https://github.com/godotengine/godot-cpp.git {}".format(
+                GODOT_CPP_VERSION, GODOT_CPP_DIR))
+
+env = SConscript(GODOT_CPP_SCONSTRUCT)
+
+# ---------------------------------------------------------------
+# 2. 配置本扩展
+# ---------------------------------------------------------------
+env.Append(CPPPATH=["src/"])
+
+sources = Glob("src/*.cpp")
+
+if env["platform"] == "windows":
+    env.Append(LIBS=["ole32", "oleaut32", "shell32", "shlwapi", "user32", "uiautomationcore"])
+    env.Append(CPPDEFINES=["NOMINMAX", "_WIN32_WINNT=0x0A00"])
+    # 注意：不要定义 WIN32_LEAN_AND_MEAN，否则 windows.h 不包含 ole2.h，
+    # UIAutomationCore.h 会因缺少 interface 宏而编译失败。
+    # godot-cpp 用 env["is_msvc"] 标记 MSVC 工具链（不是 "msvc"）。
+    if env.get("is_msvc", False):
+        env.Append(CCFLAGS=["/EHsc"])
+    else:
+        env.Append(CXXFLAGS=["-std=c++17"])
+
+library = env.SharedLibrary(
+    "bin/windows_desktop{}{}".format(env["suffix"], env["SHLIBSUFFIX"]),
+    source=sources,
+)
+
+# ---------------------------------------------------------------
+# 3. 复制为 .gdextension 声明的文件名
+# ---------------------------------------------------------------
+if env["target"] == "template_release":
+    copy_name = "windows_desktop.dll"
+elif env["target"] == "template_debug":
+    copy_name = "windows_desktop.debug.dll"
+else:
+    copy_name = "windows_desktop.editor.dll"
+
+
+def _copy_artifact(target, source, env):
+    # source[0] 是 library 输出（DLL），target[0] 是复制目标
+    src = str(source[0])
+    dst = str(target[0])
+    shutil.copy2(src, dst)
+    print("[*] 已生成 {}".format(os.path.normpath(dst)))
+
+
+copy_target = env.Command(
+    os.path.join("bin", copy_name),
+    library,
+    Action(_copy_artifact, "复制 DLL 为 bin/" + copy_name),
+)
+
+Default([library, copy_target])

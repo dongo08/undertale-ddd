@@ -1,0 +1,16 @@
+# Godot 4+ specific ignores
+.godot/
+/android/
+
+# Build artifacts
+build/
+
+# GDExtension build cache & compiled binaries
+addons/windows_desktop/.sconsign.dblite
+addons/windows_desktop/bin/
+addons/windows_desktop/src/*.obj
+addons/windows_desktop/src/*.obj.import
+
+# AI tool config
+.claude/
+.reasonix/

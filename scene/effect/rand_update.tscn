@@ -1,0 +1,61 @@
+[gd_scene format=3 uid="uid://chkncv4h7lp48"]
+
+[ext_resource type="Script" uid="uid://q2pmd30jqbe5" path="res://scene/effect/rand_update.gd" id="1_s7yug"]
+[ext_resource type="Shader" uid="uid://6bitngsffj2n" path="res://shader/123.gdshader" id="2_ujlqs"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_htemk"]
+shader = ExtResource("2_ujlqs")
+shader_parameter/update_prob = 0.075
+
+[node name="Node" type="Node" unique_id=394234689 node_paths=PackedStringArray("viewport_a", "viewport_b", "screen_viewport", "screen_texture")]
+script = ExtResource("1_s7yug")
+viewport_a = NodePath("SubViewport2")
+viewport_b = NodePath("SubViewport3")
+screen_viewport = NodePath("SubViewportContainer/SubViewport")
+screen_texture = NodePath("TextureRect")
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="." unique_id=1320222251]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer" unique_id=458781892]
+handle_input_locally = false
+use_hdr_2d = true
+canvas_item_default_texture_filter = 0
+size = Vector2i(640, 480)
+render_target_update_mode = 4
+
+[node name="SubViewport2" type="SubViewport" parent="." unique_id=336778176]
+use_hdr_2d = true
+size = Vector2i(640, 480)
+
+[node name="ColorRect" type="ColorRect" parent="SubViewport2" unique_id=773379499]
+material = SubResource("ShaderMaterial_htemk")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SubViewport3" type="SubViewport" parent="." unique_id=1500079703]
+use_hdr_2d = true
+size = Vector2i(640, 480)
+
+[node name="ColorRect2" type="ColorRect" parent="SubViewport3" unique_id=114849117]
+material = SubResource("ShaderMaterial_htemk")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=46753113]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2

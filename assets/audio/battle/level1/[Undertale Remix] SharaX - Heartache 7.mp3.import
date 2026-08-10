@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://cebhob2kiur6x"
+path="res://.godot/imported/[Undertale Remix] SharaX - Heartache 7.mp3-ad734826a37979705556d380c54afeda.mp3str"
+
+[deps]
+
+source_file="res://assets/audio/battle/level1/[Undertale Remix] SharaX - Heartache 7.mp3"
+dest_files=["res://.godot/imported/[Undertale Remix] SharaX - Heartache 7.mp3-ad734826a37979705556d380c54afeda.mp3str"]
+
+[params]
+
+loop=true
+loop_offset=0.0
+bpm=0.0
+beat_count=0
+bar_beats=4

@@ -1,0 +1,48 @@
+[gd_scene format=3 uid="uid://b82oy4rbbvmky"]
+
+[ext_resource type="Script" uid="uid://cqf63gc14t7f3" path="res://scene/battle/soul/soul.gd" id="1_0wo8r"]
+[ext_resource type="Texture2D" uid="uid://m05j8ukpx4vt" path="res://assets/sprites/UI/battle_screen/SOUL/spr_heart_0.png" id="2_0wo8r"]
+[ext_resource type="Script" uid="uid://calkgasaaikbk" path="res://scripts/player/item.gd" id="2_8qtvr"]
+[ext_resource type="Script" uid="uid://bgsmn2fvofrpt" path="res://scripts/player/player_status.gd" id="2_ioju8"]
+[ext_resource type="Script" uid="uid://6na4kknsdbd1" path="res://scene/battle/soul/hitbox.gd" id="3_gk3hd"]
+[ext_resource type="AudioStream" uid="uid://cbxrn1wp0gmy7" path="res://assets/sounds/UI/soul/snd_hurt1.wav" id="4_tqpi5"]
+
+[sub_resource type="Resource" id="Resource_6jj7y"]
+script = ExtResource("2_ioju8")
+metadata/_custom_type_script = "uid://bgsmn2fvofrpt"
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_htemk"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_14cdr"]
+radius = 2.0
+
+[node name="Soul" type="CharacterBody2D" unique_id=172666121 node_paths=PackedStringArray("hitbox")]
+z_index = 20
+collision_layer = 2
+script = ExtResource("1_0wo8r")
+player_status = SubResource("Resource_6jj7y")
+hitbox = NodePath("Hitbox")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1634283015]
+texture = ExtResource("2_0wo8r")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=856021566]
+shape = SubResource("CircleShape2D_htemk")
+debug_color = Color(0, 0.6, 0.69803923, 0.078431375)
+
+[node name="Hitbox" type="Area2D" parent="." unique_id=2004120110 node_paths=PackedStringArray("master")]
+collision_layer = 2
+collision_mask = 4
+script = ExtResource("3_gk3hd")
+master = NodePath("..")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox" unique_id=11665243]
+shape = SubResource("CircleShape2D_14cdr")
+debug_color = Color(0.22989714, 0.5097512, 1, 0.41960785)
+
+[node name="SndHurt1" type="AudioStreamPlayer" parent="." unique_id=72091548]
+stream = ExtResource("4_tqpi5")
+bus = &"Sounds"
+
+[connection signal="area_entered" from="Hitbox" to="Hitbox" method="_on_area_entered"]
+[connection signal="area_exited" from="Hitbox" to="Hitbox" method="_on_area_exited"]

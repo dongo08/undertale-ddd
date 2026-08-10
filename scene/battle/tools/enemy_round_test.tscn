@@ -1,0 +1,135 @@
+[gd_scene format=3 uid="uid://cmyb810k6dw7d"]
+
+[ext_resource type="Script" uid="uid://but4ur02fb1sx" path="res://scene/battle/tools/enemy_round_test.gd" id="1_3uysb"]
+[ext_resource type="Script" uid="uid://w4nx0i4u4k1o" path="res://scripts/battle/levels/level0/round9.gd" id="2_jepsn"]
+[ext_resource type="Script" uid="uid://bxxkmygk51k30" path="res://scene/battle/battle_frame/battle_frame_border.gd" id="3_ago2a"]
+[ext_resource type="PackedScene" uid="uid://b5ry1mecij7jb" path="res://scene/battle/battle_frame/attack_bar.tscn" id="4_mjwdl"]
+[ext_resource type="Script" uid="uid://calkgasaaikbk" path="res://scripts/player/item.gd" id="6_i8eta"]
+[ext_resource type="Script" uid="uid://bgsmn2fvofrpt" path="res://scripts/player/player_status.gd" id="7_jepsn"]
+[ext_resource type="Shader" uid="uid://kfhbqc7xh34e" path="res://shader/beam_shockwave.gdshader" id="13_lgenn"]
+[ext_resource type="PackedScene" uid="uid://b82oy4rbbvmky" path="res://scene/battle/soul/soul.tscn" id="15_agd3p"]
+[ext_resource type="AudioStream" uid="uid://bxr8labkw3e11" path="res://assets/sounds/UI/snd_squeak.wav" id="16_6evwu"]
+[ext_resource type="AudioStream" uid="uid://c0m2og28em48w" path="res://assets/sounds/UI/snd_select.wav" id="17_l3awm"]
+[ext_resource type="AudioStream" uid="uid://co1mrm3wris8w" path="res://assets/sounds/UI/text/SND_TXT2.wav" id="18_u5o5o"]
+[ext_resource type="AudioStream" uid="uid://b0exrudoitwdv" path="res://assets/sounds/UI/text/SND_TXT1.wav" id="19_gj1uw"]
+[ext_resource type="AudioStream" uid="uid://cebhob2kiur6x" path="res://assets/audio/battle/level1/[Undertale Remix] SharaX - Heartache 7.mp3" id="20_4t1b3"]
+
+[sub_resource type="Resource" id="Resource_lgenn"]
+script = ExtResource("7_jepsn")
+max_hp = 2000
+hp = 2000
+metadata/_custom_type_script = "uid://bgsmn2fvofrpt"
+
+[sub_resource type="AudioStreamPolyphonic" id="AudioStreamPolyphonic_5xun6"]
+
+[sub_resource type="Gradient" id="Gradient_ugcl7"]
+colors = PackedColorArray(0, 0, 0, 0, 1, 1, 1, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_pj0hq"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_q4lci"]
+noise = SubResource("FastNoiseLite_pj0hq")
+color_ramp = SubResource("Gradient_ugcl7")
+seamless = true
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_14cdr"]
+shader = ExtResource("13_lgenn")
+shader_parameter/bar_x = 0.5
+shader_parameter/bar_width = 0.5
+shader_parameter/bar_height = 1.0
+shader_parameter/auto_scan = false
+shader_parameter/scan_speed = 0.3
+shader_parameter/bar_color = Color(1, 1, 1, 1)
+shader_parameter/glow_color = Color(1, 1, 1, 1)
+shader_parameter/glow_width = 0.13900000520547
+shader_parameter/glow_strength = 0.5
+shader_parameter/intensity = 1.4080000668800001
+shader_parameter/flow_speed = 2.0
+shader_parameter/noise_scale = 6.0
+shader_parameter/edge_warp = 0.03
+shader_parameter/fog_width = 0.0750000035625
+shader_parameter/inner_flow = 0.4
+shader_parameter/streaks = 0.6
+shader_parameter/noise_tex = SubResource("NoiseTexture2D_q4lci")
+shader_parameter/noise_tex_enabled = true
+shader_parameter/noise_scroll_speed = 2.0490000973275
+shader_parameter/noise_uv_scale = 2.61400012090512
+shader_parameter/excite_strength = 0.50000002375
+
+[node name="EnemyRoundTest" type="Control" unique_id=1547424377 node_paths=PackedStringArray("soul", "battle_frame_border", "bullet_player")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_3uysb")
+m = ExtResource("2_jepsn")
+soul = NodePath("BattleFrame/Soul")
+battle_frame_border = NodePath("BattleFrame/FrameBorder")
+bullet_player = NodePath("Audio/BulletPlayer")
+
+[node name="BattleFrame" type="Node2D" parent="." unique_id=684076872]
+z_index = 1
+
+[node name="FrameBorder" type="AnimatableBody2D" parent="BattleFrame" unique_id=1548236264 node_paths=PackedStringArray("collision")]
+position = Vector2(1, 2)
+script = ExtResource("3_ago2a")
+collision = NodePath("CollisionPolygon2D")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="BattleFrame/FrameBorder" unique_id=1750688588]
+build_mode = 1
+polygon = PackedVector2Array(28, 288, 612, 288, 612, 420, 28, 420)
+
+[node name="Attack" parent="BattleFrame" unique_id=1466610130 instance=ExtResource("4_mjwdl")]
+position = Vector2(1, 2)
+
+[node name="Soul" parent="BattleFrame" unique_id=172666121 instance=ExtResource("15_agd3p")]
+z_index = 5
+position = Vector2(315, 356)
+player_status = SubResource("Resource_lgenn")
+
+[node name="Audio" type="Node" parent="." unique_id=1105997151]
+
+[node name="SqueakPlayer" type="AudioStreamPlayer" parent="Audio" unique_id=2042504004]
+stream = ExtResource("16_6evwu")
+bus = &"Sounds"
+
+[node name="SelectPlayer" type="AudioStreamPlayer" parent="Audio" unique_id=225345088]
+stream = ExtResource("17_l3awm")
+bus = &"Sounds"
+
+[node name="SndTxt" type="AudioStreamPlayer" parent="Audio" unique_id=1454050915]
+stream = ExtResource("18_u5o5o")
+bus = &"Sounds"
+
+[node name="SndTxt2" type="AudioStreamPlayer" parent="Audio" unique_id=1746558020]
+stream = ExtResource("19_gj1uw")
+bus = &"Sounds"
+
+[node name="BGMPlayer" type="AudioStreamPlayer" parent="Audio" unique_id=324695126]
+stream = ExtResource("20_4t1b3")
+bus = &"BGM"
+
+[node name="BulletPlayer" type="AudioStreamPlayer" parent="Audio" unique_id=2096933325]
+stream = SubResource("AudioStreamPolyphonic_5xun6")
+autoplay = true
+bus = &"Sounds"
+
+[node name="Timer" type="Timer" parent="." unique_id=318774725]
+autostart = true
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=147609499]
+visible = false
+material = SubResource("ShaderMaterial_14cdr")
+layout_mode = 1
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -90.0
+offset_right = 111.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

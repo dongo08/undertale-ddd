@@ -1,0 +1,88 @@
+[gd_scene format=3 uid="uid://djpv4bs5mo5ui"]
+
+[ext_resource type="Script" uid="uid://bm8td5fuaxful" path="res://scene/effect/explode.gd" id="1_l81tn"]
+[ext_resource type="Shader" uid="uid://cjyhicmtphs5e" path="res://shader/burst_fireball.gdshader" id="2_lguoh"]
+
+[sub_resource type="Gradient" id="Gradient_lguoh"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_htemk"]
+gradient = SubResource("Gradient_lguoh")
+
+[sub_resource type="Curve" id="Curve_ugcl7"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.24242426, 0), 0.0, 0.0, 0, 0, Vector2(0.54848486, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_pj0hq"]
+curve = SubResource("Curve_ugcl7")
+
+[sub_resource type="Curve" id="Curve_yuaqf"]
+_data = [Vector2(0, 0), 0.0, 1.0, 0, 1, Vector2(1, 1), 1.0, 0.0, 1, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_q4lci"]
+curve = SubResource("Curve_yuaqf")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_14cdr"]
+lifetime_randomness = 0.7
+particle_flag_disable_z = true
+spread = 180.0
+initial_velocity_min = 2400.0
+initial_velocity_max = 2400.0
+gravity = Vector3(0, 0, 0)
+scale_curve = SubResource("CurveTexture_q4lci")
+alpha_curve = SubResource("CurveTexture_pj0hq")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_htemk"]
+shader = ExtResource("2_lguoh")
+shader_parameter/progress = 0.0
+shader_parameter/center = Vector2(0.5, 0.5)
+shader_parameter/base_radius = 0.18
+shader_parameter/ray_count = 12.0
+shader_parameter/ray_length = 0.042000001995
+shader_parameter/ray_sharpness = 1.0
+shader_parameter/ray_taper = 1.0
+shader_parameter/core_glow = 2.0
+shader_parameter/fog_amount = 1.0
+shader_parameter/fog_speed = 1.194000056715
+shader_parameter/mist_brightness = 10.0
+shader_parameter/core_color = Color(10.5787325, 10.5787325, 10.5787325, 1)
+shader_parameter/ray_color = Color(0.25808161, 0.25808164, 0.25808156, 1)
+shader_parameter/flicker = 0.15
+shader_parameter/overexpose = 300.0
+
+[sub_resource type="Environment" id="Environment_htemk"]
+background_mode = 3
+glow_enabled = true
+
+[node name="Node2D" type="Node2D" unique_id=702693612]
+position = Vector2(305, 230)
+script = ExtResource("1_l81tn")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="." unique_id=1614782240]
+emitting = false
+amount = 32
+texture = SubResource("GradientTexture2D_htemk")
+lifetime = 0.3
+one_shot = true
+explosiveness = 0.5
+fixed_fps = 60
+trail_enabled = true
+trail_lifetime = 0.2
+process_material = SubResource("ParticleProcessMaterial_14cdr")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=670216894]
+material = SubResource("ShaderMaterial_htemk")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -300.0
+offset_top = -300.0
+offset_right = 300.0
+offset_bottom = 300.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(300, 300)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=399704714]
+environment = SubResource("Environment_htemk")
