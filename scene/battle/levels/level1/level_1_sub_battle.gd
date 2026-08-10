@@ -6,7 +6,7 @@ extends SubBattleManager
 @export var dialog1:Array[BaseDialog]
 @export var dialog2:Array[BaseDialog]
 func _ready() -> void:
-	await get_tree().create_timer(2).timeout
+	#await get_tree().create_timer(2).timeout
 	_hide_soul()
 	super._ready()
 	while color_rect.color.a>0:
