@@ -1,8 +1,8 @@
 extends BattleManager
 
 const CIRCLE_FIREBALL_GROUP = preload("uid://c8a60i6no477r")
+const BATTLE_END = preload("uid://d2womvgn0i07n")
 
-@export var bgm_player: AudioStreamPlayer
 @export var animation_player: AnimationPlayer
 @export var black: ColorRect 
 @export var fireball_l: AnimatedSprite2D
@@ -32,10 +32,10 @@ var rad:float=0
 
 func _ready() -> void:
 	#call_deferred("rand_update_effect")
-	bgm_player.play()
+	#BGM.play()
 	animation_player.play("new_animation")
 	set_process_input(false)
-	await get_tree().create_timer(12.834).timeout
+	await get_tree().create_timer(11.834).timeout
 	super._ready()
 	fireball_l.play("default")
 	fireball_r.play("default")
@@ -54,19 +54,27 @@ func _on_enemy_dead():
 	set_process_input(false)
 	await get_tree().create_timer(0.8).timeout
 	dialog_panel.show_dialog(end_dialog3)
-	dialog_panel.finished.disconnect(action_start)
+	dialog_panel.finished.disconnect(enemy_turn_finished)
 	dialog_panel.dialog_processed.connect(func(index):
 												if index==5:
 													enemy_illustration.change_illustration(5)
 													attack_bar.coverage_damage=284600
-													await get_tree().create_timer(0.3).timeout
+													await get_tree().create_timer(0.2).timeout
 													attack_bar.attack_cursor.effect())
 func _on_enemy_dead2():
 	create_explode_effect(Vector2(320,150),Vector2.ONE*0.6,Color.RED)
 	create_blood_effect(Vector2(320,150))
 	dialog_panel.close()
-	await get_tree().create_timer(1).timeout
-	get_tree().change_scene_to_file("res://scene/battle_end.tscn")
+	await get_tree().create_timer(0.8).timeout
+	var progress:float=0
+	enemy_dead_player.play()
+	while progress<1:
+		progress+=0.02
+		enemy_illustration.modulate.a-=0.02
+		await get_tree().physics_frame
+		enemy_illustration.material.set_shader_parameter("strength",progress)
+		
+	Global.change_scene_to_packed(BATTLE_END,4,Color.BLACK)
 
 func enemy_turn_finished(mgr:BaseEnemyTurnManager=null):
 	if round_index==9:
@@ -80,8 +88,7 @@ func enemy_turn_finished(mgr:BaseEnemyTurnManager=null):
 		add_child(end_fireball_group)
 		await get_tree().create_timer(3).timeout
 		
-		end_tween=create_tween()
-		end_tween.tween_property(bgm_player,"volume_linear",0,2)
+		BGM.stop()
 		
 		gpu_particles_2d.emitting=false
 		gpu_particles_2d_2.emitting=false

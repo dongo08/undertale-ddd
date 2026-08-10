@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="ConsumableItem" format=3 uid="uid://cbs3bblkae71b"]
+
+[ext_resource type="Script" uid="uid://bk7lyrbkni0wr" path="res://scripts/dialog/base_dialog.gd" id="1_bqrua"]
+[ext_resource type="Script" uid="uid://di20hqtjuw2v8" path="res://scripts/player/consumable_item.gd" id="2_l0w2m"]
+
+[resource]
+script = ExtResource("2_l0w2m")
+health = 10.0
+id = "ITEM_MONSTER_CANDY"
+id_abbr = "ITEM_MONSTER_CANDY_ABBR"
+metadata/_custom_type_script = "uid://di20hqtjuw2v8"

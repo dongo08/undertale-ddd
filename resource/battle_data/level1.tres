@@ -2,9 +2,13 @@
 
 [ext_resource type="Script" uid="uid://bow5y3q3seleq" path="res://scripts/battle/enemy_status.gd" id="1_xv16w"]
 [ext_resource type="Script" uid="uid://calkgasaaikbk" path="res://scripts/player/item.gd" id="2_kkwpa"]
+[ext_resource type="Resource" uid="uid://5vbdarryjsf8" path="res://resource/items/Pie.tres" id="3_wwbb0"]
 [ext_resource type="Script" uid="uid://bgsmn2fvofrpt" path="res://scripts/player/player_status.gd" id="3_xnbb1"]
 [ext_resource type="Script" uid="uid://cesf1257lem3k" path="res://scripts/battle/enemy_round.gd" id="4_bfctp"]
+[ext_resource type="Resource" uid="uid://bt60wxaybgm4e" path="res://resource/items/SpdrCider.tres" id="4_me6tl"]
+[ext_resource type="Resource" uid="uid://defybyqx63eqy" path="res://resource/items/SpdrDonut.tres" id="5_3koeo"]
 [ext_resource type="Script" uid="uid://bk7lyrbkni0wr" path="res://scripts/dialog/base_dialog.gd" id="5_wpx7t"]
+[ext_resource type="Resource" uid="uid://cbs3bblkae71b" path="res://resource/items/MnstrCndy.tres" id="6_dutl5"]
 [ext_resource type="Script" uid="uid://lrwnesyg1mu1" path="res://scripts/battle/levels/level0/round0.gd" id="6_wpx7t"]
 [ext_resource type="Script" uid="uid://xd6qkypr0a7a" path="res://scripts/battle/levels/level0/round1.gd" id="7_g20j3"]
 [ext_resource type="Script" uid="uid://ddyui65b8dqlk" path="res://scripts/battle/levels/level0/round2.gd" id="8_4hfug"]
@@ -34,11 +38,12 @@ LOVE = 3
 max_hp = 28
 hp = 28
 attack = 1100.0
+backpack = Array[ExtResource("2_kkwpa")]([ExtResource("3_wwbb0"), ExtResource("4_me6tl"), ExtResource("5_3koeo"), ExtResource("5_3koeo"), ExtResource("6_dutl5"), ExtResource("6_dutl5"), ExtResource("6_dutl5"), ExtResource("6_dutl5")])
 metadata/_custom_type_script = "uid://bgsmn2fvofrpt"
 
 [sub_resource type="Resource" id="Resource_dobon"]
 script = ExtResource("5_wpx7t")
-content = "* 监管者 Toriel 挡住了路。"
+content = "BATTLE_TORIEL_FRAME_0"
 metadata/_custom_type_script = "uid://bk7lyrbkni0wr"
 
 [sub_resource type="Resource" id="Resource_vrygm"]
@@ -49,7 +54,7 @@ metadata/_custom_type_script = "uid://cesf1257lem3k"
 
 [sub_resource type="Resource" id="Resource_iobrt"]
 script = ExtResource("5_wpx7t")
-content = "* Toriel 看透了你。"
+content = "BATTLE_TORIEL_FRAME_1"
 metadata/_custom_type_script = "uid://bk7lyrbkni0wr"
 
 [sub_resource type="Resource" id="Resource_mjwdl"]
@@ -60,7 +65,7 @@ metadata/_custom_type_script = "uid://cesf1257lem3k"
 
 [sub_resource type="Resource" id="Resource_jepsn"]
 script = ExtResource("5_wpx7t")
-content = "* 火光四散。"
+content = "BATTLE_TORIEL_FRAME_2"
 metadata/_custom_type_script = "uid://bk7lyrbkni0wr"
 
 [sub_resource type="Resource" id="Resource_i8eta"]
@@ -71,7 +76,7 @@ metadata/_custom_type_script = "uid://cesf1257lem3k"
 
 [sub_resource type="Resource" id="Resource_tg8uf"]
 script = ExtResource("5_wpx7t")
-content = "* 房间开始变热。"
+content = "BATTLE_TORIEL_FRAME_3"
 metadata/_custom_type_script = "uid://bk7lyrbkni0wr"
 
 [sub_resource type="Resource" id="Resource_43mcx"]

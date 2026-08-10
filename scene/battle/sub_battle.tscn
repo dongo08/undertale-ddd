@@ -2,10 +2,16 @@
 
 [ext_resource type="FontFile" uid="uid://ikbkbdwpo0mf" path="res://assets/font/普通字体.ttf" id="1_yhlma"]
 [ext_resource type="Script" uid="uid://dca5pa58d35pb" path="res://scene/battle/sub_battle.gd" id="2_odx28"]
-[ext_resource type="PackedScene" uid="uid://4elr5pr674ya" path="res://scene/battle/player_status_panel.tscn" id="4_46gyr"]
+[ext_resource type="PackedScene" uid="uid://c6txdl820vhkq" path="res://scene/battle/player_status_bar.tscn" id="3_odx28"]
+[ext_resource type="Script" uid="uid://bow5y3q3seleq" path="res://scripts/battle/enemy_status.gd" id="3_tikkl"]
+[ext_resource type="Script" uid="uid://calkgasaaikbk" path="res://scripts/player/item.gd" id="4_y16f6"]
+[ext_resource type="Script" uid="uid://bgsmn2fvofrpt" path="res://scripts/player/player_status.gd" id="5_84c2m"]
 [ext_resource type="Script" uid="uid://dqjycl3clgow6" path="res://scene/battle/battle_frame/battle_frame_text.gd" id="5_tikkl"]
+[ext_resource type="Script" uid="uid://cesf1257lem3k" path="res://scripts/battle/enemy_round.gd" id="6_4xqvy"]
 [ext_resource type="Script" uid="uid://q80gar0bkm78" path="res://scripts/typewriter_label.gd" id="6_y16f6"]
 [ext_resource type="Script" uid="uid://ehecvdaehpkh" path="res://scene/battle/battle_frame/choose_grid.gd" id="7_84c2m"]
+[ext_resource type="Script" uid="uid://b6innblij3fdk" path="res://scripts/battle/battle_data.gd" id="7_i6qve"]
+[ext_resource type="Script" uid="uid://bk7lyrbkni0wr" path="res://scripts/dialog/base_dialog.gd" id="7_y16f6"]
 [ext_resource type="Texture2D" uid="uid://rh6ricecdlbk" path="res://assets/sprites/levels/level0/enemy/Eanaro-1.png" id="8_4xqvy"]
 [ext_resource type="Script" uid="uid://bak4twd7ph5ti" path="res://scene/battle/enemy_illustration.gd" id="9_i6qve"]
 [ext_resource type="Texture2D" uid="uid://ky0glcmhfiq3" path="res://assets/sprites/UI/battle_screen/spr_blconwdshrt_0.png" id="10_l7kda"]
@@ -30,6 +36,87 @@
 [sub_resource type="Theme" id="Theme_14cdr"]
 RichTextLabel/fonts/normal_font = ExtResource("1_yhlma")
 
+[sub_resource type="Resource" id="Resource_mfnld"]
+script = ExtResource("3_tikkl")
+metadata/_custom_type_script = "uid://bow5y3q3seleq"
+
+[sub_resource type="Resource" id="Resource_7lhnk"]
+script = ExtResource("5_84c2m")
+metadata/_custom_type_script = "uid://bgsmn2fvofrpt"
+
+[sub_resource type="Resource" id="Resource_y16f6"]
+script = ExtResource("7_y16f6")
+content = "123456"
+metadata/_custom_type_script = "uid://bk7lyrbkni0wr"
+
+[sub_resource type="Resource" id="Resource_2u2el"]
+script = ExtResource("7_y16f6")
+content = "最近这里一直很安静啊。"
+metadata/_custom_type_script = "uid://bk7lyrbkni0wr"
+
+[sub_resource type="Resource" id="Resource_84c2m"]
+script = ExtResource("7_y16f6")
+content = "除了有一股不祥的声音在叫我逃走。"
+metadata/_custom_type_script = "uid://bk7lyrbkni0wr"
+
+[sub_resource type="Resource" id="Resource_4xqvy"]
+script = ExtResource("7_y16f6")
+content = "我也注意到了你衣服上那些细小的尘埃。"
+metadata/_custom_type_script = "uid://bk7lyrbkni0wr"
+
+[sub_resource type="Resource" id="Resource_i6qve"]
+script = ExtResource("7_y16f6")
+content = "那些并不是从你来时就有的。"
+metadata/_custom_type_script = "uid://bk7lyrbkni0wr"
+
+[sub_resource type="Resource" id="Resource_l7kda"]
+script = ExtResource("7_y16f6")
+content = "或许那些是其他怪物的？"
+metadata/_custom_type_script = "uid://bk7lyrbkni0wr"
+
+[sub_resource type="Resource" id="Resource_752r7"]
+script = ExtResource("7_y16f6")
+content = "我一直想说服是自己想的太多。"
+metadata/_custom_type_script = "uid://bk7lyrbkni0wr"
+
+[sub_resource type="Resource" id="Resource_djbfq"]
+script = ExtResource("7_y16f6")
+content = "但每当我看到你时我都知道这不是。"
+metadata/_custom_type_script = "uid://bk7lyrbkni0wr"
+
+[sub_resource type="Resource" id="Resource_qjiai"]
+script = ExtResource("7_y16f6")
+content = "你的脸上闪烁着残忍。"
+metadata/_custom_type_script = "uid://bk7lyrbkni0wr"
+
+[sub_resource type="Resource" id="Resource_tkpqh"]
+script = ExtResource("7_y16f6")
+content = "而且你玩具刀挥得这么轻松。"
+metadata/_custom_type_script = "uid://bk7lyrbkni0wr"
+
+[sub_resource type="Resource" id="Resource_gipwk"]
+script = ExtResource("7_y16f6")
+content = "我也许是在做无用功，但尽管如此，我还是希望你能停下。"
+metadata/_custom_type_script = "uid://bk7lyrbkni0wr"
+
+[sub_resource type="Resource" id="Resource_6eun2"]
+script = ExtResource("7_y16f6")
+content = "现在，回去。"
+metadata/_custom_type_script = "uid://bk7lyrbkni0wr"
+
+[sub_resource type="Resource" id="Resource_tikkl"]
+script = ExtResource("6_4xqvy")
+dialog_list = Array[ExtResource("7_y16f6")]([SubResource("Resource_2u2el"), SubResource("Resource_84c2m"), SubResource("Resource_4xqvy"), SubResource("Resource_i6qve"), SubResource("Resource_l7kda"), SubResource("Resource_752r7"), SubResource("Resource_djbfq"), SubResource("Resource_qjiai"), SubResource("Resource_tkpqh"), SubResource("Resource_gipwk"), SubResource("Resource_6eun2")])
+battleframe_text = SubResource("Resource_y16f6")
+metadata/_custom_type_script = "uid://cesf1257lem3k"
+
+[sub_resource type="Resource" id="Resource_yhlma"]
+script = ExtResource("7_i6qve")
+player_status = SubResource("Resource_7lhnk")
+enemys = Array[ExtResource("3_tikkl")]([SubResource("Resource_mfnld")])
+rounds = Array[ExtResource("6_4xqvy")]([SubResource("Resource_tikkl")])
+metadata/_custom_type_script = "uid://b6innblij3fdk"
+
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_htemk"]
 texture = ExtResource("10_l7kda")
 texture_margin_left = 40.0
@@ -39,7 +126,7 @@ texture_margin_bottom = 16.0
 
 [sub_resource type="AudioStreamPolyphonic" id="AudioStreamPolyphonic_6jj7y"]
 
-[node name="Control" type="Control" unique_id=55133942]
+[node name="Control" type="Control" unique_id=55133942 node_paths=PackedStringArray("squeak_player", "select_player", "fight_button", "act_button", "item_button", "mercy_button", "soul", "attack_bar", "battle_frame_text", "battle_frame_border", "dialog_panel", "button_container", "player_status")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -48,15 +135,35 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = SubResource("Theme_14cdr")
 script = ExtResource("2_odx28")
+squeak_player = NodePath("Audio/SqueakPlayer")
+select_player = NodePath("Audio/SelectPlayer")
+battle_data = SubResource("Resource_yhlma")
+autostart = true
+fight_button = NodePath("buttons/FightButton")
+act_button = NodePath("buttons/ActButton")
+item_button = NodePath("buttons/ItemButton")
+mercy_button = NodePath("buttons/MercyButton")
+soul = NodePath("Soul")
+attack_bar = NodePath("BattleFrame/Attack")
+battle_frame_text = NodePath("BattleFrameText")
+battle_frame_border = NodePath("BattleFrame/FrameBorder")
+dialog_panel = NodePath("PanelContainer")
+button_container = NodePath("buttons")
+player_status = NodePath("player_status")
 
-[node name="player_status" parent="." unique_id=1176279467 instance=ExtResource("4_46gyr")]
+[node name="player_status" parent="." unique_id=303389071 instance=ExtResource("3_odx28")]
 layout_mode = 0
+offset_left = 28.0
+offset_top = 405.0
+offset_right = 425.0
+offset_bottom = 429.0
 
 [node name="BattleFrameText" type="Control" parent="." unique_id=1084899321 node_paths=PackedStringArray("description", "master", "choices")]
 z_index = 5
 anchors_preset = 0
+offset_top = -24.0
 offset_right = 40.0
-offset_bottom = 40.0
+offset_bottom = 16.0
 script = ExtResource("5_tikkl")
 description = NodePath("Description")
 master = NodePath("..")
@@ -155,14 +262,14 @@ script = ExtResource("6_y16f6")
 snd_txt = NodePath("../../Audio/SndTxt2")
 
 [node name="Soul" parent="." unique_id=172666121 node_paths=PackedStringArray("game") instance=ExtResource("12_djbfq")]
-position = Vector2(63, 324)
+position = Vector2(63.200012, 304)
 game = NodePath("..")
 
 [node name="BattleFrame" type="Node2D" parent="." unique_id=1053110815]
 z_index = 1
+position = Vector2(0, -24)
 
 [node name="FrameBorder" type="AnimatableBody2D" parent="BattleFrame" unique_id=178722229 node_paths=PackedStringArray("collision")]
-position = Vector2(1, 2)
 script = ExtResource("13_qjiai")
 collision = NodePath("CollisionPolygon2D")
 

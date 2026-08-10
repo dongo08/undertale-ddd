@@ -14,3 +14,4 @@ addons/windows_desktop/src/*.obj.import
 # AI tool config
 .claude/
 .reasonix/
+assets/新建 XLSX 工作表.xlsx

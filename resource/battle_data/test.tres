@@ -4,8 +4,12 @@
 [ext_resource type="Script" uid="uid://b6innblij3fdk" path="res://scripts/battle/battle_data.gd" id="2_g0110"]
 [ext_resource type="Script" uid="uid://bgsmn2fvofrpt" path="res://scripts/player/player_status.gd" id="2_miks1"]
 [ext_resource type="Script" uid="uid://calkgasaaikbk" path="res://scripts/player/item.gd" id="2_resvl"]
+[ext_resource type="Resource" uid="uid://5vbdarryjsf8" path="res://resource/items/Pie.tres" id="3_g8072"]
 [ext_resource type="Script" uid="uid://cesf1257lem3k" path="res://scripts/battle/enemy_round.gd" id="3_yiiu4"]
+[ext_resource type="Resource" uid="uid://bt60wxaybgm4e" path="res://resource/items/SpdrCider.tres" id="4_r52bu"]
 [ext_resource type="Script" uid="uid://bk7lyrbkni0wr" path="res://scripts/dialog/base_dialog.gd" id="4_vak8k"]
+[ext_resource type="Resource" uid="uid://defybyqx63eqy" path="res://resource/items/SpdrDonut.tres" id="5_pvimt"]
+[ext_resource type="Resource" uid="uid://cbs3bblkae71b" path="res://resource/items/MnstrCndy.tres" id="6_kg0i0"]
 [ext_resource type="Script" uid="uid://c4j8w0e5b3a8e" path="res://scripts/battle/levels/test/round0.gd" id="6_resvl"]
 [ext_resource type="Script" uid="uid://5krrw1y54av1" path="res://scripts/battle/levels/test/round1.gd" id="7_j2st4"]
 [ext_resource type="Script" uid="uid://cgo2bao1v0p73" path="res://scripts/battle/levels/test/round2.gd" id="8_uhwnn"]
@@ -24,6 +28,11 @@ metadata/_custom_type_script = "uid://bow5y3q3seleq"
 [sub_resource type="Resource" id="Resource_htemk"]
 resource_local_to_scene = true
 script = ExtResource("2_miks1")
+LOVE = 3
+max_hp = 28
+hp = 28
+attack = 1100.0
+backpack = Array[ExtResource("2_resvl")]([ExtResource("3_g8072"), ExtResource("4_r52bu"), ExtResource("5_pvimt"), ExtResource("5_pvimt"), ExtResource("6_kg0i0"), ExtResource("6_kg0i0"), ExtResource("6_kg0i0"), ExtResource("6_kg0i0")])
 metadata/_custom_type_script = "uid://bgsmn2fvofrpt"
 
 [sub_resource type="Resource" id="Resource_v6wlq"]

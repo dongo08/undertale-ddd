@@ -51,6 +51,8 @@ enum Choice{
 @export var battle_frame_border: BattleFrameBorder
 @export var dialog_panel: DialogPanel
 @export var bullet_player: AudioStreamPlayer
+@export var enemy_dead_player: AudioStreamPlayer
+@export var snd_heal: AudioStreamPlayer
 @export var button_container: HBoxContainer
 @export var debug_round_input: SpinBox
 @export var player_status: PlayerStatusPanel
@@ -91,7 +93,7 @@ func _ready() -> void:
 	soul.player_status=battle_data.player_status
 	player_status.player_status=battle_data.player_status
 	player_status.init()
-	
+	battle_frame_text.hide_all()
 	if !autostart:
 		action_start()
 	else:
@@ -116,11 +118,10 @@ func enemy_turn_start():
 	item_button.texture=SPR_ITEMBT_0
 	mercy_button.texture=SPR_SPAREBT_0
 	round_end.emit(round_index)
+	soul.position=Vector2(10000,10000)
+	soul.hide()
 	
-	if button_container_tween and button_container_tween.is_running():
-		button_container_tween.kill()
-	button_container_tween=create_tween()
-	button_container_tween.tween_property(button_container,"position",BUTTON_CONTAINER_POSITION+Vector2(0,100),0.6).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN)
+	_display_button(true)
 	
 	for i in battle_frame_text.finished.get_connections():
 		battle_frame_text.finished.disconnect(i["callable"])
@@ -145,10 +146,7 @@ func enemy_turn_finished(mgr:BaseEnemyTurnManager=null):
 		mgr.queue_free()
 	soul.hide()
 	
-	if button_container_tween and button_container_tween.is_running():
-		button_container_tween.kill()
-	button_container_tween=create_tween()
-	button_container_tween.tween_property(button_container,"position",BUTTON_CONTAINER_POSITION,0.6).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+	_display_button()
 	
 	await set_battleframe_polygon_trans()
 	round_index=clamp(round_index+1,0,battle_data.rounds.size()-1)
@@ -166,6 +164,8 @@ func _input(event: InputEvent) -> void:
 				_action_change_button()
 			if event.is_action_pressed("accept"):
 				select_player.play()
+				page_index=0
+				choice_index=0
 				match buttons[button_index].type:
 					BattleActionButton.Type.FIGHT:
 						_fight_1()
@@ -198,9 +198,50 @@ func _input(event: InputEvent) -> void:
 					_act1()
 					squeak_player.play()
 		BattleState.ITEM:
+			
 			if choice_progress==Choice.ITEM:
+				if event.is_action_pressed("right"):
+					if choice_index==1 and page_index==0 and battle_data.player_status.backpack.size()>=5:
+						page_index=1
+						choice_index=0
+						battle_frame_text.show_choose(choice_progress)
+					elif choice_index==3 and page_index==0 and battle_data.player_status.backpack.size()>=7:
+						page_index=1
+						choice_index=2
+						battle_frame_text.show_choose(choice_progress)
+					elif choice_index==0 and battle_data.player_status.backpack.size()>choice_index+page_index*4:
+						choice_index+=1
+					elif choice_index==2 and battle_data.player_status.backpack.size()>choice_index+page_index*4:
+						choice_index+=1
+					squeak_player.play()
+					soul.global_position=battle_frame_text.get_choice_position(choice_index)+SOUL_CHOICE_OFFSET
+				elif event.is_action_pressed("left"):
+					if choice_index==0 and page_index==1:
+						page_index=0
+						choice_index=1
+						battle_frame_text.show_choose(choice_progress)
+					elif choice_index==2 and page_index==1:
+						page_index=0
+						choice_index=3
+						battle_frame_text.show_choose(choice_progress)
+					elif choice_index==1 :
+						choice_index-=1
+					elif choice_index==3:
+						choice_index-=1
+					squeak_player.play()
+					soul.global_position=battle_frame_text.get_choice_position(choice_index)+SOUL_CHOICE_OFFSET
+				elif event.is_action_pressed("up"):
+					if choice_index==2 or choice_index==3:
+						choice_index-=2
+					squeak_player.play()
+					soul.global_position=battle_frame_text.get_choice_position(choice_index)+SOUL_CHOICE_OFFSET
+				elif event.is_action_pressed("down"):
+					if choice_index==0 or choice_index==1:
+						choice_index+=2
+					squeak_player.play()
+					soul.global_position=battle_frame_text.get_choice_position(choice_index)+SOUL_CHOICE_OFFSET
 				if event.is_action_pressed("accept"):
-					return
+					_item2(choice_index+page_index*4)
 					
 				elif event.is_action_pressed("cancel"):
 					_return_button()
@@ -218,7 +259,7 @@ func _fight_1():
 	choice_progress=Choice.ENEMY
 	state=BattleState.FIGHT
 	battle_frame_text.skip()
-	battle_frame_text.show_enemy_choose()
+	battle_frame_text.show_choose(choice_progress)
 	soul.global_position=battle_frame_text.get_choice_position(choice_index)+SOUL_CHOICE_OFFSET
 
 func _fight_2():
@@ -258,6 +299,24 @@ func _item1():
 	battle_frame_text.skip()
 	battle_frame_text.show_choose(choice_progress)
 	soul.global_position=battle_frame_text.get_choice_position(choice_index)+SOUL_CHOICE_OFFSET
+
+func _item2(item_index:int):
+	choice_progress=Choice.NONE
+	state=BattleState.ITEM
+	var item=battle_data.player_status.backpack[item_index]
+	if item is ConsumableItem:
+		var dialog=BaseDialog.new()
+		battle_data.player_status.hp=clamp(battle_data.player_status.hp+item.health,0,battle_data.player_status.max_hp)
+		snd_heal.play()
+		dialog.content=("* 你吃了%s。\n"%tr(item.id)
+						+(("* 你回复了 %s HP!"%String.num(item.health,0)) if battle_data.player_status.hp<battle_data.player_status.max_hp
+						else "* 你的 HP 已满。" ) )
+		battle_frame_text.show_dialog([dialog])
+		battle_data.player_status.backpack.erase(item)
+	else:
+		battle_frame_text.show_dialog(item.description)
+	battle_frame_text.finished.connect(_clear_frame_and_turn)
+	_hide_soul()
 
 func _mercy1():
 	choice_progress=Choice.MERCY
@@ -350,6 +409,11 @@ func create_blood_effect(pos:Vector2 ,explode_scale:Vector2=Vector2.ONE):
 	else:
 		add_child(ex)
 
+
+func _hide_soul():
+	soul.position=Vector2(10000,10000)
+	soul.hide()
+
 func _debug_add_hp():
 	battle_data.player_status.hp=999
 	
@@ -357,5 +421,15 @@ func _debug_change_round():
 	if debug_round_input:
 		round_index=debug_round_input.value
 
+func _display_button(hide:bool=false):
+	if button_container_tween and button_container_tween.is_running():
+		button_container_tween.kill()
+	if hide:
+		button_container_tween=create_tween()
+		button_container_tween.tween_property(button_container,"position",BUTTON_CONTAINER_POSITION+Vector2(0,100),0.6).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN)
+	else:
+		button_container_tween=create_tween()
+		button_container_tween.tween_property(button_container,"position",BUTTON_CONTAINER_POSITION,0.6).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+
 func _on_enemy_dead():
-	pass
+	enemy_dead_player.play()

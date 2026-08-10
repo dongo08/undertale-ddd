@@ -1,3 +1,5 @@
 extends Resource
 class_name Item
-var id:String
+@export var id:String
+@export var id_abbr:String
+@export var description:Array[BaseDialog]

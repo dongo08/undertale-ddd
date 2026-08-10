@@ -1,7 +1,7 @@
 extends RichTextLabel
 class_name TypewriterLabel
 
-const DEFAULT_DELAY: float = 0.05
+const DEFAULT_DELAY: float = 0.033
 
 signal typing_end()
 signal dialog_processed(index:int)
@@ -14,6 +14,7 @@ var _running: bool = false
 
 func _ready() -> void:
 	set_process_input(false)
+	set_physics_process(false)
 
 func show_dialog(dialogs: Array[BaseDialog]):
 	dialog_index = 0
@@ -21,6 +22,7 @@ func show_dialog(dialogs: Array[BaseDialog]):
 	_running = false
 	show()
 	set_process_input(true)
+	set_physics_process(true)
 	_display_next_dialog()
 
 func close():
@@ -28,6 +30,7 @@ func close():
 	dialog_list = []
 	hide()
 	set_process_input(false)
+	set_physics_process(false)
 	visible_characters = 0
 func _display_next_dialog():
 	if _running:
@@ -41,6 +44,13 @@ func _display_next_dialog():
 	visible_characters = 0
 	_typewrite(parsed.pauses, parsed.speeds,dialog_index)
 	dialog_index += 1
+
+func _physics_process(delta: float) -> void:
+	if Input.is_action_pressed("skip"):
+		if _running:
+			skip()
+		else:
+			_display_next_dialog()
 
 func _parse(raw: String) -> Dictionary:
 	var clean := ""
@@ -90,8 +100,13 @@ func _input(event: InputEvent) -> void:
 		_display_next_dialog()
 	elif event.is_action_pressed("cancel"):
 		skip()
+	
+
+
 
 func end():
 	_running = false
 	typing_end.emit()
 	set_process_input(false)
+	set_physics_process(false)
+	

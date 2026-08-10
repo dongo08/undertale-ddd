@@ -4,10 +4,8 @@
 [ext_resource type="Script" uid="uid://bh7s65e88yabn" path="res://scene/battle/levels/level1/level_1.gd" id="2_ckflk"]
 [ext_resource type="Script" uid="uid://bk7lyrbkni0wr" path="res://scripts/dialog/base_dialog.gd" id="3_1jdih"]
 [ext_resource type="Resource" uid="uid://cewogkx2j4uap" path="res://resource/battle_data/level1.tres" id="3_ckflk"]
-[ext_resource type="Script" uid="uid://dqjycl3clgow6" path="res://scene/battle/battle_frame/battle_frame_text.gd" id="5_8m7n8"]
 [ext_resource type="Script" uid="uid://q80gar0bkm78" path="res://scripts/typewriter_label.gd" id="6_vrygm"]
 [ext_resource type="Texture2D" uid="uid://dk26eprvugdrh" path="res://assets/sprites/levels/level1/Whole Wing.png" id="7_7dni1"]
-[ext_resource type="Script" uid="uid://ehecvdaehpkh" path="res://scene/battle/battle_frame/choose_grid.gd" id="7_dobon"]
 [ext_resource type="Texture2D" uid="uid://ky0glcmhfiq3" path="res://assets/sprites/UI/battle_screen/spr_blconwdshrt_0.png" id="8_a5hvd"]
 [ext_resource type="Texture2D" uid="uid://dv1ie5dr0erge" path="res://assets/sprites/levels/level1/bullet/Ember 1.png" id="8_tlf17"]
 [ext_resource type="Texture2D" uid="uid://cbsdp83atakq2" path="res://assets/sprites/levels/level1/enemy/Toriel-5.png" id="9_8m7n8"]
@@ -22,8 +20,7 @@
 [ext_resource type="Texture2D" uid="uid://cpyoh4qvdarn3" path="res://assets/sprites/levels/level1/enemy/Toriel-4.png" id="13_vrygm"]
 [ext_resource type="Texture2D" uid="uid://de34hgfasagr1" path="res://assets/sprites/levels/level1/enemy/Toriel-8.png" id="15_tlf17"]
 [ext_resource type="Texture2D" uid="uid://c02epjkd4m8gi" path="res://assets/sprites/levels/level1/enemy/Toriel-9.png" id="16_bvdym"]
-[ext_resource type="Texture2D" uid="uid://oulq55qx8bvl" path="res://assets/sprites/levels/level1/enemy/Toriel-1.png" id="17_nt6hb"]
-[ext_resource type="Texture2D" uid="uid://cw56b7s1nayfv" path="res://assets/sprites/levels/level1/enemy/Toriel-2.png" id="18_jxa3c"]
+[ext_resource type="PackedScene" uid="uid://bn43oxp12t87k" path="res://scene/battle/battle_frame/battle_frame_text.tscn" id="18_tlf17"]
 [ext_resource type="PackedScene" uid="uid://b82oy4rbbvmky" path="res://scene/battle/soul/soul.tscn" id="22_5v8vk"]
 [ext_resource type="Texture2D" uid="uid://badvkitid30pw" path="res://assets/sprites/UI/battle_screen/spr_fightbt_center_1.png" id="23_811ti"]
 [ext_resource type="Script" uid="uid://4qp8jj5pw28t" path="res://scene/battle/action_button.gd" id="24_lax30"]
@@ -35,11 +32,11 @@
 [ext_resource type="AudioStream" uid="uid://c3cc280i0wmp5" path="res://assets/sounds/UI/text/snd_txttor.wav" id="28_8m7n8"]
 [ext_resource type="AudioStream" uid="uid://bxr8labkw3e11" path="res://assets/sounds/UI/snd_squeak.wav" id="28_pjdq5"]
 [ext_resource type="AudioStream" uid="uid://c0m2og28em48w" path="res://assets/sounds/UI/snd_select.wav" id="29_yy1qd"]
-[ext_resource type="AudioStream" uid="uid://co1mrm3wris8w" path="res://assets/sounds/UI/text/SND_TXT2.wav" id="30_qaywm"]
-[ext_resource type="AudioStream" uid="uid://cebhob2kiur6x" path="res://assets/audio/battle/level1/[Undertale Remix] SharaX - Heartache 7.mp3" id="32_1m20q"]
 [ext_resource type="PackedScene" uid="uid://4elr5pr674ya" path="res://scene/battle/player_status_panel.tscn" id="33_sq6dg"]
 [ext_resource type="Texture2D" uid="uid://bhcri1aocaoum" path="res://assets/sprites/UI/spr_test_zbutton_3.png" id="33_u6qo6"]
 [ext_resource type="Texture2D" uid="uid://ddyrq63qmdhb2" path="res://assets/sprites/UI/spr_test_zbutton_2.png" id="34_1jlks"]
+[ext_resource type="AudioStream" uid="uid://dnmmmmckfe2ai" path="res://assets/sounds/UI/soul/snd_heal_c.wav" id="34_bvdym"]
+[ext_resource type="AudioStream" uid="uid://d358vjelxwsit" path="res://assets/sounds/battle/snd_vaporized.wav" id="35_bvdym"]
 [ext_resource type="Texture2D" uid="uid://bwaim8orr6o2q" path="res://assets/sprites/levels/level1/Overseer.png" id="35_dobon"]
 [ext_resource type="Texture2D" uid="uid://c64m48xjhrqlp" path="res://assets/sprites/UI/spr_test_xbutton_3.png" id="35_rm87g"]
 [ext_resource type="Texture2D" uid="uid://c2ptcc8lkmdc" path="res://assets/sprites/levels/level1/Overseer 15.png" id="35_vrygm"]
@@ -124,7 +121,7 @@ metadata/_custom_type_script = "uid://bk7lyrbkni0wr"
 
 [sub_resource type="Resource" id="Resource_nt6hb"]
 script = ExtResource("3_1jdih")
-content = "啊哈哈哈哈哈哈哈"
+content = "啊哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈"
 metadata/_custom_type_script = "uid://bk7lyrbkni0wr"
 
 [sub_resource type="Curve" id="Curve_wn4hl"]
@@ -548,246 +545,231 @@ tracks/15/keys = {
 [sub_resource type="Animation" id="Animation_tlf17"]
 resource_name = "new_animation"
 length = 14.2
-tracks/0/type = "audio"
+tracks/0/type = "value"
 tracks/0/imported = false
-tracks/0/enabled = false
-tracks/0/path = NodePath("Audio/BGMPlayer")
+tracks/0/enabled = true
+tracks/0/path = NodePath("beginning/Sprite2D:scale")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"clips": [{
-"end_offset": 0.0,
-"start_offset": 0.0,
-"stream": ExtResource("32_1m20q")
-}],
-"times": PackedFloat32Array(0)
-}
-tracks/0/use_blend = true
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("beginning/Sprite2D:scale")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(4.9666667, 5.733333, 7.4),
+"times": PackedFloat32Array(4.3333335, 5.1, 6.766667),
 "transitions": PackedFloat32Array(1, 2.9281712, 1),
 "update": 0,
 "values": [Vector2(0.8, 0), Vector2(0.8, 0.05), Vector2(0.8, 0.8)]
 }
-tracks/2/type = "method"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("beginning/GPUParticles2D")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("beginning/GPUParticles2D")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
 "times": PackedFloat32Array(),
 "transitions": PackedFloat32Array(),
 "values": []
 }
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("beginning/GPUParticles2D:emitting")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0, 7.4),
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("beginning/GPUParticles2D:emitting")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 6.766667),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [false, true]
 }
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("WorldEnvironment:environment:glow_levels/7")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(7.4, 8.833333, 10.366667),
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("WorldEnvironment:environment:glow_levels/7")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(6.766667, 8.2, 9.733334),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
 "values": [0.0, 0.2, 0.0019607001]
 }
-tracks/5/type = "value"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("WorldEnvironment:environment:glow_levels/6")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
-"times": PackedFloat32Array(7.422875, 8.833333, 10.4),
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("WorldEnvironment:environment:glow_levels/6")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(6.7895417, 8.2, 9.766666),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
 "values": [0.0, 0.3, 0.0]
 }
-tracks/6/type = "value"
-tracks/6/imported = false
-tracks/6/enabled = true
-tracks/6/path = NodePath("beginning/Toriel:visible")
-tracks/6/interp = 1
-tracks/6/loop_wrap = true
-tracks/6/keys = {
-"times": PackedFloat32Array(0, 8.1, 12.166667),
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("beginning/Toriel:visible")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 7.466667, 11.533334),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
 "values": [false, true, false]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("beginning/ColorRect2:self_modulate")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0, 1.4666667, 10.3, 11.533334, 12.633333),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
 }
 tracks/7/type = "value"
 tracks/7/imported = false
 tracks/7/enabled = true
-tracks/7/path = NodePath("beginning/ColorRect2:self_modulate")
+tracks/7/path = NodePath("beginning:visible")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/keys = {
-"times": PackedFloat32Array(10.933333, 12.166667, 13.266666),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+"times": PackedFloat32Array(0, 12.933333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
 }
 tracks/8/type = "value"
 tracks/8/imported = false
 tracks/8/enabled = true
-tracks/8/path = NodePath("beginning:visible")
+tracks/8/path = NodePath("bg/GPUParticles2D:emitting")
 tracks/8/interp = 1
 tracks/8/loop_wrap = true
 tracks/8/keys = {
-"times": PackedFloat32Array(0, 13.566667),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [true, false]
-}
-tracks/9/type = "value"
-tracks/9/imported = false
-tracks/9/enabled = true
-tracks/9/path = NodePath("bg/GPUParticles2D:emitting")
-tracks/9/interp = 1
-tracks/9/loop_wrap = true
-tracks/9/keys = {
-"times": PackedFloat32Array(12.166667),
+"times": PackedFloat32Array(11.533334),
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [true]
 }
-tracks/10/type = "value"
-tracks/10/imported = false
-tracks/10/enabled = true
-tracks/10/path = NodePath("beginning/GPUParticles2D:visible")
-tracks/10/interp = 1
-tracks/10/loop_wrap = true
-tracks/10/keys = {
-"times": PackedFloat32Array(0, 12.166667),
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("beginning/GPUParticles2D:visible")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0, 11.533334),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [true, false]
 }
-tracks/11/type = "value"
-tracks/11/imported = false
-tracks/11/enabled = true
-tracks/11/path = NodePath("beginning/Sprite2D:visible")
-tracks/11/interp = 1
-tracks/11/loop_wrap = true
-tracks/11/keys = {
-"times": PackedFloat32Array(0, 4.866667, 12.166667),
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("beginning/Sprite2D:visible")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0, 4.2333336, 11.533334),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
 "values": [false, true, false]
 }
-tracks/12/type = "value"
-tracks/12/imported = false
-tracks/12/enabled = false
-tracks/12/path = NodePath("beginning/ColorRect:visible")
-tracks/12/interp = 1
-tracks/12/loop_wrap = true
-tracks/12/keys = {
-"times": PackedFloat32Array(12.166667, 13.566667),
+tracks/11/type = "value"
+tracks/11/imported = false
+tracks/11/enabled = false
+tracks/11/path = NodePath("beginning/ColorRect:visible")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/keys = {
+"times": PackedFloat32Array(11.533334, 12.933333),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [true, false]
 }
-tracks/13/type = "value"
-tracks/13/imported = false
-tracks/13/enabled = true
-tracks/13/path = NodePath("beginning/ColorRect:self_modulate")
-tracks/13/interp = 1
-tracks/13/loop_wrap = true
-tracks/13/keys = {
-"times": PackedFloat32Array(12.766666, 14.166667),
+tracks/12/type = "value"
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/path = NodePath("beginning/ColorRect:self_modulate")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/keys = {
+"times": PackedFloat32Array(12.133333, 13.533334),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
 }
-tracks/14/type = "value"
-tracks/14/imported = false
-tracks/14/enabled = true
-tracks/14/path = NodePath("WorldEnvironment:environment:glow_levels/5")
-tracks/14/interp = 1
-tracks/14/loop_wrap = true
-tracks/14/keys = {
-"times": PackedFloat32Array(7.3999887, 8.833333, 10.366667),
+tracks/13/type = "value"
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/path = NodePath("WorldEnvironment:environment:glow_levels/5")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/keys = {
+"times": PackedFloat32Array(6.7666554, 8.2, 9.733334),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
 "values": [0.0, 0.8, 0.0]
 }
-tracks/15/type = "value"
-tracks/15/imported = false
-tracks/15/enabled = true
-tracks/15/path = NodePath("WorldEnvironment:environment:glow_levels/4")
-tracks/15/interp = 1
-tracks/15/loop_wrap = true
-tracks/15/keys = {
-"times": PackedFloat32Array(7.3999887, 8.833333, 10.4),
+tracks/14/type = "value"
+tracks/14/imported = false
+tracks/14/enabled = true
+tracks/14/path = NodePath("WorldEnvironment:environment:glow_levels/4")
+tracks/14/interp = 1
+tracks/14/loop_wrap = true
+tracks/14/keys = {
+"times": PackedFloat32Array(6.7666554, 8.2, 9.766666),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
 "values": [0.1, 1.0, 0.1]
 }
-tracks/16/type = "value"
-tracks/16/imported = false
-tracks/16/enabled = true
-tracks/16/path = NodePath("beginning/GPUParticles2D2:emitting")
-tracks/16/interp = 1
-tracks/16/loop_wrap = true
-tracks/16/keys = {
-"times": PackedFloat32Array(0, 1.6666667, 12.166667),
+tracks/15/type = "value"
+tracks/15/imported = false
+tracks/15/enabled = true
+tracks/15/path = NodePath("beginning/GPUParticles2D2:emitting")
+tracks/15/interp = 1
+tracks/15/loop_wrap = true
+tracks/15/keys = {
+"times": PackedFloat32Array(0, 1.6666667, 11.533334),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
 "values": [false, true, false]
 }
-tracks/17/type = "value"
-tracks/17/imported = false
-tracks/17/enabled = true
-tracks/17/path = NodePath("beginning/GPUParticles2D2:visible")
-tracks/17/interp = 1
-tracks/17/loop_wrap = true
-tracks/17/keys = {
-"times": PackedFloat32Array(0.6333332, 12.16974),
+tracks/16/type = "value"
+tracks/16/imported = false
+tracks/16/enabled = true
+tracks/16/path = NodePath("beginning/GPUParticles2D2:visible")
+tracks/16/interp = 1
+tracks/16/loop_wrap = true
+tracks/16/keys = {
+"times": PackedFloat32Array(0.6333332, 11.5364065),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [true, false]
 }
-tracks/18/type = "method"
-tracks/18/imported = false
-tracks/18/enabled = true
-tracks/18/path = NodePath("Audio/Crash")
-tracks/18/interp = 1
-tracks/18/loop_wrap = true
-tracks/18/keys = {
-"times": PackedFloat32Array(7.4),
+tracks/17/type = "method"
+tracks/17/imported = false
+tracks/17/enabled = true
+tracks/17/path = NodePath("Audio/Crash")
+tracks/17/interp = 1
+tracks/17/loop_wrap = true
+tracks/17/keys = {
+"times": PackedFloat32Array(6.766667),
 "transitions": PackedFloat32Array(1),
 "values": [{
 "args": [0.0],
 "method": &"play"
 }]
 }
-tracks/19/type = "method"
-tracks/19/imported = false
-tracks/19/enabled = true
-tracks/19/path = NodePath(".")
-tracks/19/interp = 1
-tracks/19/loop_wrap = true
-tracks/19/keys = {
-"times": PackedFloat32Array(4.9666667),
+tracks/18/type = "method"
+tracks/18/imported = false
+tracks/18/enabled = true
+tracks/18/path = NodePath(".")
+tracks/18/interp = 1
+tracks/18/loop_wrap = true
+tracks/18/keys = {
+"times": PackedFloat32Array(4.3333335),
 "transitions": PackedFloat32Array(1),
 "values": [{
 "args": [Vector2(320, 240), Vector2(1, 1)],
@@ -811,7 +793,7 @@ glow_intensity = 1.4
 shader = ExtResource("36_7dni1")
 shader_parameter/update_prob = 0.15
 
-[node name="Control" type="Control" unique_id=55133942 node_paths=PackedStringArray("bgm_player", "animation_player", "black", "fireball_l", "fireball_r", "overseer", "whole_wing", "whole_wing_particles", "gpu_particles_2d", "gpu_particles_2d_2", "gpu_particles_2d_3", "gpu_particles_2d_4", "beginning", "squeak_player", "select_player", "fight_button", "act_button", "item_button", "mercy_button", "soul", "attack_bar", "battle_frame_text", "battle_frame_border", "dialog_panel", "bullet_player", "button_container", "debug_round_input", "player_status", "highest_layer", "enemy_illustration")]
+[node name="Control" type="Control" unique_id=55133942 node_paths=PackedStringArray("animation_player", "black", "fireball_l", "fireball_r", "overseer", "whole_wing", "whole_wing_particles", "gpu_particles_2d", "gpu_particles_2d_2", "gpu_particles_2d_3", "gpu_particles_2d_4", "beginning", "squeak_player", "select_player", "fight_button", "act_button", "item_button", "mercy_button", "soul", "attack_bar", "battle_frame_text", "battle_frame_border", "dialog_panel", "bullet_player", "enemy_dead_player", "snd_heal", "button_container", "debug_round_input", "player_status", "highest_layer", "enemy_illustration")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -820,7 +802,6 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = SubResource("Theme_14cdr")
 script = ExtResource("2_ckflk")
-bgm_player = NodePath("Audio/BGMPlayer")
 animation_player = NodePath("AnimationPlayer")
 black = NodePath("FrontLayer/TextureRect")
 fireball_l = NodePath("Enemy/FireBallL")
@@ -849,84 +830,13 @@ battle_frame_text = NodePath("BattleFrameText")
 battle_frame_border = NodePath("BattleFrame/FrameBorder")
 dialog_panel = NodePath("DialogPanel")
 bullet_player = NodePath("Audio/BulletPlayer")
+enemy_dead_player = NodePath("Audio/EnemyDead")
+snd_heal = NodePath("Audio/SndHealC")
 button_container = NodePath("buttons")
 debug_round_input = NodePath("FrontLayer/debug/HBoxContainer/SpinBox")
 player_status = NodePath("FrontLayer/player_status")
 highest_layer = NodePath("HighestLayer")
 enemy_illustration = NodePath("Enemy/Toriel")
-
-[node name="BattleFrameText" type="Control" parent="." unique_id=1084899321 node_paths=PackedStringArray("description", "master", "choices")]
-z_index = 5
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-script = ExtResource("5_8m7n8")
-description = NodePath("Description")
-master = NodePath("..")
-choices = NodePath("Choices")
-
-[node name="Description" type="RichTextLabel" parent="BattleFrameText" unique_id=1221009599 node_paths=PackedStringArray("snd_txt")]
-layout_mode = 0
-offset_left = 48.0
-offset_top = 308.0
-offset_right = 616.0
-offset_bottom = 424.0
-theme_override_constants/line_separation = 8
-theme_override_fonts/normal_font = ExtResource("1_7dni1")
-theme_override_font_sizes/normal_font_size = 24
-bbcode_enabled = true
-text = "* 124frgwrg何意味
-* 124frgwrg何意味"
-visible_characters_behavior = 1
-script = ExtResource("6_vrygm")
-snd_txt = NodePath("../../Audio/SndTxt")
-
-[node name="Choices" type="GridContainer" parent="BattleFrameText" unique_id=1279869868 node_paths=PackedStringArray("choices")]
-visible = false
-layout_mode = 0
-offset_left = 80.0
-offset_top = 308.0
-offset_right = 632.0
-offset_bottom = 408.0
-columns = 2
-script = ExtResource("7_dobon")
-choices = [NodePath("EnemyChoose"), NodePath("EnemyChoose2"), NodePath("EnemyChoose3"), NodePath("EnemyChoose4")]
-
-[node name="EnemyChoose" type="RichTextLabel" parent="BattleFrameText/Choices" unique_id=1183666763]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-theme_override_fonts/normal_font = ExtResource("1_7dni1")
-theme_override_font_sizes/normal_font_size = 24
-text = "1ytr"
-visible_characters_behavior = 1
-
-[node name="EnemyChoose2" type="RichTextLabel" parent="BattleFrameText/Choices" unique_id=1143719176]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-theme_override_fonts/normal_font = ExtResource("1_7dni1")
-theme_override_font_sizes/normal_font_size = 24
-text = "2"
-visible_characters_behavior = 1
-
-[node name="EnemyChoose3" type="RichTextLabel" parent="BattleFrameText/Choices" unique_id=1459868376]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-theme_override_fonts/normal_font = ExtResource("1_7dni1")
-theme_override_font_sizes/normal_font_size = 24
-text = "3"
-visible_characters_behavior = 1
-
-[node name="EnemyChoose4" type="RichTextLabel" parent="BattleFrameText/Choices" unique_id=1278230641]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-theme_override_fonts/normal_font = ExtResource("1_7dni1")
-theme_override_font_sizes/normal_font_size = 24
-text = "4"
-visible_characters_behavior = 1
 
 [node name="Enemy" type="Node2D" parent="." unique_id=1032742607]
 
@@ -949,7 +859,7 @@ position = Vector2(320, 150)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("9_8m7n8")
 script = ExtResource("10_nuqra")
-illustrations = Array[Texture2D]([ExtResource("9_8m7n8"), ExtResource("11_8m7n8"), ExtResource("12_8m7n8"), ExtResource("13_vrygm"), ExtResource("15_tlf17"), ExtResource("16_bvdym"), ExtResource("17_nt6hb"), ExtResource("18_jxa3c")])
+illustrations = Array[Texture2D]([ExtResource("9_8m7n8"), ExtResource("11_8m7n8"), ExtResource("12_8m7n8"), ExtResource("13_vrygm"), ExtResource("15_tlf17"), ExtResource("16_bvdym")])
 metadata/_custom_type_script = "uid://bak4twd7ph5ti"
 
 [node name="FireBallL" type="AnimatedSprite2D" parent="Enemy" unique_id=287194783]
@@ -963,6 +873,10 @@ position = Vector2(430, 150)
 sprite_frames = SubResource("SpriteFrames_14cdr")
 frame_progress = 0.56082636
 offset = Vector2(1, -15)
+
+[node name="BattleFrameText" parent="." unique_id=638351971 node_paths=PackedStringArray("master") instance=ExtResource("18_tlf17")]
+layout_mode = 0
+master = NodePath("..")
 
 [node name="DialogPanel" type="PanelContainer" parent="." unique_id=174031416 node_paths=PackedStringArray("dialog_label")]
 layout_mode = 0
@@ -1067,12 +981,12 @@ bus = &"Sounds"
 stream = ExtResource("29_yy1qd")
 bus = &"Sounds"
 
-[node name="SndTxt" type="AudioStreamPlayer" parent="Audio" unique_id=1201341170]
-stream = ExtResource("30_qaywm")
-bus = &"Sounds"
-
 [node name="SndTxt2" type="AudioStreamPlayer" parent="Audio" unique_id=1957019575]
 stream = ExtResource("28_8m7n8")
+bus = &"Sounds"
+
+[node name="SndHealC" type="AudioStreamPlayer" parent="Audio" unique_id=1850870523]
+stream = ExtResource("34_bvdym")
 bus = &"Sounds"
 
 [node name="Crash" type="AudioStreamPlayer" parent="Audio" unique_id=975793381]
@@ -1080,14 +994,13 @@ stream = ExtResource("25_ckflk")
 volume_db = -3.0
 bus = &"Sounds"
 
-[node name="BGMPlayer" type="AudioStreamPlayer" parent="Audio" unique_id=182629947]
-stream = ExtResource("32_1m20q")
-bus = &"BGM"
-
 [node name="BulletPlayer" type="AudioStreamPlayer" parent="Audio" unique_id=736038767]
 stream = SubResource("AudioStreamPolyphonic_htemk")
 autoplay = true
 bus = &"Sounds"
+
+[node name="EnemyDead" type="AudioStreamPlayer" parent="Audio" unique_id=2111374689]
+stream = ExtResource("35_bvdym")
 
 [node name="beginning" type="CanvasLayer" parent="." unique_id=1676904662]
 layer = 5
@@ -1232,6 +1145,7 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="debug" type="Control" parent="FrontLayer" unique_id=1908610093]
+visible = false
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0

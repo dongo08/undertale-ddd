@@ -1,0 +1,37 @@
+﻿keys,en,zh
+BATTLE_TORIEL_FRAME_0,* Overseer Toriel blocks the way.,* 监管者 Toriel 挡住了路。
+BATTLE_TORIEL_FRAME_1,* Toriel sees through you.,* Toriel 看透了你。
+BATTLE_TORIEL_FRAME_2,* Embers scatter.,* 火光四散。
+BATTLE_TORIEL_FRAME_3,* The room starts to heat up.,* 房间开始变热。
+BATTLE_TORIEL_FRAME_4,* Sweat runs down your face.,* 汗水从你脸上流下。
+BATTLE_TORIEL_FRAME_5,* The room floods with embers.,* 大批火花涌入房间。
+BATTLE_TORIEL_FRAME_6,* Toriel's gaze shapens.,* Toriel 目光尖锐。
+BATTLE_TORIEL_FRAME_7,* Toriel emit a strange aura.,* Toriel 发出了一个奇异的光环。
+BATTLE_TORIEL_FRAME_8,* Toriel's breathing becomes heavy.,* Toriel 的呼吸变得沉重。
+BATTLE_TORIEL_FRAME_9,* Toriel becomes desperate.,* Toriel 感到绝望。
+BATTLE_TORIEL_FRAME_10,[color=red]* Toriel is sparing you.[/color],[color=red]* Toriel 在饶恕你。[/color]
+ITEM_CINNAMON_BUNNY,Cinnamon Bunny,肉桂兔包
+ITEM_CINNAMON_BUNNY_ABBR,C. Bun,肉桂兔包
+ITEM_CINNAMON_BUNNY_CHECK,A Cinnamon roll in a shape of a bunny.,一个兔包形状的肉桂卷。
+ITEM_CINNAMON_BUNNY_USE,You eat the Cinnamon Bunny.,你吃了肉桂兔包。
+ITEM_MONSTER_CANDY,Monster Candy,怪物糖果
+ITEM_MONSTER_CANDY_ABBR,MnstrCndy,怪物糖果
+ITEM_MONSTER_CANDY_CHECK,"Has a distinct, non-licorice flavor.",具有独特的非甘草味。
+ITEM_MONSTER_CANDY_USE,"You ate the Monster Candy. Very un-licorice-like.
+... tastes like licorice.","你吃了怪物糖果。非-常不像甘草的味道。
+...好像有甘草的味道。"
+ITEM_SPIDER_DONUT,Spider Donut,蜘蛛甜甜圈
+ITEM_SPIDER_DONUT_ABBR,SpdrDonut,蜘蛛甜甜圈
+ITEM_SPIDER_DONUT_CHECK,A donut made with Spider Cider in the batter.,以参了蜘蛛苹果西打的面糊做成的甜甜圈。
+ITEM_SPIDER_DONUT_USE,"You ate the Spider Donut.
+Don't worry, Spider didn't.","你吃了蜘蛛甜甜圈。
+别担心，那蜘蛛就没有担心过。"
+ITEM_SPIDER_CIDER,Spider Cider,蜘蛛果汁
+ITEM_SPIDER_CIDER_ABBR,SpdrCider,蜘蛛果汁
+ITEM_SPIDER_CIDER_CHECK,"Made with whole spiders, not just the juice.",使用完整的蜘蛛制成，而不是只使用果汁。
+ITEM_SPIDER_CIDER_USE,You drank the Spider Cider.,你喝下了蜘蛛果汁。
+ITEM_BUTTERSCOTCH_PIE,Butterscotch Pie,奶油派
+ITEM_BUTTERSCOTCH_PIE_ABBR,Pie,奶油派
+ITEM_BUTTERSCOTCH_PIE_CHECK,"Butterscotch-cinnamon pie, one slice.",一片奶油肉桂派。
+ITEM_BUTTERSCOTCH_PIE_USE,"You ate the Butterscotch Pie. Very un-licorice-like.
+... tastes like licorice.",你吃了奶油派。

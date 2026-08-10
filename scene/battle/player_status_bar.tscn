@@ -4,6 +4,10 @@
 [ext_resource type="FontFile" uid="uid://cquvig8giyvpd" path="res://assets/font/LV,血量,名字字体.ttf" id="2_78gn5"]
 [ext_resource type="FontFile" uid="uid://dchcadn3tsmgf" path="res://assets/font/hp,kr字体.ttf" id="3_iqbv4"]
 
+[sub_resource type="LabelSettings" id="LabelSettings_dvpxl"]
+font = ExtResource("2_78gn5")
+font_size = 24
+
 [sub_resource type="Gradient" id="Gradient_p56j5"]
 offsets = PackedFloat32Array(0)
 colors = PackedColorArray(1, 0, 0, 1)
@@ -20,20 +24,32 @@ colors = PackedColorArray(1, 1, 0, 1)
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_yyook"]
 gradient = SubResource("Gradient_bdn7b")
 
-[node name="player_status" type="HBoxContainer" unique_id=303389071 node_paths=PackedStringArray("hp_progress_bar", "hp_text", "id_label")]
-offset_right = 397.0
+[node name="player_status" type="HBoxContainer" unique_id=303389071 node_paths=PackedStringArray("hp_progress_bar", "hp_text", "name_label", "lv_label")]
+offset_right = 481.0
 offset_bottom = 24.0
-theme_override_constants/separation = 24
+theme_override_constants/separation = 48
 script = ExtResource("1_dvpxl")
 hp_progress_bar = NodePath("HBoxContainer/ProgressBar")
 hp_text = NodePath("HBoxContainer/HPLabel")
-id_label = NodePath("Label")
+name_label = NodePath("NameLabel")
+lv_label = NodePath("LVLabel")
 
-[node name="Label" type="Label" parent="." unique_id=1571016970]
+[node name="NameLabel" type="Label" parent="." unique_id=1571016970]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_78gn5")
 theme_override_font_sizes/font_size = 24
-text = "FRISK   lv"
+text = "FRISK"
+label_settings = SubResource("LabelSettings_dvpxl")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LVLabel" type="Label" parent="." unique_id=1959928719]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_78gn5")
+text = "lv 12"
+label_settings = SubResource("LabelSettings_dvpxl")
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=1747796008]
 custom_minimum_size = Vector2(35, 0)

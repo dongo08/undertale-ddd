@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="ConsumableItem" format=3 uid="uid://bt60wxaybgm4e"]
+
+[ext_resource type="Script" uid="uid://bk7lyrbkni0wr" path="res://scripts/dialog/base_dialog.gd" id="1_75350"]
+[ext_resource type="Script" uid="uid://di20hqtjuw2v8" path="res://scripts/player/consumable_item.gd" id="2_bcqu8"]
+
+[sub_resource type="Resource" id="Resource_l2ckq"]
+script = ExtResource("1_75350")
+content = "ITEM_SPIDER_CIDER_CHECK
+"
+metadata/_custom_type_script = "uid://bk7lyrbkni0wr"
+
+[resource]
+script = ExtResource("2_bcqu8")
+health = 24.0
+id = "ITEM_SPIDER_CIDER"
+id_abbr = "ITEM_SPIDER_CIDER_ABBR"
+description = Array[ExtResource("1_75350")]([SubResource("Resource_l2ckq")])
+metadata/_custom_type_script = "uid://di20hqtjuw2v8"

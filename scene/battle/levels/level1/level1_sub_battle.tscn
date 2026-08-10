@@ -1,0 +1,448 @@
+[gd_scene format=3 uid="uid://bl6m2ggekg2de"]
+
+[ext_resource type="FontFile" uid="uid://ikbkbdwpo0mf" path="res://assets/font/普通字体.ttf" id="1_v0dll"]
+[ext_resource type="Script" uid="uid://dj6sc7clqlom" path="res://scene/battle/levels/level1/level_1_sub_battle.gd" id="2_g26pf"]
+[ext_resource type="Script" uid="uid://bow5y3q3seleq" path="res://scripts/battle/enemy_status.gd" id="3_tqvh3"]
+[ext_resource type="Script" uid="uid://calkgasaaikbk" path="res://scripts/player/item.gd" id="4_sufcd"]
+[ext_resource type="Script" uid="uid://bgsmn2fvofrpt" path="res://scripts/player/player_status.gd" id="5_3jhfr"]
+[ext_resource type="Script" uid="uid://cesf1257lem3k" path="res://scripts/battle/enemy_round.gd" id="6_h5thf"]
+[ext_resource type="Script" uid="uid://bk7lyrbkni0wr" path="res://scripts/dialog/base_dialog.gd" id="7_1j7dk"]
+[ext_resource type="Script" uid="uid://b6innblij3fdk" path="res://scripts/battle/battle_data.gd" id="8_y7tvw"]
+[ext_resource type="PackedScene" uid="uid://c6txdl820vhkq" path="res://scene/battle/player_status_bar.tscn" id="9_7h0kh"]
+[ext_resource type="Script" uid="uid://dqjycl3clgow6" path="res://scene/battle/battle_frame/battle_frame_text.gd" id="10_vh6oe"]
+[ext_resource type="Script" uid="uid://q80gar0bkm78" path="res://scripts/typewriter_label.gd" id="11_bvka1"]
+[ext_resource type="Script" uid="uid://ehecvdaehpkh" path="res://scene/battle/battle_frame/choose_grid.gd" id="12_0ma2o"]
+[ext_resource type="Texture2D" uid="uid://oulq55qx8bvl" path="res://assets/sprites/levels/level1/enemy/Toriel-1.png" id="13_62146"]
+[ext_resource type="Script" uid="uid://bak4twd7ph5ti" path="res://scene/battle/enemy_illustration.gd" id="14_glg4g"]
+[ext_resource type="Texture2D" uid="uid://cw56b7s1nayfv" path="res://assets/sprites/levels/level1/enemy/Toriel-2.png" id="15_gskto"]
+[ext_resource type="Texture2D" uid="uid://ky0glcmhfiq3" path="res://assets/sprites/UI/battle_screen/spr_blconwdshrt_0.png" id="15_hncx8"]
+[ext_resource type="Script" uid="uid://6oxqy74sbkkx" path="res://scene/battle/battle_frame/dialog_panel.gd" id="16_85ehr"]
+[ext_resource type="Texture2D" uid="uid://cj7a6tcgynwt2" path="res://assets/sprites/levels/level1/enemy/Toriel-3.png" id="16_fgjx5"]
+[ext_resource type="Texture2D" uid="uid://cpyoh4qvdarn3" path="res://assets/sprites/levels/level1/enemy/Toriel-4.png" id="17_62146"]
+[ext_resource type="PackedScene" uid="uid://b82oy4rbbvmky" path="res://scene/battle/soul/soul.tscn" id="17_g5f2j"]
+[ext_resource type="Script" uid="uid://bxxkmygk51k30" path="res://scene/battle/battle_frame/battle_frame_border.gd" id="18_dcmrp"]
+[ext_resource type="PackedScene" uid="uid://b5ry1mecij7jb" path="res://scene/battle/battle_frame/attack_bar.tscn" id="19_buf1w"]
+[ext_resource type="Script" uid="uid://4qp8jj5pw28t" path="res://scene/battle/action_button.gd" id="21_emfbu"]
+[ext_resource type="Texture2D" uid="uid://bsqjsm41smset" path="res://assets/sprites/UI/battle_screen/spr_actbt_center_0.png" id="22_evkqq"]
+[ext_resource type="Texture2D" uid="uid://cnx282i8sll4r" path="res://assets/sprites/UI/battle_screen/spr_fightbt_center_0.png" id="23_62146"]
+[ext_resource type="Texture2D" uid="uid://3c3lvhsqifwx" path="res://assets/sprites/UI/battle_screen/spr_itembt_0.png" id="23_qb87t"]
+[ext_resource type="Texture2D" uid="uid://6jjmmkw7g1v6" path="res://assets/sprites/UI/battle_screen/spr_sparebt_0.png" id="24_8wlj1"]
+[ext_resource type="AudioStream" uid="uid://bxr8labkw3e11" path="res://assets/sounds/UI/snd_squeak.wav" id="25_syi34"]
+[ext_resource type="AudioStream" uid="uid://c0m2og28em48w" path="res://assets/sounds/UI/snd_select.wav" id="26_67ln0"]
+[ext_resource type="AudioStream" uid="uid://co1mrm3wris8w" path="res://assets/sounds/UI/text/SND_TXT2.wav" id="27_w45b8"]
+[ext_resource type="Texture2D" uid="uid://bhcri1aocaoum" path="res://assets/sprites/UI/spr_test_zbutton_3.png" id="29_362b6"]
+[ext_resource type="AudioStream" uid="uid://c3cc280i0wmp5" path="res://assets/sounds/UI/text/snd_txttor.wav" id="30_g26pf"]
+[ext_resource type="Texture2D" uid="uid://ddyrq63qmdhb2" path="res://assets/sprites/UI/spr_test_zbutton_2.png" id="30_mxvif"]
+[ext_resource type="Texture2D" uid="uid://c64m48xjhrqlp" path="res://assets/sprites/UI/spr_test_xbutton_3.png" id="31_xevq8"]
+[ext_resource type="Texture2D" uid="uid://rllimxwm6yr4" path="res://assets/sprites/UI/spr_test_xbutton_1.png" id="32_o00t7"]
+
+[sub_resource type="Theme" id="Theme_14cdr"]
+RichTextLabel/fonts/normal_font = ExtResource("1_v0dll")
+
+[sub_resource type="Resource" id="Resource_g26pf"]
+script = ExtResource("7_1j7dk")
+content = "* 你坚持你的想法。"
+metadata/_custom_type_script = "uid://bk7lyrbkni0wr"
+
+[sub_resource type="Resource" id="Resource_62146"]
+script = ExtResource("7_1j7dk")
+content = "我知道了……"
+metadata/_custom_type_script = "uid://bk7lyrbkni0wr"
+
+[sub_resource type="Resource" id="Resource_gskto"]
+script = ExtResource("7_1j7dk")
+content = "我必须要把你留在这里，除非你能证明我的猜测是错的。"
+metadata/_custom_type_script = "uid://bk7lyrbkni0wr"
+
+[sub_resource type="Resource" id="Resource_fgjx5"]
+script = ExtResource("7_1j7dk")
+content = "永远..."
+metadata/_custom_type_script = "uid://bk7lyrbkni0wr"
+
+[sub_resource type="Resource" id="Resource_youxv"]
+script = ExtResource("3_tqvh3")
+metadata/_custom_type_script = "uid://bow5y3q3seleq"
+
+[sub_resource type="Resource" id="Resource_1q486"]
+script = ExtResource("5_3jhfr")
+LOVE = 3
+max_hp = 28
+hp = 28
+metadata/_custom_type_script = "uid://bgsmn2fvofrpt"
+
+[sub_resource type="Resource" id="Resource_djpql"]
+script = ExtResource("7_1j7dk")
+content = "123456"
+metadata/_custom_type_script = "uid://bk7lyrbkni0wr"
+
+[sub_resource type="Resource" id="Resource_4suue"]
+script = ExtResource("7_1j7dk")
+content = "最近这里一直很安静啊。"
+metadata/_custom_type_script = "uid://bk7lyrbkni0wr"
+
+[sub_resource type="Resource" id="Resource_t0uwl"]
+script = ExtResource("7_1j7dk")
+content = "除了有一股不祥的声音在叫我逃走。"
+metadata/_custom_type_script = "uid://bk7lyrbkni0wr"
+
+[sub_resource type="Resource" id="Resource_pmkru"]
+script = ExtResource("7_1j7dk")
+content = "我也注意到了你衣服上那些细小的尘埃。"
+metadata/_custom_type_script = "uid://bk7lyrbkni0wr"
+
+[sub_resource type="Resource" id="Resource_fpb41"]
+script = ExtResource("7_1j7dk")
+content = "那些并不是从你来时就有的。"
+metadata/_custom_type_script = "uid://bk7lyrbkni0wr"
+
+[sub_resource type="Resource" id="Resource_bcd3e"]
+script = ExtResource("7_1j7dk")
+content = "或许那些是其他怪物的？"
+metadata/_custom_type_script = "uid://bk7lyrbkni0wr"
+
+[sub_resource type="Resource" id="Resource_kadyx"]
+script = ExtResource("7_1j7dk")
+content = "我一直想说服是自己想的太多。"
+metadata/_custom_type_script = "uid://bk7lyrbkni0wr"
+
+[sub_resource type="Resource" id="Resource_tvbmv"]
+script = ExtResource("7_1j7dk")
+content = "但每当我看到你时我都知道这不是。"
+metadata/_custom_type_script = "uid://bk7lyrbkni0wr"
+
+[sub_resource type="Resource" id="Resource_40430"]
+script = ExtResource("7_1j7dk")
+content = "你的脸上闪烁着残忍。"
+metadata/_custom_type_script = "uid://bk7lyrbkni0wr"
+
+[sub_resource type="Resource" id="Resource_7ipx1"]
+script = ExtResource("7_1j7dk")
+content = "而且你玩具刀挥得这么轻松。"
+metadata/_custom_type_script = "uid://bk7lyrbkni0wr"
+
+[sub_resource type="Resource" id="Resource_p1usd"]
+script = ExtResource("7_1j7dk")
+content = "我也许是在做无用功，但尽管如此，我还是希望你能停下。"
+metadata/_custom_type_script = "uid://bk7lyrbkni0wr"
+
+[sub_resource type="Resource" id="Resource_3ongg"]
+script = ExtResource("7_1j7dk")
+content = "现在，回去。"
+metadata/_custom_type_script = "uid://bk7lyrbkni0wr"
+
+[sub_resource type="Resource" id="Resource_uhg5j"]
+script = ExtResource("6_h5thf")
+dialog_list = Array[ExtResource("7_1j7dk")]([SubResource("Resource_4suue"), SubResource("Resource_t0uwl"), SubResource("Resource_pmkru"), SubResource("Resource_fpb41"), SubResource("Resource_bcd3e"), SubResource("Resource_kadyx"), SubResource("Resource_tvbmv"), SubResource("Resource_40430"), SubResource("Resource_7ipx1"), SubResource("Resource_p1usd"), SubResource("Resource_3ongg")])
+battleframe_text = SubResource("Resource_djpql")
+metadata/_custom_type_script = "uid://cesf1257lem3k"
+
+[sub_resource type="Resource" id="Resource_djoff"]
+script = ExtResource("8_y7tvw")
+player_status = SubResource("Resource_1q486")
+enemys = Array[ExtResource("3_tqvh3")]([SubResource("Resource_youxv")])
+rounds = Array[ExtResource("6_h5thf")]([SubResource("Resource_uhg5j")])
+metadata/_custom_type_script = "uid://b6innblij3fdk"
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_htemk"]
+texture = ExtResource("15_hncx8")
+texture_margin_left = 40.0
+texture_margin_top = 16.0
+texture_margin_right = 16.0
+texture_margin_bottom = 16.0
+
+[sub_resource type="AudioStreamPolyphonic" id="AudioStreamPolyphonic_6jj7y"]
+
+[node name="Control" type="Control" unique_id=55133942 node_paths=PackedStringArray("squeak_player", "select_player", "fight_button", "act_button", "item_button", "mercy_button", "soul", "attack_bar", "battle_frame_text", "battle_frame_border", "dialog_panel", "bullet_player", "button_container", "player_status", "enemy_illustration")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_14cdr")
+script = ExtResource("2_g26pf")
+dialog1 = Array[ExtResource("7_1j7dk")]([SubResource("Resource_g26pf")])
+dialog2 = Array[ExtResource("7_1j7dk")]([SubResource("Resource_62146"), SubResource("Resource_gskto"), SubResource("Resource_fgjx5")])
+squeak_player = NodePath("Audio/SqueakPlayer")
+select_player = NodePath("Audio/SelectPlayer")
+battle_data = SubResource("Resource_djoff")
+autostart = true
+fight_button = NodePath("buttons/FightButton")
+act_button = NodePath("buttons/ActButton")
+item_button = NodePath("buttons/ItemButton")
+mercy_button = NodePath("buttons/MercyButton")
+soul = NodePath("Soul")
+attack_bar = NodePath("BattleFrame/Attack")
+battle_frame_text = NodePath("BattleFrameText")
+battle_frame_border = NodePath("BattleFrame/FrameBorder")
+dialog_panel = NodePath("PanelContainer")
+bullet_player = NodePath("Audio/BulletPlayer")
+button_container = NodePath("buttons")
+player_status = NodePath("player_status")
+enemy_illustration = NodePath("Toriel")
+
+[node name="player_status" parent="." unique_id=303389071 instance=ExtResource("9_7h0kh")]
+layout_mode = 0
+offset_left = 27.0
+offset_top = 403.0
+offset_right = 508.0
+offset_bottom = 427.0
+
+[node name="BattleFrameText" type="Control" parent="." unique_id=1084899321 node_paths=PackedStringArray("description", "master", "choices")]
+z_index = 5
+anchors_preset = 0
+offset_top = -24.0
+offset_right = 40.0
+offset_bottom = 16.0
+script = ExtResource("10_vh6oe")
+description = NodePath("Description")
+master = NodePath("..")
+choices = NodePath("Choices")
+
+[node name="Description" type="RichTextLabel" parent="BattleFrameText" unique_id=1221009599 node_paths=PackedStringArray("snd_txt")]
+visible = false
+layout_mode = 0
+offset_left = 48.0
+offset_top = 308.0
+offset_right = 595.0
+offset_bottom = 420.0
+theme_override_constants/line_separation = 8
+theme_override_fonts/normal_font = ExtResource("1_v0dll")
+theme_override_font_sizes/normal_font_size = 24
+bbcode_enabled = true
+text = "* 妈妈24frgwrg何意味
+* 124frgwrg何意味"
+visible_characters_behavior = 1
+script = ExtResource("11_bvka1")
+snd_txt = NodePath("../../Audio/SndTxt")
+
+[node name="Choices" type="GridContainer" parent="BattleFrameText" unique_id=1279869868 node_paths=PackedStringArray("choices")]
+visible = false
+layout_mode = 0
+offset_left = 76.0
+offset_top = 308.0
+offset_right = 632.0
+offset_bottom = 408.0
+columns = 2
+script = ExtResource("12_0ma2o")
+choices = [NodePath("EnemyChoose"), NodePath("EnemyChoose2"), NodePath("EnemyChoose3"), NodePath("EnemyChoose4"), NodePath("EnemyChoose5"), NodePath("EnemyChoose6")]
+
+[node name="EnemyChoose" type="RichTextLabel" parent="BattleFrameText/Choices" unique_id=1183666763]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_fonts/normal_font = ExtResource("1_v0dll")
+theme_override_font_sizes/normal_font_size = 24
+text = "1ytr"
+visible_characters_behavior = 1
+
+[node name="EnemyChoose2" type="RichTextLabel" parent="BattleFrameText/Choices" unique_id=1143719176]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_fonts/normal_font = ExtResource("1_v0dll")
+theme_override_font_sizes/normal_font_size = 24
+text = "2"
+visible_characters_behavior = 1
+
+[node name="EnemyChoose3" type="RichTextLabel" parent="BattleFrameText/Choices" unique_id=1459868376]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_fonts/normal_font = ExtResource("1_v0dll")
+theme_override_font_sizes/normal_font_size = 24
+text = "3"
+visible_characters_behavior = 1
+
+[node name="EnemyChoose4" type="RichTextLabel" parent="BattleFrameText/Choices" unique_id=1278230641]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_fonts/normal_font = ExtResource("1_v0dll")
+theme_override_font_sizes/normal_font_size = 24
+text = "4"
+visible_characters_behavior = 1
+
+[node name="EnemyChoose5" type="RichTextLabel" parent="BattleFrameText/Choices" unique_id=1038116598]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_fonts/normal_font = ExtResource("1_v0dll")
+theme_override_font_sizes/normal_font_size = 24
+text = "3"
+visible_characters_behavior = 1
+
+[node name="EnemyChoose6" type="RichTextLabel" parent="BattleFrameText/Choices" unique_id=14175091]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_fonts/normal_font = ExtResource("1_v0dll")
+theme_override_font_sizes/normal_font_size = 24
+text = "4"
+visible_characters_behavior = 1
+
+[node name="Toriel" type="Sprite2D" parent="." unique_id=1970804983]
+position = Vector2(320, 140)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("13_62146")
+script = ExtResource("14_glg4g")
+illustrations = Array[Texture2D]([ExtResource("13_62146"), ExtResource("15_gskto"), ExtResource("16_fgjx5"), ExtResource("17_62146")])
+metadata/_custom_type_script = "uid://bak4twd7ph5ti"
+
+[node name="PanelContainer" type="PanelContainer" parent="." unique_id=174031416 node_paths=PackedStringArray("dialog_label")]
+visible = false
+layout_mode = 0
+offset_left = 365.0
+offset_top = 30.0
+offset_right = 624.0
+offset_bottom = 167.0
+theme_override_styles/panel = SubResource("StyleBoxTexture_htemk")
+script = ExtResource("16_85ehr")
+dialog_label = NodePath("DialogText")
+
+[node name="DialogText" type="RichTextLabel" parent="PanelContainer" unique_id=745890034 node_paths=PackedStringArray("snd_txt")]
+clip_contents = false
+layout_mode = 2
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_constants/line_separation = 8
+theme_override_font_sizes/normal_font_size = 16
+bbcode_enabled = true
+text = "if your soul is greenif your soul is greenif your soul is greenif your soul is green"
+scroll_active = false
+visible_characters_behavior = 1
+script = ExtResource("11_bvka1")
+snd_txt = NodePath("../../Audio/SndTxt2")
+
+[node name="Soul" parent="." unique_id=172666121 node_paths=PackedStringArray("game") instance=ExtResource("17_g5f2j")]
+position = Vector2(63.200012, 304)
+game = NodePath("..")
+
+[node name="BattleFrame" type="Node2D" parent="." unique_id=1053110815]
+z_index = 1
+position = Vector2(0, -24)
+
+[node name="FrameBorder" type="AnimatableBody2D" parent="BattleFrame" unique_id=178722229 node_paths=PackedStringArray("collision")]
+script = ExtResource("18_dcmrp")
+collision = NodePath("CollisionPolygon2D")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="BattleFrame/FrameBorder" unique_id=292015208]
+build_mode = 1
+polygon = PackedVector2Array(28, 288, 612, 288, 612, 420, 28, 420)
+
+[node name="Attack" parent="BattleFrame" unique_id=1466610130 node_paths=PackedStringArray("master") instance=ExtResource("19_buf1w")]
+master = NodePath("../..")
+
+[node name="buttons" type="HBoxContainer" parent="." unique_id=1982057885]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -290.0
+offset_top = -50.0
+offset_right = 290.0
+offset_bottom = -8.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="FightButton" type="TextureRect" parent="buttons" unique_id=586113080]
+layout_mode = 2
+mouse_filter = 2
+texture = ExtResource("23_62146")
+script = ExtResource("21_emfbu")
+
+[node name="Control" type="Control" parent="buttons" unique_id=1960610242]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ActButton" type="TextureRect" parent="buttons" unique_id=1637053516]
+layout_mode = 2
+mouse_filter = 2
+texture = ExtResource("22_evkqq")
+script = ExtResource("21_emfbu")
+type = 1
+
+[node name="Control3" type="Control" parent="buttons" unique_id=359069011]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ItemButton" type="TextureRect" parent="buttons" unique_id=362768708]
+layout_mode = 2
+mouse_filter = 2
+texture = ExtResource("23_qb87t")
+script = ExtResource("21_emfbu")
+type = 2
+
+[node name="Control2" type="Control" parent="buttons" unique_id=1087570725]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="MercyButton" type="TextureRect" parent="buttons" unique_id=197171731]
+layout_mode = 2
+mouse_filter = 2
+texture = ExtResource("24_8wlj1")
+script = ExtResource("21_emfbu")
+type = 3
+
+[node name="Audio" type="Node" parent="." unique_id=1090687409]
+
+[node name="SqueakPlayer" type="AudioStreamPlayer" parent="Audio" unique_id=1979936531]
+stream = ExtResource("25_syi34")
+
+[node name="SelectPlayer" type="AudioStreamPlayer" parent="Audio" unique_id=1239444292]
+stream = ExtResource("26_67ln0")
+
+[node name="SndTxt" type="AudioStreamPlayer" parent="Audio" unique_id=1201341170]
+stream = ExtResource("27_w45b8")
+
+[node name="SndTxt2" type="AudioStreamPlayer" parent="Audio" unique_id=1957019575]
+stream = ExtResource("30_g26pf")
+
+[node name="BulletPlayer" type="AudioStreamPlayer" parent="Audio" unique_id=674805961]
+stream = SubResource("AudioStreamPolyphonic_6jj7y")
+bus = &"Sounds"
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1890787532]
+layer = 2
+
+[node name="VirtualJoystick" type="VirtualJoystick" parent="CanvasLayer" unique_id=1614904449]
+offset_left = 33.0
+offset_top = 388.0
+offset_right = 73.0
+offset_bottom = 428.0
+joystick_mode = 1
+action_left = &"left"
+action_right = &"right"
+action_up = &"up"
+action_down = &"down"
+visibility_mode = 1
+
+[node name="TouchScreenButton" type="TouchScreenButton" parent="CanvasLayer" unique_id=1505233899]
+position = Vector2(459, 385)
+scale = Vector2(3.1818182, 2.121212)
+texture_normal = ExtResource("29_362b6")
+texture_pressed = ExtResource("30_mxvif")
+action = "accept"
+visibility_mode = 1
+
+[node name="TouchScreenButton2" type="TouchScreenButton" parent="CanvasLayer" unique_id=474588818]
+position = Vector2(539, 384)
+scale = Vector2(3.1818182, 2.121212)
+texture_normal = ExtResource("31_xevq8")
+texture_pressed = ExtResource("32_o00t7")
+action = "accept"
+visibility_mode = 1
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer" unique_id=399304753]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[connection signal="action_selected" from="buttons/FightButton" to="." method="_on_button_action_selected"]
+[connection signal="action_selected" from="buttons/ActButton" to="." method="_on_button_action_selected"]
+[connection signal="action_selected" from="buttons/ItemButton" to="." method="_on_button_action_selected"]
+[connection signal="action_selected" from="buttons/MercyButton" to="." method="_on_button_action_selected"]

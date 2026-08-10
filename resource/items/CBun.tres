@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="ConsumableItem" format=3 uid="uid://wci4vjka1feb"]
+
+[ext_resource type="Script" uid="uid://bk7lyrbkni0wr" path="res://scripts/dialog/base_dialog.gd" id="1_7ptpb"]
+[ext_resource type="Script" uid="uid://di20hqtjuw2v8" path="res://scripts/player/consumable_item.gd" id="2_j5yr7"]
+
+[sub_resource type="Resource" id="Resource_m7hu7"]
+script = ExtResource("1_7ptpb")
+metadata/_custom_type_script = "uid://bk7lyrbkni0wr"
+
+[resource]
+script = ExtResource("2_j5yr7")
+health = 22.0
+id = "ITEM_CINNAMON_BUNNY"
+id_abbr = "ITEM_CINNAMON_BUNNY_ABBR"
+description = Array[ExtResource("1_7ptpb")]([SubResource("Resource_m7hu7")])
+metadata/_custom_type_script = "uid://di20hqtjuw2v8"

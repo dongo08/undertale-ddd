@@ -28,14 +28,15 @@ colors = PackedColorArray(1, 1, 0, 1)
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_yyook"]
 gradient = SubResource("Gradient_bdn7b")
 
-[node name="player_status" type="PanelContainer" unique_id=1176279467 node_paths=PackedStringArray("hp_progress_bar", "hp_text", "id_label")]
+[node name="player_status" type="PanelContainer" unique_id=1176279467 node_paths=PackedStringArray("hp_progress_bar", "hp_text", "name_label", "lv_label")]
 offset_right = 261.0
 offset_bottom = 92.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_htemk")
 script = ExtResource("1_cvv8e")
 hp_progress_bar = NodePath("MarginContainer/VBoxContainer/HBoxContainer/ProgressBar")
 hp_text = NodePath("MarginContainer/VBoxContainer/HBoxContainer/HPLabel")
-id_label = NodePath("MarginContainer/VBoxContainer/Label")
+name_label = NodePath("MarginContainer/VBoxContainer/HBoxContainer2/NameLabel")
+lv_label = NodePath("MarginContainer/VBoxContainer/HBoxContainer2/LVLabel")
 
 [node name="MarginContainer" type="MarginContainer" parent="." unique_id=598986292]
 layout_mode = 2
@@ -48,11 +49,21 @@ theme_override_constants/margin_bottom = 8
 layout_mode = 2
 theme_override_constants/separation = 0
 
-[node name="Label" type="Label" parent="MarginContainer/VBoxContainer" unique_id=1571016970]
+[node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=505942083]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="NameLabel" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer2" unique_id=1571016970]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("1_nythh")
 theme_override_font_sizes/font_size = 24
-text = "FRISK   lv"
+text = "FRISK"
+
+[node name="LVLabel" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer2" unique_id=1949889320]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_nythh")
+theme_override_font_sizes/font_size = 24
+text = "lv"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=1747796008]
 custom_minimum_size = Vector2(35, 0)

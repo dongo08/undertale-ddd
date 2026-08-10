@@ -17,6 +17,7 @@ void vertex() {
 }
 
 void fragment() {
+	vec4 base=COLOR;
 	vec2 center = vec2(0.5);
 	float circle_grad = 1. - distance(UV, center) * 3.;
 	vec2 offset = vec2(random(UV * seed),random(UV * seed));
@@ -29,5 +30,5 @@ void fragment() {
 	float circle_clip = distance(UV,mask_vignette_center);
 	COLOR = texture(TEXTURE, offset_uv);
 	
-	COLOR.a = (COLOR.a - clamp(offset.x * strength,0.0,3.0) - strength) - circle_clip * strength * mask_vignette_strength * 3.0;
+	COLOR.a = base.a*(COLOR.a - clamp(offset.x * strength,0.0,3.0) - strength) - circle_clip * strength * mask_vignette_strength * 3.0;
 }

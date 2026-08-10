@@ -1,0 +1,98 @@
+[gd_scene format=3 uid="uid://bn43oxp12t87k"]
+
+[ext_resource type="Script" uid="uid://dqjycl3clgow6" path="res://scene/battle/battle_frame/battle_frame_text.gd" id="1_rjd8i"]
+[ext_resource type="FontFile" uid="uid://ikbkbdwpo0mf" path="res://assets/font/普通字体.ttf" id="2_5kovw"]
+[ext_resource type="Script" uid="uid://q80gar0bkm78" path="res://scripts/typewriter_label.gd" id="3_u82bg"]
+[ext_resource type="Script" uid="uid://ehecvdaehpkh" path="res://scene/battle/battle_frame/choose_grid.gd" id="4_54s4f"]
+[ext_resource type="AudioStream" uid="uid://co1mrm3wris8w" path="res://assets/sounds/UI/text/SND_TXT2.wav" id="5_5kovw"]
+
+[node name="BattleFrameText" type="Control" unique_id=638351971 node_paths=PackedStringArray("description", "choices")]
+z_index = 5
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_rjd8i")
+description = NodePath("Description")
+choices = NodePath("Choices")
+
+[node name="Description" type="RichTextLabel" parent="." unique_id=5511915 node_paths=PackedStringArray("snd_txt")]
+layout_mode = 0
+offset_left = 48.0
+offset_top = 308.0
+offset_right = 595.0
+offset_bottom = 420.0
+theme_override_constants/line_separation = 8
+theme_override_fonts/normal_font = ExtResource("2_5kovw")
+theme_override_font_sizes/normal_font_size = 24
+bbcode_enabled = true
+text = "* 妈妈24frgwrg何意味
+* 124frgwrg何意味"
+visible_characters_behavior = 1
+script = ExtResource("3_u82bg")
+snd_txt = NodePath("../SndTxt")
+
+[node name="Choices" type="GridContainer" parent="." unique_id=1238909515 node_paths=PackedStringArray("choices")]
+layout_mode = 0
+offset_left = 76.0
+offset_top = 308.0
+offset_right = 610.0
+offset_bottom = 403.0
+columns = 2
+script = ExtResource("4_54s4f")
+choices = [NodePath("EnemyChoose"), NodePath("EnemyChoose2"), NodePath("EnemyChoose3"), NodePath("EnemyChoose4"), NodePath("EnemyChoose5"), NodePath("EnemyChoose6")]
+
+[node name="EnemyChoose" type="RichTextLabel" parent="Choices" unique_id=888596013]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_fonts/normal_font = ExtResource("2_5kovw")
+theme_override_font_sizes/normal_font_size = 24
+text = "1ytr"
+visible_characters_behavior = 1
+
+[node name="EnemyChoose2" type="RichTextLabel" parent="Choices" unique_id=377756859]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_fonts/normal_font = ExtResource("2_5kovw")
+theme_override_font_sizes/normal_font_size = 24
+text = "2"
+visible_characters_behavior = 1
+
+[node name="EnemyChoose3" type="RichTextLabel" parent="Choices" unique_id=378222235]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_fonts/normal_font = ExtResource("2_5kovw")
+theme_override_font_sizes/normal_font_size = 24
+text = "3"
+visible_characters_behavior = 1
+
+[node name="EnemyChoose4" type="RichTextLabel" parent="Choices" unique_id=2055994711]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_fonts/normal_font = ExtResource("2_5kovw")
+theme_override_font_sizes/normal_font_size = 24
+text = "4"
+visible_characters_behavior = 1
+
+[node name="EnemyChoose5" type="RichTextLabel" parent="Choices" unique_id=345326748]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_fonts/normal_font = ExtResource("2_5kovw")
+theme_override_font_sizes/normal_font_size = 24
+visible_characters_behavior = 1
+
+[node name="EnemyChoose6" type="RichTextLabel" parent="Choices" unique_id=1902534610]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_fonts/normal_font = ExtResource("2_5kovw")
+theme_override_font_sizes/normal_font_size = 24
+visible_characters_behavior = 1
+
+[node name="SndTxt" type="AudioStreamPlayer" parent="." unique_id=869005473]
+stream = ExtResource("5_5kovw")

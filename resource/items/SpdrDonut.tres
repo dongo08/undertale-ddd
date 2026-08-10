@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="ConsumableItem" format=3 uid="uid://defybyqx63eqy"]
+
+[ext_resource type="Script" uid="uid://bk7lyrbkni0wr" path="res://scripts/dialog/base_dialog.gd" id="1_2lpdt"]
+[ext_resource type="Script" uid="uid://di20hqtjuw2v8" path="res://scripts/player/consumable_item.gd" id="2_22udf"]
+
+[sub_resource type="Resource" id="Resource_l2ckq"]
+script = ExtResource("1_2lpdt")
+content = "ITEM_SPIDER_DONUT_CHECK"
+metadata/_custom_type_script = "uid://bk7lyrbkni0wr"
+
+[resource]
+script = ExtResource("2_22udf")
+health = 12.0
+id = "ITEM_SPIDER_DONUT"
+id_abbr = "ITEM_SPIDER_DONUT_ABBR"
+description = Array[ExtResource("1_2lpdt")]([SubResource("Resource_l2ckq")])
+metadata/_custom_type_script = "uid://di20hqtjuw2v8"

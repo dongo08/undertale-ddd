@@ -5,22 +5,22 @@
 [ext_resource type="PackedScene" uid="uid://4elr5pr674ya" path="res://scene/battle/player_status_panel.tscn" id="4_1ba6n"]
 [ext_resource type="FontFile" uid="uid://ikbkbdwpo0mf" path="res://assets/font/普通字体.ttf" id="5_j1ccn"]
 [ext_resource type="Script" uid="uid://bxxkmygk51k30" path="res://scene/battle/battle_frame/battle_frame_border.gd" id="5_l2bdv"]
+[ext_resource type="PackedScene" uid="uid://bn43oxp12t87k" path="res://scene/battle/battle_frame/battle_frame_text.tscn" id="5_qxgud"]
 [ext_resource type="Texture2D" uid="uid://badvkitid30pw" path="res://assets/sprites/UI/battle_screen/spr_fightbt_center_1.png" id="6_45prw"]
-[ext_resource type="Script" uid="uid://ehecvdaehpkh" path="res://scene/battle/battle_frame/choose_grid.gd" id="6_qxgud"]
 [ext_resource type="PackedScene" uid="uid://b82oy4rbbvmky" path="res://scene/battle/soul/soul.tscn" id="6_qyclh"]
 [ext_resource type="Texture2D" uid="uid://ky0glcmhfiq3" path="res://assets/sprites/UI/battle_screen/spr_blconwdshrt_0.png" id="7_6jj7y"]
 [ext_resource type="Script" uid="uid://4qp8jj5pw28t" path="res://scene/battle/action_button.gd" id="7_gwx1q"]
 [ext_resource type="Script" uid="uid://6oxqy74sbkkx" path="res://scene/battle/battle_frame/dialog_panel.gd" id="8_sev40"]
 [ext_resource type="Texture2D" uid="uid://rh6ricecdlbk" path="res://assets/sprites/levels/level0/enemy/Eanaro-1.png" id="9_6jj7y"]
 [ext_resource type="Script" uid="uid://bak4twd7ph5ti" path="res://scene/battle/enemy_illustration.gd" id="9_qxgud"]
-[ext_resource type="Script" uid="uid://dqjycl3clgow6" path="res://scene/battle/battle_frame/battle_frame_text.gd" id="9_v6wlq"]
 [ext_resource type="Texture2D" uid="uid://3c3lvhsqifwx" path="res://assets/sprites/UI/battle_screen/spr_itembt_0.png" id="10_3u8de"]
 [ext_resource type="Texture2D" uid="uid://bsqjsm41smset" path="res://assets/sprites/UI/battle_screen/spr_actbt_center_0.png" id="10_l2bdv"]
 [ext_resource type="Texture2D" uid="uid://6jjmmkw7g1v6" path="res://assets/sprites/UI/battle_screen/spr_sparebt_0.png" id="12_sp28g"]
 [ext_resource type="PackedScene" uid="uid://b5ry1mecij7jb" path="res://scene/battle/battle_frame/attack_bar.tscn" id="13_qxgud"]
 [ext_resource type="AudioStream" uid="uid://bxr8labkw3e11" path="res://assets/sounds/UI/snd_squeak.wav" id="13_rcqy1"]
 [ext_resource type="AudioStream" uid="uid://c0m2og28em48w" path="res://assets/sounds/UI/snd_select.wav" id="14_qyclh"]
-[ext_resource type="AudioStream" uid="uid://co1mrm3wris8w" path="res://assets/sounds/UI/text/SND_TXT2.wav" id="31_6jj7y"]
+[ext_resource type="AudioStream" uid="uid://d358vjelxwsit" path="res://assets/sounds/battle/snd_vaporized.wav" id="23_qxgud"]
+[ext_resource type="AudioStream" uid="uid://dnmmmmckfe2ai" path="res://assets/sounds/UI/soul/snd_heal_c.wav" id="24_j2v24"]
 [ext_resource type="AudioStream" uid="uid://b0exrudoitwdv" path="res://assets/sounds/UI/text/SND_TXT1.wav" id="32_sev40"]
 [ext_resource type="Texture2D" uid="uid://bhcri1aocaoum" path="res://assets/sprites/UI/spr_test_zbutton_3.png" id="41_hqqfg"]
 [ext_resource type="Texture2D" uid="uid://ddyrq63qmdhb2" path="res://assets/sprites/UI/spr_test_zbutton_2.png" id="42_6p4sc"]
@@ -40,7 +40,7 @@ texture_margin_bottom = 16.0
 
 [sub_resource type="AudioStreamPolyphonic" id="AudioStreamPolyphonic_6jj7y"]
 
-[node name="Control" type="Control" unique_id=55133942 node_paths=PackedStringArray("squeak_player", "select_player", "fight_button", "act_button", "item_button", "mercy_button", "soul", "attack_bar", "battle_frame_text", "battle_frame_border", "dialog_panel", "bullet_player", "button_container", "player_status", "enemy_illustration")]
+[node name="Control" type="Control" unique_id=55133942 node_paths=PackedStringArray("squeak_player", "select_player", "fight_button", "act_button", "item_button", "mercy_button", "soul", "attack_bar", "battle_frame_border", "dialog_panel", "bullet_player", "snd_heal", "button_container", "player_status", "enemy_illustration")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -58,10 +58,10 @@ item_button = NodePath("buttons/ItemButton")
 mercy_button = NodePath("buttons/MercyButton")
 soul = NodePath("Soul")
 attack_bar = NodePath("BattleFrame/Attack")
-battle_frame_text = NodePath("BattleFrameText")
 battle_frame_border = NodePath("BattleFrame/FrameBorder")
 dialog_panel = NodePath("PanelContainer")
 bullet_player = NodePath("Audio/BulletPlayer")
+snd_heal = NodePath("Audio/SndHealC")
 button_container = NodePath("buttons")
 player_status = NodePath("player_status")
 enemy_illustration = NodePath("Eanaro1")
@@ -69,77 +69,8 @@ enemy_illustration = NodePath("Eanaro1")
 [node name="player_status" parent="." unique_id=1176279467 instance=ExtResource("4_1ba6n")]
 layout_mode = 0
 
-[node name="BattleFrameText" type="Control" parent="." unique_id=1084899321 node_paths=PackedStringArray("description", "master", "choices")]
-z_index = 5
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-script = ExtResource("9_v6wlq")
-description = NodePath("Description")
-master = NodePath("..")
-choices = NodePath("Choices")
-
-[node name="Description" type="RichTextLabel" parent="BattleFrameText" unique_id=1221009599 node_paths=PackedStringArray("snd_txt")]
+[node name="BattleFrameText" parent="." unique_id=638351971 instance=ExtResource("5_qxgud")]
 layout_mode = 0
-offset_left = 48.0
-offset_top = 308.0
-offset_right = 595.0
-offset_bottom = 420.0
-theme_override_constants/line_separation = 8
-theme_override_fonts/normal_font = ExtResource("5_j1ccn")
-theme_override_font_sizes/normal_font_size = 24
-bbcode_enabled = true
-text = "* 妈妈24frgwrg何意味
-* 124frgwrg何意味"
-visible_characters_behavior = 1
-script = ExtResource("50_typewriter")
-snd_txt = NodePath("../../Audio/SndTxt")
-
-[node name="Choices" type="GridContainer" parent="BattleFrameText" unique_id=1279869868 node_paths=PackedStringArray("choices")]
-layout_mode = 0
-offset_left = 76.0
-offset_top = 308.0
-offset_right = 632.0
-offset_bottom = 408.0
-columns = 2
-script = ExtResource("6_qxgud")
-choices = [NodePath("EnemyChoose"), NodePath("EnemyChoose2"), NodePath("EnemyChoose3"), NodePath("EnemyChoose4")]
-
-[node name="EnemyChoose" type="RichTextLabel" parent="BattleFrameText/Choices" unique_id=1183666763]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-theme_override_fonts/normal_font = ExtResource("5_j1ccn")
-theme_override_font_sizes/normal_font_size = 24
-text = "1ytr"
-visible_characters_behavior = 1
-
-[node name="EnemyChoose2" type="RichTextLabel" parent="BattleFrameText/Choices" unique_id=1143719176]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-theme_override_fonts/normal_font = ExtResource("5_j1ccn")
-theme_override_font_sizes/normal_font_size = 24
-text = "2"
-visible_characters_behavior = 1
-
-[node name="EnemyChoose3" type="RichTextLabel" parent="BattleFrameText/Choices" unique_id=1459868376]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-theme_override_fonts/normal_font = ExtResource("5_j1ccn")
-theme_override_font_sizes/normal_font_size = 24
-text = "3"
-visible_characters_behavior = 1
-
-[node name="EnemyChoose4" type="RichTextLabel" parent="BattleFrameText/Choices" unique_id=1278230641]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-theme_override_fonts/normal_font = ExtResource("5_j1ccn")
-theme_override_font_sizes/normal_font_size = 24
-text = "4"
-visible_characters_behavior = 1
 
 [node name="Eanaro1" type="Sprite2D" parent="." unique_id=1970804983]
 position = Vector2(317, 147)
@@ -251,15 +182,18 @@ stream = ExtResource("13_rcqy1")
 [node name="SelectPlayer" type="AudioStreamPlayer" parent="Audio" unique_id=1239444292]
 stream = ExtResource("14_qyclh")
 
-[node name="SndTxt" type="AudioStreamPlayer" parent="Audio" unique_id=1201341170]
-stream = ExtResource("31_6jj7y")
-
 [node name="SndTxt2" type="AudioStreamPlayer" parent="Audio" unique_id=1957019575]
 stream = ExtResource("32_sev40")
+
+[node name="SndHealC" type="AudioStreamPlayer" parent="Audio" unique_id=2070926976]
+stream = ExtResource("24_j2v24")
 
 [node name="BulletPlayer" type="AudioStreamPlayer" parent="Audio" unique_id=674805961]
 stream = SubResource("AudioStreamPolyphonic_6jj7y")
 bus = &"Sounds"
+
+[node name="EnemyDead" type="AudioStreamPlayer" parent="Audio" unique_id=503130301]
+stream = ExtResource("23_qxgud")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1890787532]
 layer = 2

@@ -1,13 +1,15 @@
-extends PanelContainer
+extends Control
 class_name PlayerStatusPanel
 @export var player_status:PlayerStatus
 @export var hp_progress_bar: TextureProgressBar 
 @export var hp_text: Label
-@export var id_label: Label
+@export var name_label: Label
+@export var lv_label: Label
 func init() -> void:
 	player_status.changed.connect(_update_hp_bar)
 	_update_hp_bar()
-	id_label.text=player_status.id+" lv"+str(player_status.LOVE)
+	name_label.text=player_status.id
+	lv_label.text="lv "+str(player_status.LOVE)
 	reset_size()
 
 func _update_hp_bar():

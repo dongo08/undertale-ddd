@@ -6,3 +6,4 @@
 z_index = 1
 script = ExtResource("1_mhp6e")
 amount = 8
+distance = 100.0
