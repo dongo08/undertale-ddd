@@ -1,9 +1,0 @@
-[configuration]
-
-entry_symbol = "GDExtensionInit"
-compatibility_minimum = "4.4"
-
-[libraries]
-
-windows.debug.x86_64 = "res://addons/windows_desktop/bin/windows_desktop.debug.dll"
-windows.release.x86_64 = "res://addons/windows_desktop/bin/windows_desktop.dll"
