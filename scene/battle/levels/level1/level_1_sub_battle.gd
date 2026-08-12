@@ -1,6 +1,4 @@
 extends SubBattleManager
-@onready var color_rect: ColorRect = $CanvasLayer/ColorRect
-
 
 
 @export var dialog1:Array[BaseDialog]
@@ -9,9 +7,6 @@ func _ready() -> void:
 	#await get_tree().create_timer(2).timeout
 	_hide_soul()
 	super._ready()
-	while color_rect.color.a>0:
-		color_rect.color.a-=0.01
-		await get_tree().physics_frame
 	dialog_panel.dialog_processed.connect(change_i)
 	ResourceLoader.load_threaded_request("res://scene/battle/levels/level1/level1.tscn")
 	await dialog_panel.finished

@@ -27,13 +27,14 @@
 [ext_resource type="Texture2D" uid="uid://cnx282i8sll4r" path="res://assets/sprites/UI/battle_screen/spr_fightbt_center_0.png" id="23_62146"]
 [ext_resource type="Texture2D" uid="uid://3c3lvhsqifwx" path="res://assets/sprites/UI/battle_screen/spr_itembt_0.png" id="23_qb87t"]
 [ext_resource type="Texture2D" uid="uid://6jjmmkw7g1v6" path="res://assets/sprites/UI/battle_screen/spr_sparebt_0.png" id="24_8wlj1"]
-[ext_resource type="AudioStream" uid="uid://bxr8labkw3e11" path="res://assets/sounds/UI/snd_squeak.wav" id="25_syi34"]
-[ext_resource type="AudioStream" uid="uid://c0m2og28em48w" path="res://assets/sounds/UI/snd_select.wav" id="26_67ln0"]
+[ext_resource type="AudioStream" uid="uid://bxr8labkw3e11" path="res://assets/sounds/UI/menu/snd_squeak.wav" id="25_syi34"]
+[ext_resource type="AudioStream" uid="uid://c0m2og28em48w" path="res://assets/sounds/UI/menu/snd_select.wav" id="26_67ln0"]
 [ext_resource type="AudioStream" uid="uid://co1mrm3wris8w" path="res://assets/sounds/UI/text/SND_TXT2.wav" id="27_w45b8"]
 [ext_resource type="Texture2D" uid="uid://bhcri1aocaoum" path="res://assets/sprites/UI/spr_test_zbutton_3.png" id="29_362b6"]
 [ext_resource type="AudioStream" uid="uid://c3cc280i0wmp5" path="res://assets/sounds/UI/text/snd_txttor.wav" id="30_g26pf"]
 [ext_resource type="Texture2D" uid="uid://ddyrq63qmdhb2" path="res://assets/sprites/UI/spr_test_zbutton_2.png" id="30_mxvif"]
 [ext_resource type="Texture2D" uid="uid://c64m48xjhrqlp" path="res://assets/sprites/UI/spr_test_xbutton_3.png" id="31_xevq8"]
+[ext_resource type="AudioStream" uid="uid://bbr5ecs56y27u" path="res://assets/sounds/UI/encounter.ogg" id="32_gskto"]
 [ext_resource type="Texture2D" uid="uid://rllimxwm6yr4" path="res://assets/sprites/UI/spr_test_xbutton_1.png" id="32_o00t7"]
 
 [sub_resource type="Theme" id="Theme_14cdr"]
@@ -152,7 +153,7 @@ texture_margin_bottom = 16.0
 
 [sub_resource type="AudioStreamPolyphonic" id="AudioStreamPolyphonic_6jj7y"]
 
-[node name="Control" type="Control" unique_id=55133942 node_paths=PackedStringArray("squeak_player", "select_player", "fight_button", "act_button", "item_button", "mercy_button", "soul", "attack_bar", "battle_frame_text", "battle_frame_border", "dialog_panel", "bullet_player", "button_container", "player_status", "enemy_illustration")]
+[node name="Control" type="Control" unique_id=55133942 node_paths=PackedStringArray("encounter_player", "black", "squeak_player", "select_player", "fight_button", "act_button", "item_button", "mercy_button", "soul", "attack_bar", "battle_frame_text", "battle_frame_border", "dialog_panel", "bullet_player", "button_container", "player_status", "enemy_illustration")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -163,6 +164,8 @@ theme = SubResource("Theme_14cdr")
 script = ExtResource("2_g26pf")
 dialog1 = Array[ExtResource("7_1j7dk")]([SubResource("Resource_g26pf")])
 dialog2 = Array[ExtResource("7_1j7dk")]([SubResource("Resource_62146"), SubResource("Resource_gskto"), SubResource("Resource_fgjx5")])
+encounter_player = NodePath("Audio/Encounter")
+black = NodePath("CanvasLayer/ColorRect")
 squeak_player = NodePath("Audio/SqueakPlayer")
 select_player = NodePath("Audio/SelectPlayer")
 battle_data = SubResource("Resource_djoff")
@@ -401,6 +404,11 @@ stream = ExtResource("30_g26pf")
 
 [node name="BulletPlayer" type="AudioStreamPlayer" parent="Audio" unique_id=674805961]
 stream = SubResource("AudioStreamPolyphonic_6jj7y")
+bus = &"Sounds"
+
+[node name="Encounter" type="AudioStreamPlayer" parent="Audio" unique_id=941333691]
+stream = ExtResource("32_gskto")
+volume_db = -6.0
 bus = &"Sounds"
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1890787532]

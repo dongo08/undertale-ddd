@@ -30,7 +30,7 @@ gradient = SubResource("Gradient_bdn7b")
 
 [node name="player_status" type="PanelContainer" unique_id=1176279467 node_paths=PackedStringArray("hp_progress_bar", "hp_text", "name_label", "lv_label")]
 offset_right = 261.0
-offset_bottom = 92.0
+offset_bottom = 68.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_htemk")
 script = ExtResource("1_cvv8e")
 hp_progress_bar = NodePath("MarginContainer/VBoxContainer/HBoxContainer/ProgressBar")
@@ -91,9 +91,3 @@ layout_mode = 2
 theme_override_fonts/font = ExtResource("1_nythh")
 theme_override_font_sizes/font_size = 24
 text = "20 / 20"
-
-[node name="Label3" type="Label" parent="MarginContainer/VBoxContainer" unique_id=154060196]
-layout_mode = 2
-theme_override_fonts/font = ExtResource("1_nythh")
-theme_override_font_sizes/font_size = 24
-text = "LKINF"

@@ -122,6 +122,7 @@ script = ExtResource("1_nylpy")
 position = Vector2(-292, 207)
 texture = ExtResource("2_1ysuq")
 lifetime = 3.0
+preprocess = 10.0
 visibility_rect = Rect2(-100, -100, 800, 200)
 process_material = SubResource("ParticleProcessMaterial_14cdr")
 
@@ -130,6 +131,7 @@ position = Vector2(-112, 211)
 amount = 80
 texture = ExtResource("2_1ysuq")
 lifetime = 5.0
+preprocess = 10.0
 visibility_rect = Rect2(-100, -100, 400, 200)
 process_material = SubResource("ParticleProcessMaterial_nylpy")
 
@@ -139,6 +141,7 @@ position = Vector2(24, 177)
 amount = 800
 texture = ExtResource("2_1ysuq")
 lifetime = 8.0
+preprocess = 10.0
 visibility_rect = Rect2(-100, -100, 400, 200)
 process_material = SubResource("ParticleProcessMaterial_1ysuq")
 
@@ -148,5 +151,6 @@ position = Vector2(78, 239)
 amount = 800
 texture = ExtResource("2_1ysuq")
 lifetime = 18.0
+preprocess = 10.0
 visibility_rect = Rect2(-100, -100, 400, 200)
 process_material = SubResource("ParticleProcessMaterial_u8iv4")
