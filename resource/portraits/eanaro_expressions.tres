@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="ExpressionSet" format=3]
+
+[ext_resource type="Texture2D" path="res://assets/sprites/levels/level0/enemy/Eanaro-1.png" id="1_p6j4k"]
+[ext_resource type="Script" path="res://scripts/dialog/expression_set.gd" id="2_ty5tm"]
+
+[resource]
+resource_name = "eanaro_expressions"
+script = ExtResource("2_ty5tm")
+expressions = Dictionary[StringName, Texture2D]({
+&"NORMAL": ExtResource("1_p6j4k")
+})

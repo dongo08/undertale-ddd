@@ -1,6 +1,6 @@
 extends Node2D
 class_name ExplodeEffect
-@onready var color_rect: ColorRect = $ColorRect
+#@onready var color_rect: ColorRect = $ColorRect
 
 var radius1:float
 var radius2:float
@@ -18,12 +18,12 @@ func _ready() -> void:
 	var tween=create_tween()
 	tween.tween_property(self,"radius1",100,0.3).from(0).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
 	tween.parallel().tween_property(self,"radius2",200,0.3).from(50)
-	tween.parallel().tween_property(color_rect,"scale",Vector2.ONE,0.3).from(Vector2.ZERO).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
+	#tween.parallel().tween_property(color_rect,"scale",Vector2.ONE,0.3).from(Vector2.ZERO).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
 	tween.parallel().tween_property(self,"radius3",250,0.3).from(100)
 	tween.parallel().tween_property(self,"radius4",300,0.3).from(100)
 	tween.tween_property(self,"radius1",50,0.2).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_IN)
 	tween.parallel().tween_property(self,"radius2",100,0.2).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_IN)
-	tween.parallel().tween_property(color_rect,"scale",Vector2.ZERO,0.2).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_IN)
+	#tween.parallel().tween_property(color_rect,"scale",Vector2.ZERO,0.2).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_IN)
 	tween.parallel().tween_property(self,"radius3",200,0.2).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_IN)
 	tween.parallel().tween_property(self,"radius4",200,0.2).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_IN)
 	tween.parallel().tween_property(self,"modulate:a",0,0.2)

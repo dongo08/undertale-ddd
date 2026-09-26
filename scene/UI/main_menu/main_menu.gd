@@ -8,37 +8,40 @@ enum Option{
 	SETTINGS,
 	EXIT
 }
-@export var labels:Array[Label]
 
 
 @onready var bg_particles: GPUParticles2D = $GPUParticles2D
 @onready var line_particles: GPUParticles2D = $GPUParticles2D2
 @onready var 确定: AudioStreamPlayer = $确定
 @onready var 选择: AudioStreamPlayer = $选择
+@export var start_label: Button
 
 var option_index:int=0
 
 func _ready() -> void:
-	_refresh_options()
+	start_label.grab_focus()
 	
 	
-func _unhandled_key_input(event: InputEvent) -> void:
-	if event.is_action_pressed("up") and option_index>0:
-		option_index-=1
-		选择.play()
-		_refresh_options()
-	elif event.is_action_pressed("down") and option_index<4:
-		option_index+=1
-		选择.play()
-		_refresh_options()
-	if event.is_action_pressed("accept"):
-		确定.play()
-		if option_index==Option.START:
-			Global.change_scene_to_packed(LEVEL_1_SUB_BATTLE,2,Color.BLACK)
-		
-		
-func _refresh_options():
-	for i in labels:
-		i.modulate=Color.WHITE
-	labels[option_index].modulate=Color.YELLOW
-	
+
+func _on_button_focused():
+	选择.play()
+
+
+func _on_start_label_pressed() -> void:
+	确定.play()
+	Global.change_scene_to_packed(LEVEL_1_SUB_BATTLE)
+
+func _on_difficulty_label_pressed() -> void:
+	确定.play()
+
+
+func _on_modifiers_label_3_pressed() -> void:
+	确定.play()
+
+func _on_settings_label_pressed() -> void:
+	确定.play()
+
+
+func _on_exit_label_pressed() -> void:
+	确定.play()
+	get_tree().quit()

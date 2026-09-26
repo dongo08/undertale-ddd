@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://bow5y3q3seleq" path="res://scripts/battle/enemy_status.gd" id="1_700o5"]
 [ext_resource type="Script" uid="uid://b6innblij3fdk" path="res://scripts/battle/battle_data.gd" id="2_g0110"]
 [ext_resource type="Script" uid="uid://bgsmn2fvofrpt" path="res://scripts/player/player_status.gd" id="2_miks1"]
+[ext_resource type="Script" uid="uid://dqix82jx8ed6c" path="res://scripts/battle/enemy_act.gd" id="2_r52bu"]
 [ext_resource type="Script" uid="uid://calkgasaaikbk" path="res://scripts/player/item.gd" id="2_resvl"]
 [ext_resource type="Resource" uid="uid://5vbdarryjsf8" path="res://resource/items/Pie.tres" id="3_g8072"]
 [ext_resource type="Script" uid="uid://cesf1257lem3k" path="res://scripts/battle/enemy_round.gd" id="3_yiiu4"]
@@ -14,6 +15,8 @@
 [ext_resource type="Script" uid="uid://5krrw1y54av1" path="res://scripts/battle/levels/test/round1.gd" id="7_j2st4"]
 [ext_resource type="Script" uid="uid://cgo2bao1v0p73" path="res://scripts/battle/levels/test/round2.gd" id="8_uhwnn"]
 [ext_resource type="Script" uid="uid://cqdg5ggj6e7k2" path="res://scripts/battle/levels/test/round3.gd" id="9_55jil"]
+[ext_resource type="Script" uid="uid://deltq24ei2ai4" path="res://scripts/dialog/expression_dialog.gd" id="11_kg0i0"]
+[ext_resource type="Script" uid="uid://0ay4tmujru25" path="res://scripts/dialog/dialog_batch.gd" id="12_g88ds"]
 
 [sub_resource type="Resource" id="Resource_miks1"]
 resource_local_to_scene = true
@@ -23,6 +26,10 @@ max_hp = 20000.0
 hp = 20000.0
 descriptive_attack = "???"
 descriptive_defense = "???"
+metadata/_custom_type_script = "uid://bow5y3q3seleq"
+
+[sub_resource type="Resource" id="Resource_kg0i0"]
+script = ExtResource("1_700o5")
 metadata/_custom_type_script = "uid://bow5y3q3seleq"
 
 [sub_resource type="Resource" id="Resource_htemk"]
@@ -45,14 +52,26 @@ script = ExtResource("4_vak8k")
 content = "你好"
 metadata/_custom_type_script = "uid://bk7lyrbkni0wr"
 
-[sub_resource type="Resource" id="Resource_wd1qt"]
-script = ExtResource("4_vak8k")
-content = "妈妈妈妈妈妈妈妈妈妈妈妈妈妈妈妈妈妈妈妈妈妈妈妈妈妈妈妈妈妈妈妈妈妈妈妈妈妈妈妈妈妈妈妈"
-metadata/_custom_type_script = "uid://bk7lyrbkni0wr"
+[sub_resource type="Resource" id="Resource_j3pel"]
+script = ExtResource("11_kg0i0")
+content = "妈妈吗"
+metadata/_custom_type_script = "uid://deltq24ei2ai4"
+
+[sub_resource type="Resource" id="Resource_g28q7"]
+script = ExtResource("11_kg0i0")
+enemy_index = 1
+content = "非常好"
+metadata/_custom_type_script = "uid://deltq24ei2ai4"
+
+[sub_resource type="Resource" id="Resource_r52bu"]
+script = ExtResource("12_g88ds")
+dialogs = Array[ExtResource("11_kg0i0")]([SubResource("Resource_j3pel"), SubResource("Resource_g28q7")])
+content = "妈妈吗"
+metadata/_custom_type_script = "uid://0ay4tmujru25"
 
 [sub_resource type="Resource" id="Resource_6jj7y"]
 script = ExtResource("3_yiiu4")
-dialog_list = Array[ExtResource("4_vak8k")]([SubResource("Resource_occno"), SubResource("Resource_wd1qt")])
+dialog_list = Array[ExtResource("4_vak8k")]([SubResource("Resource_occno"), SubResource("Resource_r52bu")])
 battleframe_text = SubResource("Resource_v6wlq")
 manager = ExtResource("6_resvl")
 metadata/_custom_type_script = "uid://cesf1257lem3k"
@@ -133,6 +152,6 @@ metadata/_custom_type_script = "uid://cesf1257lem3k"
 resource_local_to_scene = true
 script = ExtResource("2_g0110")
 player_status = SubResource("Resource_htemk")
-enemys = Array[ExtResource("1_700o5")]([SubResource("Resource_miks1")])
+enemys = Array[ExtResource("1_700o5")]([SubResource("Resource_miks1"), SubResource("Resource_kg0i0")])
 rounds = Array[ExtResource("3_yiiu4")]([SubResource("Resource_6jj7y"), SubResource("Resource_ivfpn"), SubResource("Resource_vak8k"), SubResource("Resource_sev40")])
 metadata/_custom_type_script = "uid://b6innblij3fdk"

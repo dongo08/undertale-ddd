@@ -15,3 +15,4 @@ addons/windows_desktop/src/*.obj.import
 .claude/
 .reasonix/
 assets/新建 XLSX 工作表.xlsx
+/.tmp_shader_test

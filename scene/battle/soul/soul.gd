@@ -126,17 +126,10 @@ func move_normal(_delta)->Vector2:
 	var vel:Vector2
 	#if !Input.is_action_pressed("left") and !Input.is_action_pressed("right"):
 		#vel.x=0
-	if Input.is_action_pressed("left"):
-		vel.x+=-1
-	if Input.is_action_pressed("right"):
-		vel.x+=1
-	#print(!Input.is_action_pressed("right"))
-	if Input.is_action_pressed("down"):
-		vel.y+=1
-	if Input.is_action_pressed("up"):
-		vel.y+=-1
-	#if !Input.is_action_pressed("down") and !Input.is_action_pressed("up"):
-		#vel.y=0
+	vel=Input.get_vector("left","right","up","down")
+
+	
+	
 	if Input.is_action_pressed("slow"):
 		vel*=SLOW_SPEED
 	else:

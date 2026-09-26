@@ -10,9 +10,11 @@ func _ready() -> void:
 	player_status.init()
 	battle_frame_text.hide_all()
 	_hide_soul()
+	set_process_input(false)
 	await _encounter()
+	set_process_input(true)
 	super._ready()
-	dialog_panel.finished.disconnect(enemy_turn_bullet)
+	dialog_finished.disconnect(enemy_turn_bullet)
 
 func _encounter():
 	#return

@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://vguogp5ll273"]
 
-[ext_resource type="FontFile" uid="uid://ikbkbdwpo0mf" path="res://assets/font/普通字体.ttf" id="1_7dni1"]
+[ext_resource type="Theme" uid="uid://cdc6iuog2y03s" path="res://scene/UI/new_theme.tres" id="1_vrygm"]
 [ext_resource type="Script" uid="uid://bh7s65e88yabn" path="res://scene/battle/levels/level1/level_1.gd" id="2_ckflk"]
 [ext_resource type="Script" uid="uid://bk7lyrbkni0wr" path="res://scripts/dialog/base_dialog.gd" id="3_1jdih"]
 [ext_resource type="Resource" uid="uid://cewogkx2j4uap" path="res://resource/battle_data/level1.tres" id="3_ckflk"]
@@ -14,12 +14,7 @@
 [ext_resource type="Script" uid="uid://6oxqy74sbkkx" path="res://scene/battle/battle_frame/dialog_panel.gd" id="9_tlf17"]
 [ext_resource type="Script" uid="uid://bxxkmygk51k30" path="res://scene/battle/battle_frame/battle_frame_border.gd" id="10_bvdym"]
 [ext_resource type="Script" uid="uid://cvoxo6y2ai2yo" path="res://scene/battle/levels/level1/toriel.gd" id="10_nuqra"]
-[ext_resource type="Texture2D" uid="uid://dfdychk55fcgv" path="res://assets/sprites/levels/level1/enemy/Toriel-6.png" id="11_8m7n8"]
-[ext_resource type="Texture2D" uid="uid://cj7a6tcgynwt2" path="res://assets/sprites/levels/level1/enemy/Toriel-3.png" id="12_8m7n8"]
 [ext_resource type="PackedScene" uid="uid://b5ry1mecij7jb" path="res://scene/battle/battle_frame/attack_bar.tscn" id="13_scmbt"]
-[ext_resource type="Texture2D" uid="uid://cpyoh4qvdarn3" path="res://assets/sprites/levels/level1/enemy/Toriel-4.png" id="13_vrygm"]
-[ext_resource type="Texture2D" uid="uid://de34hgfasagr1" path="res://assets/sprites/levels/level1/enemy/Toriel-8.png" id="15_tlf17"]
-[ext_resource type="Texture2D" uid="uid://c02epjkd4m8gi" path="res://assets/sprites/levels/level1/enemy/Toriel-9.png" id="16_bvdym"]
 [ext_resource type="PackedScene" uid="uid://bn43oxp12t87k" path="res://scene/battle/battle_frame/battle_frame_text.tscn" id="18_tlf17"]
 [ext_resource type="PackedScene" uid="uid://b82oy4rbbvmky" path="res://scene/battle/soul/soul.tscn" id="22_5v8vk"]
 [ext_resource type="Texture2D" uid="uid://badvkitid30pw" path="res://assets/sprites/UI/battle_screen/spr_fightbt_center_1.png" id="23_811ti"]
@@ -43,9 +38,9 @@
 [ext_resource type="Shader" uid="uid://6bitngsffj2n" path="res://shader/123.gdshader" id="36_7dni1"]
 [ext_resource type="Texture2D" uid="uid://rllimxwm6yr4" path="res://assets/sprites/UI/spr_test_xbutton_1.png" id="36_pkfs4"]
 [ext_resource type="Texture2D" uid="uid://btpa8jhqrnqm3" path="res://assets/sprites/levels/level1/Ring.png" id="40_dobon"]
-
-[sub_resource type="Theme" id="Theme_14cdr"]
-RichTextLabel/fonts/normal_font = ExtResource("1_7dni1")
+[ext_resource type="Script" uid="uid://deltq24ei2ai4" path="res://scripts/dialog/expression_dialog.gd" id="41_exprdlg"]
+[ext_resource type="Resource" path="res://resource/portraits/toriel_expressions.tres" id="42_toriexpr"]
+[ext_resource type="Script" uid="uid://bak4twd7ph5ti" path="res://scene/battle/enemy_illustration.gd" id="43_illustration"]
 
 [sub_resource type="Resource" id="Resource_7dni1"]
 script = ExtResource("3_1jdih")
@@ -120,9 +115,10 @@ content = "我应该在时机正好的时候了结你才对！"
 metadata/_custom_type_script = "uid://bk7lyrbkni0wr"
 
 [sub_resource type="Resource" id="Resource_nt6hb"]
-script = ExtResource("3_1jdih")
+script = ExtResource("41_exprdlg")
+expression = &"CRY"
 content = "啊哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈"
-metadata/_custom_type_script = "uid://bk7lyrbkni0wr"
+metadata/_custom_type_script = "uid://deltq24ei2ai4"
 
 [sub_resource type="Curve" id="Curve_wn4hl"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -206,6 +202,8 @@ scale_min = 0.79999995
 scale_max = 1.5
 color_initial_ramp = SubResource("GradientTexture1D_pj0hq")
 alpha_curve = SubResource("CurveTexture_ugcl7")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_j3pel"]
 
 [sub_resource type="Curve" id="Curve_2y3i8"]
 _limits = [0.0, 0.3, 0.0, 1.0]
@@ -793,14 +791,14 @@ glow_intensity = 1.4
 shader = ExtResource("36_7dni1")
 shader_parameter/update_prob = 0.15
 
-[node name="Control" type="Control" unique_id=55133942 node_paths=PackedStringArray("animation_player", "black", "fireball_l", "fireball_r", "overseer", "whole_wing", "whole_wing_particles", "gpu_particles_2d", "gpu_particles_2d_2", "gpu_particles_2d_3", "gpu_particles_2d_4", "beginning", "squeak_player", "select_player", "fight_button", "act_button", "item_button", "mercy_button", "soul", "attack_bar", "battle_frame_text", "battle_frame_border", "dialog_panel", "bullet_player", "enemy_dead_player", "snd_heal", "button_container", "debug_round_input", "player_status", "highest_layer", "enemy_illustration")]
+[node name="Control" type="Control" unique_id=55133942 node_paths=PackedStringArray("animation_player", "black", "fireball_l", "fireball_r", "overseer", "whole_wing", "whole_wing_particles", "gpu_particles_2d", "gpu_particles_2d_2", "gpu_particles_2d_3", "gpu_particles_2d_4", "beginning", "squeak_player", "select_player", "fight_button", "act_button", "item_button", "mercy_button", "soul", "attack_bar", "battle_frame_text", "battle_frame_border", "dialog_panels", "bullet_player", "enemy_dead_player", "snd_heal", "button_container", "debug_round_input", "player_status", "highest_layer", "enemy_illustrations")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = SubResource("Theme_14cdr")
+theme = ExtResource("1_vrygm")
 script = ExtResource("2_ckflk")
 animation_player = NodePath("AnimationPlayer")
 black = NodePath("FrontLayer/TextureRect")
@@ -828,7 +826,7 @@ soul = NodePath("Soul")
 attack_bar = NodePath("BattleFrame/Attack")
 battle_frame_text = NodePath("BattleFrameText")
 battle_frame_border = NodePath("BattleFrame/FrameBorder")
-dialog_panel = NodePath("DialogPanel")
+dialog_panels = [NodePath("DialogPanel")]
 bullet_player = NodePath("Audio/BulletPlayer")
 enemy_dead_player = NodePath("Audio/EnemyDead")
 snd_heal = NodePath("Audio/SndHealC")
@@ -836,7 +834,7 @@ button_container = NodePath("buttons")
 debug_round_input = NodePath("FrontLayer/debug/HBoxContainer/SpinBox")
 player_status = NodePath("FrontLayer/player_status")
 highest_layer = NodePath("HighestLayer")
-enemy_illustration = NodePath("Enemy/Toriel")
+enemy_illustrations = [NodePath("Enemy/Toriel")]
 
 [node name="Enemy" type="Node2D" parent="." unique_id=1032742607]
 
@@ -853,13 +851,14 @@ visible = false
 position = Vector2(320, 150)
 texture = ExtResource("7_7dni1")
 
-[node name="Toriel" type="Sprite2D" parent="Enemy" unique_id=1845950988]
+[node name="Toriel" type="Sprite2D" parent="Enemy" unique_id=1845950988 node_paths=PackedStringArray("dialog_source")]
 material = SubResource("ShaderMaterial_vrygm")
 position = Vector2(320, 150)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("9_8m7n8")
 script = ExtResource("10_nuqra")
-illustrations = Array[Texture2D]([ExtResource("9_8m7n8"), ExtResource("11_8m7n8"), ExtResource("12_8m7n8"), ExtResource("13_vrygm"), ExtResource("15_tlf17"), ExtResource("16_bvdym")])
+expressions = ExtResource("42_toriexpr")
+dialog_source = NodePath("../../DialogPanel")
 metadata/_custom_type_script = "uid://bak4twd7ph5ti"
 
 [node name="FireBallL" type="AnimatedSprite2D" parent="Enemy" unique_id=287194783]
@@ -878,12 +877,17 @@ offset = Vector2(1, -15)
 layout_mode = 0
 master = NodePath("..")
 
+[node name="Soul" parent="." unique_id=172666121 node_paths=PackedStringArray("game") instance=ExtResource("22_5v8vk")]
+position = Vector2(63, 324)
+game = NodePath("..")
+
 [node name="DialogPanel" type="PanelContainer" parent="." unique_id=174031416 node_paths=PackedStringArray("dialog_label")]
 layout_mode = 0
 offset_left = 366.0
 offset_top = 50.0
-offset_right = 622.0
-offset_bottom = 174.0
+offset_right = 613.0
+offset_bottom = 188.0
+theme = ExtResource("1_vrygm")
 theme_override_styles/panel = SubResource("StyleBoxTexture_htemk")
 script = ExtResource("9_tlf17")
 dialog_label = NodePath("DialogText")
@@ -900,10 +904,6 @@ scroll_active = false
 visible_characters_behavior = 1
 script = ExtResource("6_vrygm")
 snd_txt = NodePath("../../Audio/SndTxt2")
-
-[node name="Soul" parent="." unique_id=172666121 node_paths=PackedStringArray("game") instance=ExtResource("22_5v8vk")]
-position = Vector2(63, 324)
-game = NodePath("..")
 
 [node name="BattleFrame" type="Node2D" parent="." unique_id=1053110815]
 z_index = 1
@@ -1031,8 +1031,12 @@ texture = ExtResource("35_vrygm")
 position = Vector2(320, 240)
 scale = Vector2(0.49999997, 0.49999997)
 texture = ExtResource("9_8m7n8")
+script = ExtResource("43_illustration")
+expressions = ExtResource("42_toriexpr")
+metadata/_custom_type_script = "uid://bak4twd7ph5ti"
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="beginning" unique_id=220833209]
+material = SubResource("ShaderMaterial_j3pel")
 position = Vector2(320, 240)
 emitting = false
 amount = 20
@@ -1062,6 +1066,7 @@ offset_top = 388.0
 offset_right = 73.0
 offset_bottom = 428.0
 joystick_mode = 1
+deadzone_ratio = 0.5
 action_left = &"left"
 action_right = &"right"
 action_up = &"up"
@@ -1081,7 +1086,7 @@ position = Vector2(539, 384)
 scale = Vector2(3.1818182, 2.121212)
 texture_normal = ExtResource("35_rm87g")
 texture_pressed = ExtResource("36_pkfs4")
-action = "accept"
+action = "cancel"
 visibility_mode = 1
 
 [node name="bg" type="CanvasLayer" parent="." unique_id=1758856075]
@@ -1157,6 +1162,7 @@ offset_left = 577.0
 offset_top = 21.0
 offset_right = 626.0
 offset_bottom = 52.0
+focus_mode = 0
 text = "jiaxie"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="FrontLayer/debug" unique_id=46231279]
@@ -1172,6 +1178,7 @@ prefix = "回合"
 
 [node name="Button" type="Button" parent="FrontLayer/debug/HBoxContainer" unique_id=100935152]
 layout_mode = 2
+focus_mode = 0
 text = "应用"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=122568036]

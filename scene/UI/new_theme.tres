@@ -1,0 +1,17 @@
+[gd_resource type="Theme" format=3 uid="uid://cdc6iuog2y03s"]
+
+[ext_resource type="FontFile" uid="uid://ikbkbdwpo0mf" path="res://assets/font/普通字体.ttf" id="1_l7ecp"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_y3tmg"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_g88ds"]
+
+[resource]
+Button/colors/font_color = Color(1, 1, 1, 1)
+Button/colors/font_focus_color = Color(1, 1, 0, 1)
+Button/colors/font_hover_color = Color(1, 1, 0, 1)
+Button/colors/font_hover_pressed_color = Color(1, 1, 0, 1)
+Button/fonts/font = ExtResource("1_l7ecp")
+Button/styles/disabled = SubResource("StyleBoxEmpty_y3tmg")
+Button/styles/focus = SubResource("StyleBoxEmpty_g88ds")
+RichTextLabel/fonts/normal_font = ExtResource("1_l7ecp")

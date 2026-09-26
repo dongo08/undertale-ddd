@@ -1,11 +1,11 @@
 [gd_scene format=3 uid="uid://p40nr6suok34"]
 
 [ext_resource type="Script" uid="uid://c6r8lpi76c88r" path="res://scene/UI/main_menu/main_menu.gd" id="1_2oduy"]
+[ext_resource type="Theme" uid="uid://cdc6iuog2y03s" path="res://scene/UI/new_theme.tres" id="1_qv0cf"]
 [ext_resource type="Texture2D" uid="uid://bkjcgos1gkybe" path="res://assets/sprites/UI/main_menu/未标题-1.png" id="1_smsuw"]
 [ext_resource type="Texture2D" uid="uid://b8xv2f76e4m4f" path="res://assets/sprites/UI/main_menu/未标题-2.png" id="2_tkjf2"]
 [ext_resource type="Texture2D" uid="uid://c758lbo53dmuv" path="res://assets/sprites/UI/main_menu/未标题-3.png" id="3_tkjf2"]
 [ext_resource type="Texture2D" uid="uid://l3fb2xb6bb2e" path="res://assets/sprites/UI/main_menu/logo.png" id="5_2eoek"]
-[ext_resource type="FontFile" uid="uid://ikbkbdwpo0mf" path="res://assets/font/普通字体.ttf" id="6_x1wyq"]
 [ext_resource type="AudioStream" uid="uid://cmgl5wpwt8ak7" path="res://assets/sounds/UI/menu/确定.ogg" id="7_qv0cf"]
 [ext_resource type="AudioStream" uid="uid://et5mtmqyleg3" path="res://assets/sounds/UI/menu/选择.ogg" id="8_xitpx"]
 
@@ -85,19 +85,16 @@ scale_max = 0.25
 color = Color(1, 1, 1, 0.78431374)
 alpha_curve = SubResource("CurveTexture_14cdr")
 
-[sub_resource type="LabelSettings" id="LabelSettings_htemk"]
-font = ExtResource("6_x1wyq")
-font_size = 20
-
-[node name="Control" type="Control" unique_id=838868035 node_paths=PackedStringArray("labels")]
+[node name="Control" type="Control" unique_id=838868035 node_paths=PackedStringArray("start_label")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_qv0cf")
 script = ExtResource("1_2oduy")
-labels = [NodePath("VBoxContainer2/StartLabel"), NodePath("VBoxContainer2/DifficultyLabel"), NodePath("VBoxContainer2/ModifiersLabel3"), NodePath("VBoxContainer2/SettingsLabel"), NodePath("VBoxContainer2/ExitLabel")]
+start_label = NodePath("VBoxContainer2/StartLabel")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=734281037]
 layout_mode = 1
@@ -273,45 +270,45 @@ offset_left = 470.0
 offset_top = 297.0
 offset_right = 603.0
 offset_bottom = 466.0
-theme_override_constants/separation = 16
+theme_override_constants/separation = 8
 
-[node name="StartLabel" type="Label" parent="VBoxContainer2" unique_id=460671340]
+[node name="StartLabel" type="Button" parent="VBoxContainer2" unique_id=1616841622]
 layout_mode = 2
 text = "Start"
-label_settings = SubResource("LabelSettings_htemk")
-horizontal_alignment = 2
+flat = true
+alignment = 2
 
-[node name="DifficultyLabel" type="Label" parent="VBoxContainer2" unique_id=462915981]
+[node name="DifficultyLabel" type="Button" parent="VBoxContainer2" unique_id=84552826]
 layout_mode = 2
 offset_transform_enabled = true
 offset_transform_position = Vector2(-20, 0)
 text = "Difficulty"
-label_settings = SubResource("LabelSettings_htemk")
-horizontal_alignment = 2
+flat = true
+alignment = 2
 
-[node name="ModifiersLabel3" type="Label" parent="VBoxContainer2" unique_id=175115786]
+[node name="ModifiersLabel3" type="Button" parent="VBoxContainer2" unique_id=1863121878]
 layout_mode = 2
 offset_transform_enabled = true
 offset_transform_position = Vector2(-40, 0)
 text = "Modifiers"
-label_settings = SubResource("LabelSettings_htemk")
-horizontal_alignment = 2
+flat = true
+alignment = 2
 
-[node name="SettingsLabel" type="Label" parent="VBoxContainer2" unique_id=1882829877]
+[node name="SettingsLabel" type="Button" parent="VBoxContainer2" unique_id=907928251]
 layout_mode = 2
 offset_transform_enabled = true
 offset_transform_position = Vector2(-60, 0)
 text = "Settings"
-label_settings = SubResource("LabelSettings_htemk")
-horizontal_alignment = 2
+flat = true
+alignment = 2
 
-[node name="ExitLabel" type="Label" parent="VBoxContainer2" unique_id=71723307]
+[node name="ExitLabel" type="Button" parent="VBoxContainer2" unique_id=127037098]
 layout_mode = 2
 offset_transform_enabled = true
 offset_transform_position = Vector2(-80, 0)
 text = "Exit"
-label_settings = SubResource("LabelSettings_htemk")
-horizontal_alignment = 2
+flat = true
+alignment = 2
 
 [node name="确定" type="AudioStreamPlayer" parent="." unique_id=734191214]
 stream = ExtResource("7_qv0cf")
@@ -321,3 +318,20 @@ bus = &"Sounds"
 stream = ExtResource("8_xitpx")
 volume_db = -6.0
 bus = &"Sounds"
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=2021287466]
+visible = false
+layout_mode = 0
+offset_right = 470.0
+offset_bottom = 379.0
+
+[connection signal="focus_entered" from="VBoxContainer2/StartLabel" to="." method="_on_button_focused"]
+[connection signal="pressed" from="VBoxContainer2/StartLabel" to="." method="_on_start_label_pressed"]
+[connection signal="focus_entered" from="VBoxContainer2/DifficultyLabel" to="." method="_on_button_focused"]
+[connection signal="pressed" from="VBoxContainer2/DifficultyLabel" to="." method="_on_difficulty_label_pressed"]
+[connection signal="focus_entered" from="VBoxContainer2/ModifiersLabel3" to="." method="_on_button_focused"]
+[connection signal="pressed" from="VBoxContainer2/ModifiersLabel3" to="." method="_on_modifiers_label_3_pressed"]
+[connection signal="focus_entered" from="VBoxContainer2/SettingsLabel" to="." method="_on_button_focused"]
+[connection signal="pressed" from="VBoxContainer2/SettingsLabel" to="." method="_on_settings_label_pressed"]
+[connection signal="focus_entered" from="VBoxContainer2/ExitLabel" to="." method="_on_button_focused"]
+[connection signal="pressed" from="VBoxContainer2/ExitLabel" to="." method="_on_exit_label_pressed"]

@@ -27,6 +27,7 @@
 [ext_resource type="Texture2D" uid="uid://c64m48xjhrqlp" path="res://assets/sprites/UI/spr_test_xbutton_3.png" id="43_slji3"]
 [ext_resource type="Texture2D" uid="uid://rllimxwm6yr4" path="res://assets/sprites/UI/spr_test_xbutton_1.png" id="44_fnkvj"]
 [ext_resource type="Script" uid="uid://q80gar0bkm78" path="res://scripts/typewriter_label.gd" id="50_typewriter"]
+[ext_resource type="Resource" path="res://resource/portraits/eanaro_expressions.tres" id="51_eanaroexpr"]
 
 [sub_resource type="Theme" id="Theme_14cdr"]
 RichTextLabel/fonts/normal_font = ExtResource("5_j1ccn")
@@ -40,7 +41,7 @@ texture_margin_bottom = 16.0
 
 [sub_resource type="AudioStreamPolyphonic" id="AudioStreamPolyphonic_6jj7y"]
 
-[node name="Control" type="Control" unique_id=55133942 node_paths=PackedStringArray("squeak_player", "select_player", "fight_button", "act_button", "item_button", "mercy_button", "soul", "attack_bar", "battle_frame_border", "dialog_panel", "bullet_player", "snd_heal", "button_container", "player_status", "enemy_illustration")]
+[node name="Control" type="Control" unique_id=55133942 node_paths=PackedStringArray("squeak_player", "select_player", "fight_button", "act_button", "item_button", "mercy_button", "soul", "attack_bar", "battle_frame_text", "battle_frame_border", "dialog_panels", "bullet_player", "enemy_dead_player", "snd_heal", "button_container", "player_status", "enemy_illustrations")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -58,25 +59,39 @@ item_button = NodePath("buttons/ItemButton")
 mercy_button = NodePath("buttons/MercyButton")
 soul = NodePath("Soul")
 attack_bar = NodePath("BattleFrame/Attack")
+battle_frame_text = NodePath("BattleFrameText")
 battle_frame_border = NodePath("BattleFrame/FrameBorder")
-dialog_panel = NodePath("PanelContainer")
+dialog_panels = [NodePath("PanelContainer"), NodePath("PanelContainer2")]
 bullet_player = NodePath("Audio/BulletPlayer")
+enemy_dead_player = NodePath("Audio/EnemyDead")
 snd_heal = NodePath("Audio/SndHealC")
 button_container = NodePath("buttons")
 player_status = NodePath("player_status")
-enemy_illustration = NodePath("Eanaro1")
+enemy_illustrations = [NodePath("Eanaro1"), NodePath("Eanaro2")]
 
 [node name="player_status" parent="." unique_id=1176279467 instance=ExtResource("4_1ba6n")]
 layout_mode = 0
 
-[node name="BattleFrameText" parent="." unique_id=638351971 instance=ExtResource("5_qxgud")]
+[node name="BattleFrameText" parent="." unique_id=638351971 node_paths=PackedStringArray("master") instance=ExtResource("5_qxgud")]
 layout_mode = 0
+master = NodePath("..")
 
-[node name="Eanaro1" type="Sprite2D" parent="." unique_id=1970804983]
+[node name="Eanaro1" type="Sprite2D" parent="." unique_id=1970804983 node_paths=PackedStringArray("dialog_source")]
 position = Vector2(317, 147)
 scale = Vector2(0.8, 0.8)
 texture = ExtResource("9_6jj7y")
 script = ExtResource("9_qxgud")
+expressions = ExtResource("51_eanaroexpr")
+dialog_source = NodePath("../PanelContainer")
+metadata/_custom_type_script = "uid://bak4twd7ph5ti"
+
+[node name="Eanaro2" type="Sprite2D" parent="." unique_id=2110640140 node_paths=PackedStringArray("dialog_source")]
+position = Vector2(434, 272)
+scale = Vector2(0.8, 0.8)
+texture = ExtResource("9_6jj7y")
+script = ExtResource("9_qxgud")
+expressions = ExtResource("51_eanaroexpr")
+dialog_source = NodePath("../PanelContainer")
 metadata/_custom_type_script = "uid://bak4twd7ph5ti"
 
 [node name="PanelContainer" type="PanelContainer" parent="." unique_id=174031416 node_paths=PackedStringArray("dialog_label")]
@@ -90,6 +105,29 @@ script = ExtResource("8_sev40")
 dialog_label = NodePath("DialogText")
 
 [node name="DialogText" type="RichTextLabel" parent="PanelContainer" unique_id=745890034 node_paths=PackedStringArray("snd_txt")]
+clip_contents = false
+layout_mode = 2
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_constants/line_separation = 8
+theme_override_font_sizes/normal_font_size = 16
+bbcode_enabled = true
+text = "if your soul is greenif your soul is greenif your soul is greenif your soul is green"
+scroll_active = false
+visible_characters_behavior = 1
+script = ExtResource("50_typewriter")
+snd_txt = NodePath("../../Audio/SndTxt2")
+
+[node name="PanelContainer2" type="PanelContainer" parent="." unique_id=1852007457 node_paths=PackedStringArray("dialog_label")]
+layout_mode = 0
+offset_left = 463.0
+offset_top = 134.0
+offset_right = 632.0
+offset_bottom = 272.0
+theme_override_styles/panel = SubResource("StyleBoxTexture_htemk")
+script = ExtResource("8_sev40")
+dialog_label = NodePath("DialogText")
+
+[node name="DialogText" type="RichTextLabel" parent="PanelContainer2" unique_id=745921018 node_paths=PackedStringArray("snd_txt")]
 clip_contents = false
 layout_mode = 2
 theme_override_colors/default_color = Color(0, 0, 0, 1)
@@ -178,15 +216,19 @@ type = 3
 
 [node name="SqueakPlayer" type="AudioStreamPlayer" parent="Audio" unique_id=1979936531]
 stream = ExtResource("13_rcqy1")
+bus = &"Sounds"
 
 [node name="SelectPlayer" type="AudioStreamPlayer" parent="Audio" unique_id=1239444292]
 stream = ExtResource("14_qyclh")
+bus = &"Sounds"
 
 [node name="SndTxt2" type="AudioStreamPlayer" parent="Audio" unique_id=1957019575]
 stream = ExtResource("32_sev40")
+bus = &"Sounds"
 
 [node name="SndHealC" type="AudioStreamPlayer" parent="Audio" unique_id=2070926976]
 stream = ExtResource("24_j2v24")
+bus = &"Sounds"
 
 [node name="BulletPlayer" type="AudioStreamPlayer" parent="Audio" unique_id=674805961]
 stream = SubResource("AudioStreamPolyphonic_6jj7y")
@@ -194,6 +236,7 @@ bus = &"Sounds"
 
 [node name="EnemyDead" type="AudioStreamPlayer" parent="Audio" unique_id=503130301]
 stream = ExtResource("23_qxgud")
+bus = &"Sounds"
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1890787532]
 layer = 2

@@ -7,13 +7,12 @@ func _ready() -> void:
 	#await get_tree().create_timer(2).timeout
 	_hide_soul()
 	super._ready()
-	dialog_panel.dialog_processed.connect(change_i)
 	ResourceLoader.load_threaded_request("res://scene/battle/levels/level1/level1.tscn")
-	await dialog_panel.finished
+	await dialog_finished
 	battle_frame_text.show_dialog(dialog1)
 	await battle_frame_text.finished
 	battle_frame_text.hide_all()
-	dialog_panel.show_dialog(dialog2)
+	play_dialog_list(dialog2)
 	dialog_panel.dialog_processed.connect(change_scene)
 	
 func change_scene(index:int):
@@ -22,19 +21,5 @@ func change_scene(index:int):
 		BGM.play(preload("uid://cebhob2kiur6x"))
 		Global.change_scene_to_packed(battle_scene)
 		
-func change_i(idx:int):
-	match idx:
-		1:
-			enemy_illustration.change_illustration(1)
-		3:
-			enemy_illustration.change_illustration(0)
-		5:
-			enemy_illustration.change_illustration(3)
-		6:
-			enemy_illustration.change_illustration(2)
-		8:
-			enemy_illustration.change_illustration(3)
-		9:
-			enemy_illustration.change_illustration(2)
-		10:
-			enemy_illustration.change_illustration(0)
+# 立绘表情不再需要手写映射：round 的 dialog_list 和 dialog2 里的 ExpressionDialog 自带表情，
+# Toriel 立绘节点绑定自己的对话框后会自动切换（见 scene/battle/enemy_illustration.gd）。

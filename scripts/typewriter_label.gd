@@ -6,6 +6,8 @@ const DEFAULT_DELAY: float = 0.033
 signal typing_end()
 signal dialog_processed(index:int)
 signal single_dialog_end(index:int)
+## 即将开始打字的这句对话，立绘节点靠它自动切换表情。
+signal dialog_started(dialog: BaseDialog)
 @export var snd_txt: AudioStreamPlayer
 
 var dialog_list: Array[BaseDialog]
@@ -38,8 +40,10 @@ func _display_next_dialog():
 	if dialog_index >= dialog_list.size() or not dialog_list[dialog_index]:
 		end()
 		return
+	var dialog := dialog_list[dialog_index]
 	dialog_processed.emit(dialog_index)
-	var parsed = _parse(dialog_list[dialog_index].content)
+	dialog_started.emit(dialog)
+	var parsed = _parse(dialog.content)
 	text = parsed.text
 	visible_characters = 0
 	_typewrite(parsed.pauses, parsed.speeds,dialog_index)
@@ -87,6 +91,7 @@ func _typewrite(pauses: Dictionary, speeds: Dictionary,index:int):
 			d += pauses[i + 1]
 		await get_tree().create_timer(d).timeout
 		i += 1
+		total=get_total_character_count()
 	_running = false
 	single_dialog_end.emit(index)
 
@@ -106,7 +111,9 @@ func _input(event: InputEvent) -> void:
 
 func end():
 	_running = false
-	typing_end.emit()
+	# 先关掉输入处理再发信号：可能有人在这个信号里立刻让同一个标签开下一段对话，
+	# 关输入的收尾要是排在后面，新对话就再也按不动了
 	set_process_input(false)
 	set_physics_process(false)
+	typing_end.emit()
 	

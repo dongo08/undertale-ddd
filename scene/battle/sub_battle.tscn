@@ -33,6 +33,7 @@
 [ext_resource type="Texture2D" uid="uid://c64m48xjhrqlp" path="res://assets/sprites/UI/spr_test_xbutton_3.png" id="26_gs5ua"]
 [ext_resource type="Texture2D" uid="uid://rllimxwm6yr4" path="res://assets/sprites/UI/spr_test_xbutton_1.png" id="27_xpo8u"]
 [ext_resource type="AudioStream" uid="uid://bbr5ecs56y27u" path="res://assets/sounds/UI/encounter.ogg" id="29_84c2m"]
+[ext_resource type="Resource" path="res://resource/portraits/eanaro_expressions.tres" id="90_eanaroexpr"]
 
 [sub_resource type="Theme" id="Theme_14cdr"]
 RichTextLabel/fonts/normal_font = ExtResource("1_yhlma")
@@ -127,7 +128,7 @@ texture_margin_bottom = 16.0
 
 [sub_resource type="AudioStreamPolyphonic" id="AudioStreamPolyphonic_6jj7y"]
 
-[node name="Control" type="Control" unique_id=55133942 node_paths=PackedStringArray("encounter_player", "black", "squeak_player", "select_player", "fight_button", "act_button", "item_button", "mercy_button", "soul", "attack_bar", "battle_frame_text", "battle_frame_border", "dialog_panel", "button_container", "player_status")]
+[node name="Control" type="Control" unique_id=55133942 node_paths=PackedStringArray("encounter_player", "black", "squeak_player", "select_player", "fight_button", "act_button", "item_button", "mercy_button", "soul", "attack_bar", "battle_frame_text", "battle_frame_border", "dialog_panels", "button_container", "player_status", "enemy_illustrations")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -150,9 +151,10 @@ soul = NodePath("Soul")
 attack_bar = NodePath("BattleFrame/Attack")
 battle_frame_text = NodePath("BattleFrameText")
 battle_frame_border = NodePath("BattleFrame/FrameBorder")
-dialog_panel = NodePath("PanelContainer")
+dialog_panels = [NodePath("PanelContainer")]
 button_container = NodePath("buttons")
 player_status = NodePath("player_status")
+enemy_illustrations = [NodePath("Eanaro1")]
 
 [node name="player_status" parent="." unique_id=303389071 instance=ExtResource("3_odx28")]
 layout_mode = 0
@@ -234,11 +236,13 @@ theme_override_font_sizes/normal_font_size = 24
 text = "4"
 visible_characters_behavior = 1
 
-[node name="Eanaro1" type="Sprite2D" parent="." unique_id=1970804983]
+[node name="Eanaro1" type="Sprite2D" parent="." unique_id=1970804983 node_paths=PackedStringArray("dialog_source")]
 position = Vector2(317, 147)
 scale = Vector2(0.8, 0.8)
 texture = ExtResource("8_4xqvy")
 script = ExtResource("9_i6qve")
+expressions = ExtResource("90_eanaroexpr")
+dialog_source = NodePath("../PanelContainer")
 metadata/_custom_type_script = "uid://bak4twd7ph5ti"
 
 [node name="PanelContainer" type="PanelContainer" parent="." unique_id=174031416 node_paths=PackedStringArray("dialog_label")]

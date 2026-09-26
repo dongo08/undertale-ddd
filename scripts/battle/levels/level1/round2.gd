@@ -23,13 +23,13 @@ func _physics_process(delta: float) -> void:
 		process+=1
 		rad+=delta*-3.72
 		if process%3==0:
-			var bullet=spawn_base_bullet(pos+Vector2.RIGHT.rotated(rad)*distance,Vector2.RIGHT.rotated(rad+PI/2),100)
+			var bullet=spawn_base_bullet(pos+Vector2.RIGHT.rotated(rad)*distance,Vector2.RIGHT.rotated(rad+PI/2),100,5)
 			bullet.scale*=0.5
-			var bullet2=spawn_base_bullet(pos+Vector2.RIGHT.rotated(rad)*distance,Vector2.RIGHT.rotated(rad),100)
+			var bullet2=spawn_base_bullet(pos+Vector2.RIGHT.rotated(rad)*distance,Vector2.RIGHT.rotated(rad),100,5)
 			bullet2.scale*=0.5
-			var bullet3=spawn_base_bullet(pos+Vector2.RIGHT.rotated(rad-PI)*distance,Vector2.RIGHT.rotated(rad-PI+PI/2),100)
+			var bullet3=spawn_base_bullet(pos+Vector2.RIGHT.rotated(rad-PI)*distance,Vector2.RIGHT.rotated(rad-PI+PI/2),100,5)
 			bullet3.scale*=0.5
-			var bullet4=spawn_base_bullet(pos+Vector2.RIGHT.rotated(rad-PI)*distance,Vector2.RIGHT.rotated(rad-PI),100)
+			var bullet4=spawn_base_bullet(pos+Vector2.RIGHT.rotated(rad-PI)*distance,Vector2.RIGHT.rotated(rad-PI),100,5)
 			bullet4.scale*=0.5
 			self_play_sound(SE_TAN_00,0,-6)
 func generate_circle_bullet():

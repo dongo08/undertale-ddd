@@ -3,7 +3,7 @@ class_name SineBullet
 
 @export var amplitude: float = 200.0
 @export var center_x:float=320
-@export var period:float=4
+@export var period:float=5
 @export var speed: float = 200.0
 @export var move_right: bool = true
 

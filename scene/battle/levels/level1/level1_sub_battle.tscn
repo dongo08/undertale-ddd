@@ -14,11 +14,8 @@
 [ext_resource type="Script" uid="uid://ehecvdaehpkh" path="res://scene/battle/battle_frame/choose_grid.gd" id="12_0ma2o"]
 [ext_resource type="Texture2D" uid="uid://oulq55qx8bvl" path="res://assets/sprites/levels/level1/enemy/Toriel-1.png" id="13_62146"]
 [ext_resource type="Script" uid="uid://bak4twd7ph5ti" path="res://scene/battle/enemy_illustration.gd" id="14_glg4g"]
-[ext_resource type="Texture2D" uid="uid://cw56b7s1nayfv" path="res://assets/sprites/levels/level1/enemy/Toriel-2.png" id="15_gskto"]
 [ext_resource type="Texture2D" uid="uid://ky0glcmhfiq3" path="res://assets/sprites/UI/battle_screen/spr_blconwdshrt_0.png" id="15_hncx8"]
 [ext_resource type="Script" uid="uid://6oxqy74sbkkx" path="res://scene/battle/battle_frame/dialog_panel.gd" id="16_85ehr"]
-[ext_resource type="Texture2D" uid="uid://cj7a6tcgynwt2" path="res://assets/sprites/levels/level1/enemy/Toriel-3.png" id="16_fgjx5"]
-[ext_resource type="Texture2D" uid="uid://cpyoh4qvdarn3" path="res://assets/sprites/levels/level1/enemy/Toriel-4.png" id="17_62146"]
 [ext_resource type="PackedScene" uid="uid://b82oy4rbbvmky" path="res://scene/battle/soul/soul.tscn" id="17_g5f2j"]
 [ext_resource type="Script" uid="uid://bxxkmygk51k30" path="res://scene/battle/battle_frame/battle_frame_border.gd" id="18_dcmrp"]
 [ext_resource type="PackedScene" uid="uid://b5ry1mecij7jb" path="res://scene/battle/battle_frame/attack_bar.tscn" id="19_buf1w"]
@@ -36,6 +33,8 @@
 [ext_resource type="Texture2D" uid="uid://c64m48xjhrqlp" path="res://assets/sprites/UI/spr_test_xbutton_3.png" id="31_xevq8"]
 [ext_resource type="AudioStream" uid="uid://bbr5ecs56y27u" path="res://assets/sounds/UI/encounter.ogg" id="32_gskto"]
 [ext_resource type="Texture2D" uid="uid://rllimxwm6yr4" path="res://assets/sprites/UI/spr_test_xbutton_1.png" id="32_o00t7"]
+[ext_resource type="Script" uid="uid://deltq24ei2ai4" path="res://scripts/dialog/expression_dialog.gd" id="33_exprdlg"]
+[ext_resource type="Resource" path="res://resource/portraits/toriel_expressions.tres" id="34_toriexpr"]
 
 [sub_resource type="Theme" id="Theme_14cdr"]
 RichTextLabel/fonts/normal_font = ExtResource("1_v0dll")
@@ -51,9 +50,10 @@ content = "我知道了……"
 metadata/_custom_type_script = "uid://bk7lyrbkni0wr"
 
 [sub_resource type="Resource" id="Resource_gskto"]
-script = ExtResource("7_1j7dk")
+script = ExtResource("33_exprdlg")
 content = "我必须要把你留在这里，除非你能证明我的猜测是错的。"
-metadata/_custom_type_script = "uid://bk7lyrbkni0wr"
+expression = &"SAD"
+metadata/_custom_type_script = "uid://deltq24ei2ai4"
 
 [sub_resource type="Resource" id="Resource_fgjx5"]
 script = ExtResource("7_1j7dk")
@@ -82,9 +82,10 @@ content = "最近这里一直很安静啊。"
 metadata/_custom_type_script = "uid://bk7lyrbkni0wr"
 
 [sub_resource type="Resource" id="Resource_t0uwl"]
-script = ExtResource("7_1j7dk")
+script = ExtResource("33_exprdlg")
 content = "除了有一股不祥的声音在叫我逃走。"
-metadata/_custom_type_script = "uid://bk7lyrbkni0wr"
+expression = &"SAD"
+metadata/_custom_type_script = "uid://deltq24ei2ai4"
 
 [sub_resource type="Resource" id="Resource_pmkru"]
 script = ExtResource("7_1j7dk")
@@ -92,9 +93,10 @@ content = "我也注意到了你衣服上那些细小的尘埃。"
 metadata/_custom_type_script = "uid://bk7lyrbkni0wr"
 
 [sub_resource type="Resource" id="Resource_fpb41"]
-script = ExtResource("7_1j7dk")
+script = ExtResource("33_exprdlg")
 content = "那些并不是从你来时就有的。"
-metadata/_custom_type_script = "uid://bk7lyrbkni0wr"
+expression = &"ANGRY"
+metadata/_custom_type_script = "uid://deltq24ei2ai4"
 
 [sub_resource type="Resource" id="Resource_bcd3e"]
 script = ExtResource("7_1j7dk")
@@ -102,14 +104,16 @@ content = "或许那些是其他怪物的？"
 metadata/_custom_type_script = "uid://bk7lyrbkni0wr"
 
 [sub_resource type="Resource" id="Resource_kadyx"]
-script = ExtResource("7_1j7dk")
+script = ExtResource("33_exprdlg")
 content = "我一直想说服是自己想的太多。"
-metadata/_custom_type_script = "uid://bk7lyrbkni0wr"
+expression = &"DEFEATED"
+metadata/_custom_type_script = "uid://deltq24ei2ai4"
 
 [sub_resource type="Resource" id="Resource_tvbmv"]
-script = ExtResource("7_1j7dk")
+script = ExtResource("33_exprdlg")
 content = "但每当我看到你时我都知道这不是。"
-metadata/_custom_type_script = "uid://bk7lyrbkni0wr"
+expression = &"WORRIED"
+metadata/_custom_type_script = "uid://deltq24ei2ai4"
 
 [sub_resource type="Resource" id="Resource_40430"]
 script = ExtResource("7_1j7dk")
@@ -117,19 +121,22 @@ content = "你的脸上闪烁着残忍。"
 metadata/_custom_type_script = "uid://bk7lyrbkni0wr"
 
 [sub_resource type="Resource" id="Resource_7ipx1"]
-script = ExtResource("7_1j7dk")
+script = ExtResource("33_exprdlg")
 content = "而且你玩具刀挥得这么轻松。"
-metadata/_custom_type_script = "uid://bk7lyrbkni0wr"
+expression = &"DEFEATED"
+metadata/_custom_type_script = "uid://deltq24ei2ai4"
 
 [sub_resource type="Resource" id="Resource_p1usd"]
-script = ExtResource("7_1j7dk")
+script = ExtResource("33_exprdlg")
 content = "我也许是在做无用功，但尽管如此，我还是希望你能停下。"
-metadata/_custom_type_script = "uid://bk7lyrbkni0wr"
+expression = &"WORRIED"
+metadata/_custom_type_script = "uid://deltq24ei2ai4"
 
 [sub_resource type="Resource" id="Resource_3ongg"]
-script = ExtResource("7_1j7dk")
+script = ExtResource("33_exprdlg")
 content = "现在，回去。"
-metadata/_custom_type_script = "uid://bk7lyrbkni0wr"
+expression = &"ANGRY"
+metadata/_custom_type_script = "uid://deltq24ei2ai4"
 
 [sub_resource type="Resource" id="Resource_uhg5j"]
 script = ExtResource("6_h5thf")
@@ -153,7 +160,7 @@ texture_margin_bottom = 16.0
 
 [sub_resource type="AudioStreamPolyphonic" id="AudioStreamPolyphonic_6jj7y"]
 
-[node name="Control" type="Control" unique_id=55133942 node_paths=PackedStringArray("encounter_player", "black", "squeak_player", "select_player", "fight_button", "act_button", "item_button", "mercy_button", "soul", "attack_bar", "battle_frame_text", "battle_frame_border", "dialog_panel", "bullet_player", "button_container", "player_status", "enemy_illustration")]
+[node name="Control" type="Control" unique_id=55133942 node_paths=PackedStringArray("encounter_player", "black", "squeak_player", "select_player", "fight_button", "act_button", "item_button", "mercy_button", "soul", "attack_bar", "battle_frame_text", "battle_frame_border", "dialog_panels", "bullet_player", "button_container", "player_status", "enemy_illustrations")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -178,11 +185,11 @@ soul = NodePath("Soul")
 attack_bar = NodePath("BattleFrame/Attack")
 battle_frame_text = NodePath("BattleFrameText")
 battle_frame_border = NodePath("BattleFrame/FrameBorder")
-dialog_panel = NodePath("PanelContainer")
+dialog_panels = [NodePath("PanelContainer")]
 bullet_player = NodePath("Audio/BulletPlayer")
 button_container = NodePath("buttons")
 player_status = NodePath("player_status")
-enemy_illustration = NodePath("Toriel")
+enemy_illustrations = [NodePath("Toriel")]
 
 [node name="player_status" parent="." unique_id=303389071 instance=ExtResource("9_7h0kh")]
 layout_mode = 0
@@ -284,12 +291,13 @@ theme_override_font_sizes/normal_font_size = 24
 text = "4"
 visible_characters_behavior = 1
 
-[node name="Toriel" type="Sprite2D" parent="." unique_id=1970804983]
+[node name="Toriel" type="Sprite2D" parent="." unique_id=1970804983 node_paths=PackedStringArray("dialog_source")]
 position = Vector2(320, 140)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("13_62146")
 script = ExtResource("14_glg4g")
-illustrations = Array[Texture2D]([ExtResource("13_62146"), ExtResource("15_gskto"), ExtResource("16_fgjx5"), ExtResource("17_62146")])
+expressions = ExtResource("34_toriexpr")
+dialog_source = NodePath("../PanelContainer")
 metadata/_custom_type_script = "uid://bak4twd7ph5ti"
 
 [node name="PanelContainer" type="PanelContainer" parent="." unique_id=174031416 node_paths=PackedStringArray("dialog_label")]
@@ -392,15 +400,19 @@ type = 3
 
 [node name="SqueakPlayer" type="AudioStreamPlayer" parent="Audio" unique_id=1979936531]
 stream = ExtResource("25_syi34")
+bus = &"Sounds"
 
 [node name="SelectPlayer" type="AudioStreamPlayer" parent="Audio" unique_id=1239444292]
 stream = ExtResource("26_67ln0")
+bus = &"Sounds"
 
 [node name="SndTxt" type="AudioStreamPlayer" parent="Audio" unique_id=1201341170]
 stream = ExtResource("27_w45b8")
+bus = &"Sounds"
 
 [node name="SndTxt2" type="AudioStreamPlayer" parent="Audio" unique_id=1957019575]
 stream = ExtResource("30_g26pf")
+bus = &"Sounds"
 
 [node name="BulletPlayer" type="AudioStreamPlayer" parent="Audio" unique_id=674805961]
 stream = SubResource("AudioStreamPolyphonic_6jj7y")

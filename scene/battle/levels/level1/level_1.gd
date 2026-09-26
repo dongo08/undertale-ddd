@@ -45,26 +45,26 @@ func rand_update_effect():
 	Global.create_rand_update_effect(self)
 
 	
-func _on_enemy_dead():
+func _on_enemy_dead(_index:int):
 	attack_bar.enemy_dead.disconnect(_on_enemy_dead)
 	attack_bar.enemy_dead.connect(_on_enemy_dead2)
-	enemy_illustration.change_illustration(4)
+	enemy_illustration.change_expression(ExpressionSet.HURT) # 原下标 4
 	create_explode_effect(Vector2(320,150),Vector2.ONE*0.6,Color.RED)
 	create_blood_effect(Vector2(320,150))
 	set_process_input(false)
 	await get_tree().create_timer(0.8).timeout
-	dialog_panel.show_dialog(end_dialog3)
-	dialog_panel.finished.disconnect(enemy_turn_finished)
+	play_dialog_list(end_dialog3)
+	dialog_finished.disconnect(enemy_turn_finished)
 	dialog_panel.dialog_processed.connect(func(index):
 												if index==5:
-													enemy_illustration.change_illustration(5)
+													# 立绘表情由 end_dialog3 里那句对话自带（CRY），这里只负责扣血
 													attack_bar.coverage_damage=284600
 													await get_tree().create_timer(0.2).timeout
 													attack_bar.attack_cursor.effect())
-func _on_enemy_dead2():
+func _on_enemy_dead2(_index:int):
 	create_explode_effect(Vector2(320,150),Vector2.ONE*0.6,Color.RED)
 	create_blood_effect(Vector2(320,150))
-	dialog_panel.close()
+	close_dialogs()
 	await get_tree().create_timer(0.8).timeout
 	var progress:float=0
 	enemy_dead_player.play()
@@ -97,22 +97,22 @@ func enemy_turn_finished(mgr:BaseEnemyTurnManager=null):
 		whole_wing_particles.emitting=false
 		
 		await get_tree().create_timer(2).timeout
-		dialog_panel.finished.disconnect(enemy_turn_bullet)
-		dialog_panel.show_dialog(end_dialog)
-		await dialog_panel.finished
-		dialog_panel.finished.connect(enemy_turn_finished)
+		dialog_finished.disconnect(enemy_turn_bullet)
+		play_dialog_list(end_dialog)
+		await dialog_finished
+		dialog_finished.connect(enemy_turn_finished)
 		battle_data.player_status.attack=256000
 		end_tween=create_tween()
 		end_tween.tween_property(black,"modulate:a",1,2)
 		end_tween.tween_callback(func(): set_battleframe_polygon();\
-									enemy_illustration.change_illustration(2);\
+									enemy_illustration.change_expression(ExpressionSet.WORRIED);\
 									overseer.hide();whole_wing.hide();\
 									fireball_l.hide();fireball_r.hide();\
 									soul.hide();\
 									end_fireball_group.queue_free();\
 									button_container.position=BUTTON_CONTAINER_POSITION)
 		end_tween.tween_property(black,"modulate:a",0,1)
-		end_tween.tween_callback(dialog_panel.show_dialog.bind(end_dialog2))
+		end_tween.tween_callback(play_dialog_list.bind(end_dialog2))
 		round_index+=1
 		return
 	

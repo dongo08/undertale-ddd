@@ -9,3 +9,5 @@ class_name EnemyStatus
 @export var descriptive_defense:String="100"
 @export var description:String="是一个一个"
 @export var invincible:bool=false
+## 这个敌人自己的 ACT 选项（“查看”由代码固定放第一个，不用写在这里）
+@export var acts:Array[EnemyAct]=[]

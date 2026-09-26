@@ -14,15 +14,14 @@ func start():
 	
 func generate_sine_bullet():
 	var tween=create_tween()
-	tween.tween_property(self,"sin_speed",200,0.5)
-	tween.tween_property(self,"sin_speed",60,1)
-	tween.tween_property(self,"sin_speed",200,1)
-	tween.tween_property(self,"sin_speed",60,1)
-	tween.tween_property(self,"sin_speed",150,1)
+	tween.tween_property(self,"sin_speed",200,0.5).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+	tween.tween_property(self,"sin_speed",50,1.5).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+	tween.tween_property(self,"sin_speed",200,1.2).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+	tween.tween_property(self,"sin_speed",60,1).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
 	var emit_pos=Vector2(340,30)
 	for i in range(40):
-		spawn_sin_bullet(emit_pos,sin_speed,false,Vector2.ONE,5)
-		spawn_sin_bullet(Vector2(300,30),sin_speed+20,true,Vector2.ONE,5)
+		spawn_sin_bullet(emit_pos,sin_speed,false,Vector2.ONE,5.5)
+		spawn_sin_bullet(Vector2(300,30),sin_speed+20,true,Vector2.ONE,5.4)
 		await get_tree().create_timer(0.1).timeout
 	await get_tree().create_timer(3).timeout
 	end()

@@ -49,7 +49,12 @@ enum Choice{
 @export var attack_bar: AttackBar
 @export var battle_frame_text:BattleFrameText
 @export var battle_frame_border: BattleFrameBorder
-@export var dialog_panel: DialogPanel
+@export var dialog_panels: Array[DialogPanel] = []
+
+## 主对话框（第一个），单敌人场景和老代码直接用这个。
+var dialog_panel: DialogPanel:
+	get:
+		return dialog_panels[0] if not dialog_panels.is_empty() else null
 @export var bullet_player: AudioStreamPlayer
 @export var enemy_dead_player: AudioStreamPlayer
 @export var snd_heal: AudioStreamPlayer
@@ -57,7 +62,15 @@ enum Choice{
 @export var debug_round_input: SpinBox
 @export var player_status: PlayerStatusPanel
 @export var highest_layer: CanvasLayer
-@export var enemy_illustration:EnemyIllustration
+## 每个敌人的立绘，下标 = 敌人下标（和 dialog_panels、battle_data.enemys 对齐）
+@export var enemy_illustrations: Array[EnemyIllustration] = []
+## 敌人死亡时立绘淡出的时长（0 = 立刻消失）
+@export var enemy_death_fade_duration: float = 0.6
+
+## 主立绘（第一个），Boss 关卡的老代码直接用这个
+var enemy_illustration: EnemyIllustration:
+	get:
+		return enemy_illustrations[0] if not enemy_illustrations.is_empty() else null
 @onready var buttons:Array[BattleActionButton]=[fight_button,act_button,item_button,mercy_button]
 
 var choice_progress:Choice:
@@ -72,6 +85,13 @@ var choice_index:int=0
 var page_index:int=0
 var round_index:int=0
 
+## ACT 列表里固定第一个显示的选项
+const CHECK_ACT_NAME := "查看"
+## 当前能选中的敌人下标（活着的敌人，顺序就是选敌列表的顺序）
+var selectable_enemies:Array[int]=[]
+## 进去 ACT 列表时锁定的敌人下标
+var act_enemy_index:int=0
+
 ##玩家回合开始时所有场景准备好后触发
 signal round_start(index:int)
 ##玩家回合结束时所有场景准备好后触发
@@ -84,10 +104,14 @@ signal enemy_round_start(index:int)
 signal state_changed()
 ##玩家选择对象改变
 signal choice_changed()
+##一段对话全部播完（所有批次都播完，替代原来的 dialog_panel.finished）
+signal dialog_finished()
+##所有敌人都死了（要不要切胜利/结算场景由关卡脚本决定）
+signal all_enemies_dead()
 
 func _ready() -> void:
 	button_container.position=BUTTON_CONTAINER_POSITION
-	dialog_panel.finished.connect(enemy_turn_bullet)
+	dialog_finished.connect(enemy_turn_bullet)
 	attack_bar.attack_done.connect(enemy_turn_start)
 	attack_bar.enemy_dead.connect(_on_enemy_dead)
 	soul.player_status=battle_data.player_status
@@ -126,7 +150,7 @@ func enemy_turn_start():
 	for i in battle_frame_text.finished.get_connections():
 		battle_frame_text.finished.disconnect(i["callable"])
 	if !battle_data.rounds[round_index].dialog_list.is_empty():
-		dialog_panel.show_dialog(battle_data.rounds[round_index].dialog_list)
+		play_dialog_list(battle_data.rounds[round_index].dialog_list)
 	else:
 		enemy_turn_bullet()
 func enemy_turn_bullet():
@@ -140,6 +164,220 @@ func enemy_turn_bullet():
 	soul.show()
 	enemy_turn_manager.start()
 	enemy_round_start.emit(round_index)
+
+
+## ===== 多敌人对话导演 =====
+## dialog_list 的元素规则：
+## - 单句（BaseDialog / ExpressionDialog）：第 0 个敌人说的（ExpressionDialog 可以填 enemy_index），
+##   连续的单句会自动合并成同一批，所以单敌人时的表现和以前完全一样（dialog_processed 下标也不变）
+## - DialogBatch：一批“同时说”的对话，里面每句自己指定 enemy_index
+## 一批里同一个敌人的多句按顺序显示在它自己的对话框上，不同敌人之间同时显示；
+## 一批全部说完才轮到下一批，全部播完发 dialog_finished。
+
+var _dialog_batches: Array = []
+var _dialog_batch_index: int = 0
+var _pending_panels: int = 0
+## 每次 play_dialog_list / close_dialogs 都会加一，用来作废已经排队的延迟调用
+var _dialog_generation: int = 0
+
+
+## 播放一段对话
+func play_dialog_list(dialogs: Array) -> void:
+	_dialog_generation += 1
+	_clear_dialog_panel_connections()
+	_dialog_batches = _split_dialog_batches(dialogs)
+	_dialog_batch_index = -1
+	_next_dialog_batch()
+
+
+## 关掉所有对话框（原来 dialog_panel.close() 的多敌人版本）
+func close_dialogs() -> void:
+	_dialog_generation += 1
+	_clear_dialog_panel_connections()
+	_dialog_batches = []
+	_dialog_batch_index = 0
+	_pending_panels = 0
+	for panel in dialog_panels:
+		if panel:
+			panel.close()
+
+
+## 第 index 个敌人的对话框，没有就用第一个能用的（并报警说明原因）
+func panel_for_enemy(index: int) -> DialogPanel:
+	var panel := panel_at(index)
+	if panel != null:
+		return panel
+	var fallback := first_valid_dialog_panel()
+	if fallback == null:
+		push_warning("敌人 %d 没有可用的对话框：dialog_panels 是空的，或者里面全是空节点（检查节点路径，以及根节点 node_paths 里有没有 dialog_panels）。" % index)
+		return null
+	push_warning("敌人 %d 没有自己的对话框（dialog_panels 第 %d 个是空节点或不存在），先用 %s。" % [index, index, fallback.name])
+	return fallback
+
+
+## 第一个真正接上的对话框，没有就返回 null
+func first_valid_dialog_panel() -> DialogPanel:
+	for panel in dialog_panels:
+		if panel != null:
+			return panel
+	return null
+
+
+## 这个对话框能不能显示；不能就报警并跳过这一组
+func _can_show_dialog_on(panel: DialogPanel, enemy_index: int) -> bool:
+	if panel == null:
+		return false # panel_for_enemy 已经报过警了
+	if panel.dialog_label == null:
+		push_warning("敌人 %d 的对话框 %s 没有接 dialog_label，这组对白没法显示，已跳过。" % [enemy_index, panel.name])
+		return false
+	return true
+
+
+## 第 index 个敌人的对话框；越界返回 null（不回退）
+func panel_at(index: int) -> DialogPanel:
+	if index < 0 or index >= dialog_panels.size():
+		return null
+	return dialog_panels[index]
+
+
+## 第 index 个敌人的立绘；越界返回 null
+func portrait_for_enemy(index: int) -> EnemyIllustration:
+	if index < 0 or index >= enemy_illustrations.size():
+		return null
+	return enemy_illustrations[index]
+
+
+## 让第 index 个敌人的立绘淡出消失（关卡脚本也能单独调）
+func fade_out_enemy_portrait(index: int) -> void:
+	var portrait := portrait_for_enemy(index)
+	if portrait == null:
+		return
+	if enemy_death_fade_duration <= 0:
+		portrait.hide()
+		return
+	var tween := create_tween()
+	tween.tween_property(portrait, "modulate:a", 0.0, enemy_death_fade_duration)
+	tween.tween_callback(portrait.hide)
+
+
+## 把 dialog_list 切成一批一批
+func _split_dialog_batches(dialogs: Array) -> Array:
+	var batches: Array = []
+	var pending: Array = [] # 连续的单句攒成一批
+	for dialog in dialogs:
+		if dialog == null:
+			continue
+		if dialog is DialogBatch:
+			_flush_pending_batch(batches, pending)
+			var batch := _group_by_enemy((dialog as DialogBatch).dialogs)
+			if not batch.is_empty():
+				batches.append(batch)
+		else:
+			pending.append(dialog)
+	_flush_pending_batch(batches, pending)
+	return batches
+
+
+func _flush_pending_batch(batches: Array, pending: Array) -> void:
+	if pending.is_empty():
+		return
+	batches.append(_group_by_enemy(pending))
+	pending.clear()
+
+
+static func _enemy_index_of(dialog: Variant) -> int:
+	if dialog is ExpressionDialog:
+		return (dialog as ExpressionDialog).enemy_index
+	return 0
+
+
+## 一批里按敌人分组，保持出现顺序：[[{enemy_index, dialogs}, ...], ...]
+static func _group_by_enemy(dialogs: Array) -> Array:
+	var order: Array[int] = []
+	var groups: Dictionary = {}
+	for value in dialogs:
+		var dialog := value as BaseDialog
+		if dialog == null:
+			continue
+		var index := _enemy_index_of(dialog)
+		if not groups.has(index):
+			var group: Array[BaseDialog] = []
+			groups[index] = group
+			order.append(index)
+		(groups[index] as Array[BaseDialog]).append(dialog)
+	var result: Array = []
+	for index in order:
+		result.append({"enemy_index": index, "dialogs": groups[index]})
+	return result
+
+
+func _next_dialog_batch(generation: int = -1) -> void:
+	if generation >= 0 and generation != _dialog_generation:
+		return # 这段对话已经被新的 play_dialog_list / close_dialogs 顶掉了
+	_dialog_batch_index += 1
+	if _dialog_batch_index >= _dialog_batches.size():
+		_pending_panels = 0
+		dialog_finished.emit()
+		return
+	var batch: Array = _dialog_batches[_dialog_batch_index]
+	# 先把这一批的对白按对话框归拢：同一个对话框（比如越界回退）里的对白合并成一段，避免同一帧显示两次
+	var panel_order: Array[DialogPanel] = []
+	var panel_dialogs: Dictionary = {}
+	for group: Dictionary in batch:
+		var panel := panel_for_enemy(group["enemy_index"])
+		if not _can_show_dialog_on(panel, group["enemy_index"]):
+			continue
+		if not panel_dialogs.has(panel):
+			var queue: Array[BaseDialog] = []
+			panel_dialogs[panel] = queue
+			panel_order.append(panel)
+		var group_dialogs: Array[BaseDialog] = group["dialogs"]
+		(panel_dialogs[panel] as Array[BaseDialog]).append_array(group_dialogs)
+	if panel_order.is_empty():
+		_next_dialog_batch()
+		return
+	# 只把“真的显示出来了”的对话框算进等待列表：坏掉的面板不会把整段对话卡死
+	var shown: Array[DialogPanel] = []
+	for panel in panel_order:
+		panel.show_dialog(panel_dialogs[panel])
+		if panel.visible:
+			shown.append(panel)
+		else:
+			push_warning("对话框 %s 没能显示，这一组对白跳过。" % panel.name)
+	_pending_panels = shown.size()
+	if _pending_panels <= 0:
+		_next_dialog_batch()
+		return
+	for panel in shown:
+		panel.finished.connect(_on_batch_panel_finished, CONNECT_ONE_SHOT)
+	_close_inactive_panels(panel_order)
+
+
+func _on_batch_panel_finished() -> void:
+	if _pending_panels <= 0:
+		return # 这一批已经收尾了，多出来的 finished 忽略掉
+	_pending_panels -= 1
+	if _pending_panels <= 0:
+		# 等这一帧的调用栈退干净再开下一批：
+		# 面板的 hide()、标签的关输入这些都发生在信号回调“之后”，
+		# 立刻在这里开下一批会被它们的收尾盖掉（面板被藏、输入被关）。
+		_defer_next_dialog_batch(_dialog_generation)
+
+
+func _defer_next_dialog_batch(generation: int) -> void:
+	_next_dialog_batch.bind(generation).call_deferred()
+
+
+func _close_inactive_panels(active: Array[DialogPanel]) -> void:
+	for panel in dialog_panels:
+		if panel and not active.has(panel):
+			panel.close()
+
+
+func _clear_dialog_panel_connections() -> void:
+	for panel in dialog_panels:
+		if panel and panel.finished.is_connected(_on_batch_panel_finished):
+			panel.finished.disconnect(_on_batch_panel_finished)
 
 func enemy_turn_finished(mgr:BaseEnemyTurnManager=null):
 	if mgr:
@@ -183,20 +421,46 @@ func _input(event: InputEvent) -> void:
 					select_player.play()
 				elif event.is_action_pressed("cancel"):
 					_return_button()
+				elif event.is_action_pressed("left",true):
+					_move_choice_cursor(selectable_enemies.size(),0,-1)
+				elif event.is_action_pressed("right",true):
+					_move_choice_cursor(selectable_enemies.size(),0,1)
+				elif event.is_action_pressed("up",true):
+					_move_choice_cursor(selectable_enemies.size(),-1,0)
+				elif event.is_action_pressed("down",true):
+					_move_choice_cursor(selectable_enemies.size(),1,0)
 		BattleState.ACT:
 			if choice_progress==Choice.ENEMY:
 				if event.is_action_pressed("accept"):
-					_act2(0)
+					_act2(selected_enemy_index())
 					select_player.play()
 				elif event.is_action_pressed("cancel"):
 					_return_button()
+				elif event.is_action_pressed("left",true):
+					_move_choice_cursor(selectable_enemies.size(),0,-1)
+				elif event.is_action_pressed("right",true):
+					_move_choice_cursor(selectable_enemies.size(),0,1)
+				elif event.is_action_pressed("up",true):
+					_move_choice_cursor(selectable_enemies.size(),-1,0)
+				elif event.is_action_pressed("down",true):
+					_move_choice_cursor(selectable_enemies.size(),1,0)
 			elif choice_progress==Choice.ACT:
 				if event.is_action_pressed("accept"):
-					_act3(0)
+					_act3(choice_index)
 					select_player.play()
 				elif event.is_action_pressed("cancel"):
+					# 退回选敌列表，光标回到刚才那个敌人身上
+					choice_index=maxi(0,selectable_enemies.find(act_enemy_index))
 					_act1()
 					squeak_player.play()
+				elif event.is_action_pressed("left",true):
+					_move_choice_cursor(act_list_for(act_enemy_index).size(),0,-1)
+				elif event.is_action_pressed("right",true):
+					_move_choice_cursor(act_list_for(act_enemy_index).size(),0,1)
+				elif event.is_action_pressed("up",true):
+					_move_choice_cursor(act_list_for(act_enemy_index).size(),-1,0)
+				elif event.is_action_pressed("down",true):
+					_move_choice_cursor(act_list_for(act_enemy_index).size(),1,0)
 		BattleState.ITEM:
 			
 			if choice_progress==Choice.ITEM:
@@ -259,11 +523,15 @@ func _fight_1():
 	choice_progress=Choice.ENEMY
 	state=BattleState.FIGHT
 	battle_frame_text.skip()
+	_refresh_selectable_enemies()
 	battle_frame_text.show_choose(choice_progress)
-	soul.global_position=battle_frame_text.get_choice_position(choice_index)+SOUL_CHOICE_OFFSET
+	_soul_to_choice()
 
 func _fight_2():
-	attack_bar.attack()
+	if selectable_enemies.is_empty():
+		push_warning("没有可以攻击的敌人。")
+		return
+	attack_bar.attack(selected_enemy_index())
 	choice_progress=Choice.NONE
 	battle_frame_text.hide_all()
 	soul.position=Vector2(10000,10000)
@@ -273,25 +541,139 @@ func _act1():
 	choice_progress=Choice.ENEMY
 	state=BattleState.ACT
 	battle_frame_text.skip()
+	_refresh_selectable_enemies()
 	battle_frame_text.show_choose(choice_progress)
-	soul.global_position=battle_frame_text.get_choice_position(choice_index)+SOUL_CHOICE_OFFSET
+	_soul_to_choice()
 
 func _act2(enemy_index:int):
 	choice_progress=Choice.ACT
+	act_enemy_index=enemy_index
+	# ACT 列表是另一个列表，光标从第一项开始
+	choice_index=0
 	battle_frame_text.show_choose(choice_progress)
-	soul.global_position=battle_frame_text.get_choice_position(choice_index)+SOUL_CHOICE_OFFSET
+	_soul_to_choice()
 
-func _act3(enemy_index:int):
+## act_index 是 ACT 列表里的下标：0 固定是“查看”
+func _act3(act_index:int):
 	choice_progress=Choice.NONE
-	var act_dialog=BaseDialog.new()
-	act_dialog.content=("* "+battle_data.enemys[enemy_index].id+" "
-						+battle_data.enemys[enemy_index].descriptive_attack+" ATK "
-						+battle_data.enemys[enemy_index].descriptive_defense+" DEF \n"
-						+"* "+battle_data.enemys[enemy_index].description)
-	battle_frame_text.show_dialog([act_dialog])
-	battle_frame_text.finished.connect(_clear_frame_and_turn)
+	var enemy=enemy_at(act_enemy_index)
+	var dialog:BaseDialog=null
+	if act_index<=0:
+		dialog=_check_dialog(enemy)
+	else:
+		var act=act_at(act_enemy_index,act_index-1)
+		if act:
+			dialog=act.dialog
+	if dialog:
+		battle_frame_text.show_dialog([dialog])
+		battle_frame_text.finished.connect(_clear_frame_and_turn)
+	else:
+		_clear_frame_and_turn()
 	soul.position=Vector2(10000,10000)
 	soul.hide()
+
+static func _check_dialog_content(enemy:EnemyStatus)->String:
+	if enemy==null:
+		return ""
+	return ("* "+enemy.id+" "
+			+enemy.descriptive_attack+" ATK "
+			+enemy.descriptive_defense+" DEF \n"
+			+"* "+enemy.description)
+
+func _check_dialog(enemy:EnemyStatus)->BaseDialog:
+	var act_dialog=BaseDialog.new()
+	act_dialog.content=_check_dialog_content(enemy)
+	return act_dialog
+
+
+## ===== 选敌 =====
+## 选敌列表只列活着的敌人（死掉的直接消失，后面的往上顶），
+## choice_index 是光标在“这个列表”里的位置，不是敌人下标，
+## 要敌人下标用 selected_enemy_index()。
+
+## 第 index 个敌人；越界返回 null
+func enemy_at(index:int)->EnemyStatus:
+	if battle_data==null or index<0 or index>=battle_data.enemys.size():
+		return null
+	return battle_data.enemys[index]
+
+## 第 index 个敌人的第 act_index 个自定义 ACT（不含“查看”）
+func act_at(index:int,act_index:int)->EnemyAct:
+	var enemy=enemy_at(index)
+	if enemy==null or act_index<0 or act_index>=enemy.acts.size():
+		return null
+	return enemy.acts[act_index]
+
+## 第 index 个敌人的 ACT 名字列表，“查看”永远第一个
+func act_list_for(index:int)->Array[String]:
+	var names:Array[String]=[CHECK_ACT_NAME]
+	var enemy=enemy_at(index)
+	if enemy:
+		for act in enemy.acts:
+			if act:
+				names.append(act.act_name if not act.act_name.is_empty() else "???")
+	return names
+
+## 还有活着的敌人吗
+func has_living_enemy()->bool:
+	if battle_data==null:
+		return false
+	for enemy in battle_data.enemys:
+		if enemy and enemy.hp>0:
+			return true
+	return false
+
+## 重新算一遍可选敌人，并把光标夹回范围内
+func _refresh_selectable_enemies()->void:
+	selectable_enemies.clear()
+	if battle_data:
+		for i in battle_data.enemys.size():
+			var enemy=battle_data.enemys[i]
+			if enemy and enemy.hp>0:
+				selectable_enemies.append(i)
+	choice_index=clampi(choice_index,0,maxi(0,selectable_enemies.size()-1))
+
+## 选敌光标指着哪个敌人
+func selected_enemy_index()->int:
+	if selectable_enemies.is_empty():
+		return 0
+	return selectable_enemies[clampi(choice_index,0,selectable_enemies.size()-1)]
+
+func selected_enemy()->EnemyStatus:
+	return enemy_at(selected_enemy_index())
+
+func _soul_to_choice()->void:
+	soul.global_position=battle_frame_text.get_choice_position(choice_index)+SOUL_CHOICE_OFFSET
+
+## 列表光标按网格移动：row_delta 上下、col_delta 左右，越界就不动
+static func _next_choice_index(current:int,count:int,columns:int,row_delta:int,col_delta:int)->int:
+	if count<=0:
+		return 0
+	columns=maxi(1,columns)
+	var target:=current
+	if col_delta!=0:
+		var col:=current%columns
+		var next_col:=col+col_delta
+		if next_col<0 or next_col>=columns:
+			return current
+		target=current+col_delta
+	elif row_delta!=0:
+		target=current+row_delta*columns
+	if target<0 or target>=count:
+		return current
+	return target
+
+func _move_choice_cursor(count:int,row_delta:int,col_delta:int)->void:
+	var columns:int=2
+	if battle_frame_text and battle_frame_text.choices:
+		columns=battle_frame_text.choices.columns
+	var target:=_next_choice_index(choice_index,count,columns,row_delta,col_delta)
+	if target==choice_index:
+		return
+	choice_index=target
+	squeak_player.play()
+	_soul_to_choice()
+
 
 func _item1():
 	choice_progress=Choice.ITEM
@@ -431,5 +813,14 @@ func _display_button(hide:bool=false):
 		button_container_tween=create_tween()
 		button_container_tween.tween_property(button_container,"position",BUTTON_CONTAINER_POSITION,0.6).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
 
-func _on_enemy_dead():
+func _on_enemy_dead(index:int):
 	enemy_dead_player.play()
+	_refresh_selectable_enemies()
+	# 默认表现：死掉的那个敌人立绘淡出、它自己的对话框关掉
+	# （要自定义死亡演出就重写 _on_enemy_dead，Boss 关卡就是这么做的）
+	fade_out_enemy_portrait(index)
+	var panel := panel_at(index)
+	if panel:
+		panel.close()
+	if not has_living_enemy():
+		all_enemies_dead.emit()

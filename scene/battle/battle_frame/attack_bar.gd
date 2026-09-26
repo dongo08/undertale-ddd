@@ -10,11 +10,19 @@ class_name AttackBar
 @export var damage_label: Label
 @export var hp_bar: TextureProgressBar 
 
+## 血条 / 伤害数字 / 攻击特效 / 未命中标记相对“被攻击立绘中心”的偏移
+## （没给这个敌人登记立绘时，就保持场景里摆好的原位置不动）
+@export var hp_bar_center_offset:Vector2=Vector2(0,16)
+@export var damage_label_center_offset:Vector2=Vector2(0,-23)
+@export var attack_effect_center_offset:Vector2=Vector2(0,-18)
+@export var dmg_miss_center_offset:Vector2=Vector2(0,-2)
+
 var bar_tween:Tween
 var enemy_index:int
 var coverage_damage:float=-1
 signal attack_done()
-signal enemy_dead()
+## 哪个敌人被打死了（多敌人时要知道死的是谁）
+signal enemy_dead(index:int)
 func _ready() -> void:
 	dumb_target.hide()
 	attack_cursor.hide()
@@ -31,8 +39,30 @@ func attack(index:int=0,coverage:float=-1):
 	attack_cursor.start()
 	enemy_index=index
 	coverage_damage=coverage
+	_aim_feedback_at_enemy()
 	await get_tree().process_frame
 	set_process_input(true)
+
+
+## 把血条、伤害数字、攻击特效挪到被攻击的那个敌人的立绘上
+func _aim_feedback_at_enemy()->void:
+	if master==null:
+		return
+	var portrait:=master.portrait_for_enemy(enemy_index)
+	if portrait==null:
+		return
+	var center:=portrait.global_position
+	_place_control_center(hp_bar,center+hp_bar_center_offset)
+	_place_control_center(damage_label,center+damage_label_center_offset)
+	if attack_effect:
+		attack_effect.global_position=center+attack_effect_center_offset
+	if dmg_miss:
+		dmg_miss.global_position=center+dmg_miss_center_offset
+
+static func _place_control_center(control:Control,center:Vector2)->void:
+	if control==null:
+		return
+	control.global_position=center-control.size*0.5
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("accept"):
@@ -73,7 +103,7 @@ func attack_cursor_effect(factor:float,best:bool):
 		bar_tween.tween_callback(func():hp_bar.hide();damage_label.hide()).set_delay(0.3)
 		snd_damage.play()
 		if master.battle_data.enemys[enemy_index].hp<=0:
-			enemy_dead.emit()
+			enemy_dead.emit(enemy_index)
 	await get_tree().create_timer(0.8).timeout
 	end()
 	dmg_miss.hide()
@@ -89,7 +119,8 @@ func end():
 	dumb_target.hide()
 	attack_cursor.hide()
 	attack_effect.hide()
-	if master.battle_data.enemys[enemy_index].hp<=0:
+	# 打死的那个敌人已经不算数了：还有活着的敌人就继续本回合，全死了就交给 enemy_dead 的死亡流程
+	if not master.has_living_enemy():
 		return
 	attack_done.emit()
 
