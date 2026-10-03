@@ -10,7 +10,7 @@ var hit_bullets:Array[BaseBullet]
 
 	
 
-func _process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	_check_bullet()
 	
 func _check_bullet():

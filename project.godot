@@ -28,6 +28,10 @@ buses/default_bus_layout="uid://bhto0oruxyqt6"
 
 Global="*uid://brv3adu5y8jfx"
 BGM="*res://scripts/global/bgm.gd"
+BattleClock="*res://scripts/replay/battle_clock.gd"
+BattleInput="*res://scripts/replay/battle_input.gd"
+BattleRNG="*res://scripts/replay/battle_rng.gd"
+BattleReplay="*res://scripts/replay/battle_replay.gd"
 
 [display]
 
@@ -36,6 +40,7 @@ window/size/viewport_height=480
 window/size/window_width_override=1280
 window/size/window_height_override=960
 window/stretch/mode="canvas_items"
+window/vsync/vsync_mode=0
 
 [editor]
 
@@ -121,6 +126,7 @@ locale/translations=PackedStringArray("res://assets/translation/translation.en.t
 
 [physics]
 
+common/physics_jitter_fix=0.0
 2d/default_gravity=800.0
 
 [rendering]

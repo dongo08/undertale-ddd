@@ -33,12 +33,13 @@ scale_max = 0.13
 
 [sub_resource type="Gradient" id="Gradient_smsuw"]
 offsets = PackedFloat32Array(0)
-colors = PackedColorArray(0, 0.49019608, 0.5882353, 1)
+colors = PackedColorArray(0, 3.6610258, 5.2618666, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_htemk"]
 gradient = SubResource("Gradient_smsuw")
 width = 16
 height = 16
+use_hdr = true
 
 [sub_resource type="Curve" id="Curve_ugcl7"]
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.50938964, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -60,7 +61,7 @@ emission_box_extents = Vector3(320, 240, 1)
 spread = 0.0
 initial_velocity_max = 5.0
 gravity = Vector3(0, 0, 0)
-color = Color(1, 1, 1, 0.3137255)
+color = Color(1, 1, 1, 0.039215688)
 color_initial_ramp = SubResource("GradientTexture1D_q4lci")
 alpha_curve = SubResource("CurveTexture_pj0hq")
 
@@ -84,6 +85,10 @@ scale_min = 0.25
 scale_max = 0.25
 color = Color(1, 1, 1, 0.78431374)
 alpha_curve = SubResource("CurveTexture_14cdr")
+
+[sub_resource type="Environment" id="Environment_u0ya7"]
+background_mode = 3
+glow_enabled = true
 
 [node name="Control" type="Control" unique_id=838868035 node_paths=PackedStringArray("start_label")]
 layout_mode = 3
@@ -278,19 +283,19 @@ text = "Start"
 flat = true
 alignment = 2
 
-[node name="DifficultyLabel" type="Button" parent="VBoxContainer2" unique_id=84552826]
+[node name="PracticeLabel" type="Button" parent="VBoxContainer2" unique_id=84552826]
 layout_mode = 2
 offset_transform_enabled = true
 offset_transform_position = Vector2(-20, 0)
-text = "Difficulty"
+text = "Practice"
 flat = true
 alignment = 2
 
-[node name="ModifiersLabel3" type="Button" parent="VBoxContainer2" unique_id=1863121878]
+[node name="ReplayLabel" type="Button" parent="VBoxContainer2" unique_id=1863121878]
 layout_mode = 2
 offset_transform_enabled = true
 offset_transform_position = Vector2(-40, 0)
-text = "Modifiers"
+text = "Replay"
 flat = true
 alignment = 2
 
@@ -325,12 +330,15 @@ layout_mode = 0
 offset_right = 470.0
 offset_bottom = 379.0
 
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1152073077]
+environment = SubResource("Environment_u0ya7")
+
 [connection signal="focus_entered" from="VBoxContainer2/StartLabel" to="." method="_on_button_focused"]
 [connection signal="pressed" from="VBoxContainer2/StartLabel" to="." method="_on_start_label_pressed"]
-[connection signal="focus_entered" from="VBoxContainer2/DifficultyLabel" to="." method="_on_button_focused"]
-[connection signal="pressed" from="VBoxContainer2/DifficultyLabel" to="." method="_on_difficulty_label_pressed"]
-[connection signal="focus_entered" from="VBoxContainer2/ModifiersLabel3" to="." method="_on_button_focused"]
-[connection signal="pressed" from="VBoxContainer2/ModifiersLabel3" to="." method="_on_modifiers_label_3_pressed"]
+[connection signal="focus_entered" from="VBoxContainer2/PracticeLabel" to="." method="_on_button_focused"]
+[connection signal="pressed" from="VBoxContainer2/PracticeLabel" to="." method="_on_difficulty_label_pressed"]
+[connection signal="focus_entered" from="VBoxContainer2/ReplayLabel" to="." method="_on_button_focused"]
+[connection signal="pressed" from="VBoxContainer2/ReplayLabel" to="." method="_on_replay_label_pressed"]
 [connection signal="focus_entered" from="VBoxContainer2/SettingsLabel" to="." method="_on_button_focused"]
 [connection signal="pressed" from="VBoxContainer2/SettingsLabel" to="." method="_on_settings_label_pressed"]
 [connection signal="focus_entered" from="VBoxContainer2/ExitLabel" to="." method="_on_button_focused"]

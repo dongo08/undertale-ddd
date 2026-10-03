@@ -15,8 +15,8 @@ enum GDir{
 
 const DIRECTION:Array[String]=["down","right","up","left"]
 
-const NORMAL_SPEED:float=120
-const SLOW_SPEED:float=60
+const NORMAL_SPEED:float=150
+const SLOW_SPEED:float=75
 
 @export var game:BattleManager
 @export var battle_state:BattleManager.BattleState
@@ -57,28 +57,28 @@ func move_blue(delta:float)->Vector2:
 	match g_dir:
 		GDir.DOWN:
 			up_direction=Vector2.UP
-			soul_up=Input.is_action_pressed("up")
-			soul_down=Input.is_action_pressed("down")
-			soul_left=Input.is_action_pressed("left")
-			soul_right=Input.is_action_pressed("right")
+			soul_up=BattleInput.pressed(&"up")
+			soul_down=BattleInput.pressed(&"down")
+			soul_left=BattleInput.pressed(&"left")
+			soul_right=BattleInput.pressed(&"right")
 		GDir.UP:
 			up_direction=Vector2.DOWN
-			soul_up=Input.is_action_pressed("down")
-			soul_down=Input.is_action_pressed("up")
-			soul_left=Input.is_action_pressed("right")
-			soul_right=Input.is_action_pressed("left")
+			soul_up=BattleInput.pressed(&"down")
+			soul_down=BattleInput.pressed(&"up")
+			soul_left=BattleInput.pressed(&"right")
+			soul_right=BattleInput.pressed(&"left")
 		GDir.LEFT:
 			up_direction=Vector2.RIGHT
-			soul_up=Input.is_action_pressed("right")
-			soul_down=Input.is_action_pressed("left")
-			soul_left=Input.is_action_pressed("up")
-			soul_right=Input.is_action_pressed("down")
+			soul_up=BattleInput.pressed(&"right")
+			soul_down=BattleInput.pressed(&"left")
+			soul_left=BattleInput.pressed(&"up")
+			soul_right=BattleInput.pressed(&"down")
 		GDir.RIGHT:
 			up_direction=Vector2.LEFT
-			soul_up=Input.is_action_pressed("left")
-			soul_down=Input.is_action_pressed("right")
-			soul_left=Input.is_action_pressed("down")
-			soul_right=Input.is_action_pressed("up")
+			soul_up=BattleInput.pressed(&"left")
+			soul_down=BattleInput.pressed(&"right")
+			soul_left=BattleInput.pressed(&"down")
+			soul_right=BattleInput.pressed(&"up")
 	
 	if soul_right:
 		horizon_vel+=1
@@ -99,7 +99,7 @@ func move_blue(delta:float)->Vector2:
 				g_velosity+=g*delta
 	
 
-	if Input.is_action_pressed("slow"):
+	if BattleInput.pressed(&"slow"):
 		horizon_vel*=SLOW_SPEED
 	else:
 		horizon_vel*=NORMAL_SPEED
@@ -124,13 +124,11 @@ func move_blue(delta:float)->Vector2:
 func move_normal(_delta)->Vector2:
 	motion_mode=CharacterBody2D.MOTION_MODE_FLOATING
 	var vel:Vector2
-	#if !Input.is_action_pressed("left") and !Input.is_action_pressed("right"):
-		#vel.x=0
-	vel=Input.get_vector("left","right","up","down")
+	vel=BattleInput.vector(&"left",&"right",&"up",&"down")
 
 	
 	
-	if Input.is_action_pressed("slow"):
+	if BattleInput.pressed(&"slow"):
 		vel*=SLOW_SPEED
 	else:
 		vel*=NORMAL_SPEED
@@ -152,10 +150,12 @@ func _hurt(damage:float):
 	snd_hurt_1.play()
 	modulate.v=0.5
 	if player_status.hp<=0:
-
+		# 死了：先把这次录的回放存下来（reload 会把场景整个换掉）
+		if game:
+			game.finish_replay(BattleReplay.Result.DEAD)
 		get_tree().call_deferred("reload_current_scene")
 
 	invincible=true
-	await get_tree().create_timer(invincible_time).timeout
+	await BattleClock.wait_seconds(invincible_time)
 	modulate.v=1
 	invincible=false

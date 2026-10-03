@@ -40,7 +40,7 @@ func start():
 func generate_circle_bullet():
 	for i in range(6):
 		for j in range(-1,2,2):
-			var pos=pos0+Vector2(j*(100+randf_range(0,100)),randf_range(-100,100))
+			var pos=pos0+Vector2(j*(100+BattleRNG.randf_range(0,100)),BattleRNG.randf_range(-100,100))
 			spawn_bullet_circle(pos,32,200,Vector2.ONE*0.5)
 			play_sound(SE_TAN_02,0,-6)
 			await wait(0.18)
@@ -60,8 +60,8 @@ func _physics_process(delta: float) -> void:
 		
 		
 	if state==2:
-		var pos=pos0+Vector2.ONE.rotated(randf()*TAU)*randf_range(-20,20)
-		var rota=randf()*TAU
+		var pos=pos0+Vector2.ONE.rotated(BattleRNG.randf()*TAU)*BattleRNG.randf_range(-20,20)
+		var rota=BattleRNG.randf()*TAU
 		var a=spawn_base_bullet(pos,Vector2.UP.rotated(rota),120)
 		a.rotation=rota-PI
 		a.scale*=0.5

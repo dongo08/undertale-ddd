@@ -31,12 +31,7 @@ func _on_start_label_pressed() -> void:
 	确定.play()
 	Global.change_scene_to_packed(LEVEL_1_SUB_BATTLE)
 
-func _on_difficulty_label_pressed() -> void:
-	确定.play()
 
-
-func _on_modifiers_label_3_pressed() -> void:
-	确定.play()
 
 func _on_settings_label_pressed() -> void:
 	确定.play()
@@ -45,3 +40,10 @@ func _on_settings_label_pressed() -> void:
 func _on_exit_label_pressed() -> void:
 	确定.play()
 	get_tree().quit()
+
+
+func _on_replay_label_pressed() -> void:
+	var a=BattleReplay.list_replays()[0]
+	print(a)
+	BattleReplay.prepare_playback(a["path"])
+	Global.change_scene_to_packed(load(a["scene"]))

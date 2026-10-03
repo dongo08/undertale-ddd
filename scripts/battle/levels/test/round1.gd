@@ -9,6 +9,6 @@ func start():
 	for i in range(360):
 		var dir=direction_to_soul(emit_pos)
 		spawn_base_bullet(emit_pos,dir.rotated(i))
-		await get_tree().create_timer(0.010).timeout
-	await get_tree().create_timer(3).timeout
+		await BattleClock.wait_seconds(0.010)
+	await BattleClock.wait_seconds(3)
 	end()

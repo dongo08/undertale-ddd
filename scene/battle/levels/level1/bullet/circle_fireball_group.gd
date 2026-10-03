@@ -18,7 +18,7 @@ signal explode(pos:Vector2,rad:float)
 
 func _ready() -> void:
 	interval=TAU/amount
-	rotation=randf()*TAU
+	rotation=BattleRNG.randf()*TAU
 	position=center
 	alpha_tween=create_tween()
 	alpha_tween.tween_property(self,"modulate:a",1,1).from(0)
@@ -28,14 +28,17 @@ func _ready() -> void:
 		bullet.rotation=interval*i
 		bullets.append(bullet)
 		add_child(bullet)
-	await get_tree().create_timer(explode_duration).timeout
+	await BattleClock.wait_seconds(explode_duration)
+	# 收束动画只是画面；爆炸信号和回收按 tick 走，不然子弹消失的时机也会漂
 	ball_tween=create_tween()
 	for i in bullets:
 		ball_tween.parallel().tween_property(i,"position",Vector2.ZERO,0.3)
-	ball_tween.tween_callback(func():explode.emit(position, rotation);queue_free())
+	await BattleClock.wait_seconds(0.3)
+	explode.emit(position, rotation)
+	queue_free()
 	
 
-func _process(delta: float) -> void:
+func _physics_process(delta: float) -> void:
 	rotate_duration-=delta
 	if rotate_duration<0:
 		return

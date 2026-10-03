@@ -5,7 +5,7 @@
 [ext_resource type="Script" uid="uid://bow5y3q3seleq" path="res://scripts/battle/enemy_status.gd" id="3_tqvh3"]
 [ext_resource type="Script" uid="uid://calkgasaaikbk" path="res://scripts/player/item.gd" id="4_sufcd"]
 [ext_resource type="Script" uid="uid://bgsmn2fvofrpt" path="res://scripts/player/player_status.gd" id="5_3jhfr"]
-[ext_resource type="Script" uid="uid://cesf1257lem3k" path="res://scripts/battle/enemy_round.gd" id="6_h5thf"]
+[ext_resource type="Script" uid="uid://ciq2r0dd5e2fx" path="res://scripts/battle/enemy_round_set.gd" id="6_h5thf"]
 [ext_resource type="Script" uid="uid://bk7lyrbkni0wr" path="res://scripts/dialog/base_dialog.gd" id="7_1j7dk"]
 [ext_resource type="Script" uid="uid://b6innblij3fdk" path="res://scripts/battle/battle_data.gd" id="8_y7tvw"]
 [ext_resource type="PackedScene" uid="uid://c6txdl820vhkq" path="res://scene/battle/player_status_bar.tscn" id="9_7h0kh"]
@@ -35,6 +35,7 @@
 [ext_resource type="Texture2D" uid="uid://rllimxwm6yr4" path="res://assets/sprites/UI/spr_test_xbutton_1.png" id="32_o00t7"]
 [ext_resource type="Script" uid="uid://deltq24ei2ai4" path="res://scripts/dialog/expression_dialog.gd" id="33_exprdlg"]
 [ext_resource type="Resource" path="res://resource/portraits/toriel_expressions.tres" id="34_toriexpr"]
+[ext_resource type="Script" uid="uid://crt3y1sc42aqe" path="res://scripts/dialog/dialog_director.gd" id="35_dirdlg"]
 
 [sub_resource type="Theme" id="Theme_14cdr"]
 RichTextLabel/fonts/normal_font = ExtResource("1_v0dll")
@@ -142,7 +143,7 @@ metadata/_custom_type_script = "uid://deltq24ei2ai4"
 script = ExtResource("6_h5thf")
 dialog_list = Array[ExtResource("7_1j7dk")]([SubResource("Resource_4suue"), SubResource("Resource_t0uwl"), SubResource("Resource_pmkru"), SubResource("Resource_fpb41"), SubResource("Resource_bcd3e"), SubResource("Resource_kadyx"), SubResource("Resource_tvbmv"), SubResource("Resource_40430"), SubResource("Resource_7ipx1"), SubResource("Resource_p1usd"), SubResource("Resource_3ongg")])
 battleframe_text = SubResource("Resource_djpql")
-metadata/_custom_type_script = "uid://cesf1257lem3k"
+metadata/_custom_type_script = "uid://ciq2r0dd5e2fx"
 
 [sub_resource type="Resource" id="Resource_djoff"]
 script = ExtResource("8_y7tvw")
@@ -160,7 +161,7 @@ texture_margin_bottom = 16.0
 
 [sub_resource type="AudioStreamPolyphonic" id="AudioStreamPolyphonic_6jj7y"]
 
-[node name="Control" type="Control" unique_id=55133942 node_paths=PackedStringArray("encounter_player", "black", "squeak_player", "select_player", "fight_button", "act_button", "item_button", "mercy_button", "soul", "attack_bar", "battle_frame_text", "battle_frame_border", "dialog_panels", "bullet_player", "button_container", "player_status", "enemy_illustrations")]
+[node name="Control" type="Control" unique_id=55133942 node_paths=PackedStringArray("encounter_player", "black", "squeak_player", "select_player", "fight_button", "act_button", "item_button", "mercy_button", "soul", "attack_bar", "battle_frame_text", "battle_frame_border", "dialog_director", "bullet_player", "button_container", "player_status", "enemy_illustrations")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -185,7 +186,7 @@ soul = NodePath("Soul")
 attack_bar = NodePath("BattleFrame/Attack")
 battle_frame_text = NodePath("BattleFrameText")
 battle_frame_border = NodePath("BattleFrame/FrameBorder")
-dialog_panels = [NodePath("PanelContainer")]
+dialog_director = NodePath("DialogDirector")
 bullet_player = NodePath("Audio/BulletPlayer")
 button_container = NodePath("buttons")
 player_status = NodePath("player_status")
@@ -299,6 +300,10 @@ script = ExtResource("14_glg4g")
 expressions = ExtResource("34_toriexpr")
 dialog_source = NodePath("../PanelContainer")
 metadata/_custom_type_script = "uid://bak4twd7ph5ti"
+
+[node name="DialogDirector" type="Node" parent="." node_paths=PackedStringArray("panels")]
+script = ExtResource("35_dirdlg")
+panels = [NodePath("../PanelContainer")]
 
 [node name="PanelContainer" type="PanelContainer" parent="." unique_id=174031416 node_paths=PackedStringArray("dialog_label")]
 visible = false

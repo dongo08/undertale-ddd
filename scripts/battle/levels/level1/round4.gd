@@ -18,24 +18,24 @@ func start():
 	await wait(1)
 	pos1=Vector2(210,150)
 	pos2=Vector2(430,150)
-	rad1=randf()*PI
-	rad2=randf()*PI
+	rad1=BattleRNG.randf()*PI
+	rad2=BattleRNG.randf()*PI
 	state=1
 	await wait(3)
 	state=0
 	await wait(1)
 	pos1=Vector2(240,250)
 	pos2=Vector2(410,60)
-	rad1=randf()*PI
-	rad2=randf()*PI
+	rad1=BattleRNG.randf()*PI
+	rad2=BattleRNG.randf()*PI
 	state=1
 	await wait(3)
 	state=0
 	await wait(1)
 	pos1=Vector2(240,60)
 	pos2=Vector2(400,260)
-	rad1=randf()*PI
-	rad2=randf()*PI
+	rad1=BattleRNG.randf()*PI
+	rad2=BattleRNG.randf()*PI
 	state=1
 	await wait(3)
 	state=0

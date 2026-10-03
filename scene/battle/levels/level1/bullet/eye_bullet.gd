@@ -3,10 +3,16 @@ var center_pos:Vector2=Vector2(320,360)
 var strength:bool
 var is_up:bool
 var duration:float=2
-var tween:Tween
 var next_pos:Vector2
+
+## 轨迹状态：原来整条轨迹是 tween 驱动的，但 tween 的起点会落在两个物理帧之间
+## （实测同输入两次运行会差出亚 tick 的量），所以改成按 tick 自己算。
+var _x_from:float
+var _x_to:float
+var _y_dist:float
+var _elapsed:float=0.0
+
 func _ready() -> void:
-	tween=create_tween()
 	var x_dist:float
 	var y_dist:float
 	if is_up:
@@ -24,11 +30,22 @@ func _ready() -> void:
 			y_dist=-140
 			duration=1.8
 	position=Vector2(center_pos.x+x_dist,center_pos.y)
-	tween.tween_property(self,"next_pos:x",center_pos.x+x_dist,duration).from(center_pos.x-x_dist)
-	tween.parallel().tween_property(self,"next_pos:y",center_pos.y+y_dist,duration/2).from(center_pos.y).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
-	tween.parallel().tween_property(self,"next_pos:y",center_pos.y,duration/2).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN).set_delay(duration/2)
-	tween.tween_callback(queue_free)
-func _process(delta: float) -> void:
-	var angle=(next_pos-position).angle()-PI/2
-	rotation=angle
+	_x_from=center_pos.x-x_dist
+	_x_to=center_pos.x+x_dist
+	_y_dist=y_dist
+	next_pos=Vector2(_x_from,center_pos.y)
+
+func _physics_process(delta: float) -> void:
+	var previous:=position
+	_elapsed=minf(_elapsed+delta,duration)
+	var half:=duration/2.0
+	next_pos.x=lerpf(_x_from,_x_to,_elapsed/duration)
+	# y 先走半程（sine EASE_OUT）再回半程（sine EASE_IN），跟原来两段 tween 一致
+	if _elapsed<=half:
+		next_pos.y=center_pos.y+_y_dist*sin((_elapsed/half)*PI/2.0)
+	else:
+		next_pos.y=center_pos.y+_y_dist*cos(((_elapsed-half)/half)*PI/2.0)
+	rotation=(next_pos-previous).angle()-PI/2
 	position=next_pos
+	if _elapsed>=duration:
+		queue_free()

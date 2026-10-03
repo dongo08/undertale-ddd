@@ -7,7 +7,7 @@
 [ext_resource type="Script" uid="uid://calkgasaaikbk" path="res://scripts/player/item.gd" id="4_y16f6"]
 [ext_resource type="Script" uid="uid://bgsmn2fvofrpt" path="res://scripts/player/player_status.gd" id="5_84c2m"]
 [ext_resource type="Script" uid="uid://dqjycl3clgow6" path="res://scene/battle/battle_frame/battle_frame_text.gd" id="5_tikkl"]
-[ext_resource type="Script" uid="uid://cesf1257lem3k" path="res://scripts/battle/enemy_round.gd" id="6_4xqvy"]
+[ext_resource type="Script" uid="uid://ciq2r0dd5e2fx" path="res://scripts/battle/enemy_round_set.gd" id="6_4xqvy"]
 [ext_resource type="Script" uid="uid://q80gar0bkm78" path="res://scripts/typewriter_label.gd" id="6_y16f6"]
 [ext_resource type="Script" uid="uid://ehecvdaehpkh" path="res://scene/battle/battle_frame/choose_grid.gd" id="7_84c2m"]
 [ext_resource type="Script" uid="uid://b6innblij3fdk" path="res://scripts/battle/battle_data.gd" id="7_i6qve"]
@@ -34,6 +34,7 @@
 [ext_resource type="Texture2D" uid="uid://rllimxwm6yr4" path="res://assets/sprites/UI/spr_test_xbutton_1.png" id="27_xpo8u"]
 [ext_resource type="AudioStream" uid="uid://bbr5ecs56y27u" path="res://assets/sounds/UI/encounter.ogg" id="29_84c2m"]
 [ext_resource type="Resource" path="res://resource/portraits/eanaro_expressions.tres" id="90_eanaroexpr"]
+[ext_resource type="Script" uid="uid://crt3y1sc42aqe" path="res://scripts/dialog/dialog_director.gd" id="91_dirdlg"]
 
 [sub_resource type="Theme" id="Theme_14cdr"]
 RichTextLabel/fonts/normal_font = ExtResource("1_yhlma")
@@ -110,7 +111,7 @@ metadata/_custom_type_script = "uid://bk7lyrbkni0wr"
 script = ExtResource("6_4xqvy")
 dialog_list = Array[ExtResource("7_y16f6")]([SubResource("Resource_2u2el"), SubResource("Resource_84c2m"), SubResource("Resource_4xqvy"), SubResource("Resource_i6qve"), SubResource("Resource_l7kda"), SubResource("Resource_752r7"), SubResource("Resource_djbfq"), SubResource("Resource_qjiai"), SubResource("Resource_tkpqh"), SubResource("Resource_gipwk"), SubResource("Resource_6eun2")])
 battleframe_text = SubResource("Resource_y16f6")
-metadata/_custom_type_script = "uid://cesf1257lem3k"
+metadata/_custom_type_script = "uid://ciq2r0dd5e2fx"
 
 [sub_resource type="Resource" id="Resource_yhlma"]
 script = ExtResource("7_i6qve")
@@ -128,7 +129,7 @@ texture_margin_bottom = 16.0
 
 [sub_resource type="AudioStreamPolyphonic" id="AudioStreamPolyphonic_6jj7y"]
 
-[node name="Control" type="Control" unique_id=55133942 node_paths=PackedStringArray("encounter_player", "black", "squeak_player", "select_player", "fight_button", "act_button", "item_button", "mercy_button", "soul", "attack_bar", "battle_frame_text", "battle_frame_border", "dialog_panels", "button_container", "player_status", "enemy_illustrations")]
+[node name="Control" type="Control" unique_id=55133942 node_paths=PackedStringArray("encounter_player", "black", "squeak_player", "select_player", "fight_button", "act_button", "item_button", "mercy_button", "soul", "attack_bar", "battle_frame_text", "battle_frame_border", "dialog_director", "button_container", "player_status", "enemy_illustrations")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -151,7 +152,7 @@ soul = NodePath("Soul")
 attack_bar = NodePath("BattleFrame/Attack")
 battle_frame_text = NodePath("BattleFrameText")
 battle_frame_border = NodePath("BattleFrame/FrameBorder")
-dialog_panels = [NodePath("PanelContainer")]
+dialog_director = NodePath("DialogDirector")
 button_container = NodePath("buttons")
 player_status = NodePath("player_status")
 enemy_illustrations = [NodePath("Eanaro1")]
@@ -244,6 +245,10 @@ script = ExtResource("9_i6qve")
 expressions = ExtResource("90_eanaroexpr")
 dialog_source = NodePath("../PanelContainer")
 metadata/_custom_type_script = "uid://bak4twd7ph5ti"
+
+[node name="DialogDirector" type="Node" parent="." node_paths=PackedStringArray("panels")]
+script = ExtResource("91_dirdlg")
+panels = [NodePath("../PanelContainer")]
 
 [node name="PanelContainer" type="PanelContainer" parent="." unique_id=174031416 node_paths=PackedStringArray("dialog_label")]
 layout_mode = 0

@@ -49,12 +49,17 @@ func _display_next_dialog():
 	_typewrite(parsed.pauses, parsed.speeds,dialog_index)
 	dialog_index += 1
 
-func _physics_process(delta: float) -> void:
-	if Input.is_action_pressed("skip"):
+func _physics_process(_delta: float) -> void:
+	# 输入统一从 BattleInput 按物理帧读（回放时也是从这里读，所以可复现）
+	if BattleInput.pressed(&"skip"):
 		if _running:
 			skip()
 		else:
 			_display_next_dialog()
+	if BattleInput.just_pressed(&"accept"):
+		_display_next_dialog()
+	if BattleInput.just_pressed(&"cancel"):
+		skip()
 
 func _parse(raw: String) -> Dictionary:
 	var clean := ""
@@ -89,7 +94,8 @@ func _typewrite(pauses: Dictionary, speeds: Dictionary,index:int):
 		var d := delay
 		if pauses.has(i + 1):
 			d += pauses[i + 1]
-		await get_tree().create_timer(d).timeout
+		# 按物理帧等：打字速度也必须是 tick 驱动的，否则回放里“这一下 Z 是推进还是被忽略”会分叉
+		await BattleClock.wait_seconds(d)
 		i += 1
 		total=get_total_character_count()
 	_running = false
@@ -99,14 +105,6 @@ func skip():
 	if _running:
 		_running = false
 	visible_ratio = 1
-
-func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("accept"):
-		_display_next_dialog()
-	elif event.is_action_pressed("cancel"):
-		skip()
-	
-
 
 
 func end():

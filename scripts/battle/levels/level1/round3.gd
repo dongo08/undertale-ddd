@@ -23,7 +23,6 @@ func start():
 	set_battleframe_polygon_trans([Vector2(240, 280), Vector2(400, 280), Vector2(400, 440), Vector2(240, 440)])
 	
 	await wait(1)
-	v_tween=create_tween()
 	for i in range(glove_amount):
 		var glove=GLOVE.instantiate()
 		#glove.scale=0.5
@@ -31,16 +30,23 @@ func start():
 		gloves[i].position=center+Vector2.RIGHT.rotated(rad+r_interval*i)*distance
 		gloves[i].rotation=rad+r_interval*i
 		add_child(glove)
-		v_tween.parallel().tween_property(glove,"modulate:a",1,1).from(0)
-	
-	v_tween.tween_property(self,"state",1,0)
-	v_tween.tween_property(self,"state",2,0).set_delay(8)
-	v_tween.tween_property(self,"velosity",1,1)
-	v_tween.tween_callback(play)
-	v_tween.tween_property(self,"state",3,0)
-	v_tween.tween_property(self,"velosity",2.2,0)
-	v_tween.tween_property(self,"state",4,0).set_delay(2)
-	v_tween.tween_callback(end).set_delay(8)
+		# 淡入只是画面，继续用 tween
+		var fade:=create_tween()
+		fade.tween_property(glove,"modulate:a",1,1).from(0)
+	# 下面这些原来是一串 tween（state / velosity 直接由 tween 驱动，回放必然漂），
+	# 现在全部改成按 tick 等 + 按 tick 插值
+	await wait(1)
+	state=1
+	await wait(8)
+	state=2
+	await ramp_property(&"velosity",-1.2,1.0,1.0)
+	play()
+	state=3
+	velosity=2.2
+	await wait(2)
+	state=4
+	await wait(8)
+	end()
 
 func _physics_process(delta: float) -> void:
 	rad+=velosity*delta

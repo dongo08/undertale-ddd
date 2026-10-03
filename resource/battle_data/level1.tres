@@ -5,7 +5,7 @@
 [ext_resource type="Script" uid="uid://dqix82jx8ed6c" path="res://scripts/battle/enemy_act.gd" id="2_me6tl"]
 [ext_resource type="Resource" uid="uid://5vbdarryjsf8" path="res://resource/items/Pie.tres" id="3_wwbb0"]
 [ext_resource type="Script" uid="uid://bgsmn2fvofrpt" path="res://scripts/player/player_status.gd" id="3_xnbb1"]
-[ext_resource type="Script" uid="uid://cesf1257lem3k" path="res://scripts/battle/enemy_round.gd" id="4_bfctp"]
+[ext_resource type="Script" uid="uid://ciq2r0dd5e2fx" path="res://scripts/battle/enemy_round_set.gd" id="4_bfctp"]
 [ext_resource type="Resource" uid="uid://bt60wxaybgm4e" path="res://resource/items/SpdrCider.tres" id="4_me6tl"]
 [ext_resource type="Resource" uid="uid://defybyqx63eqy" path="res://resource/items/SpdrDonut.tres" id="5_3koeo"]
 [ext_resource type="Script" uid="uid://bk7lyrbkni0wr" path="res://scripts/dialog/base_dialog.gd" id="5_wpx7t"]
@@ -50,8 +50,8 @@ metadata/_custom_type_script = "uid://bk7lyrbkni0wr"
 [sub_resource type="Resource" id="Resource_vrygm"]
 script = ExtResource("4_bfctp")
 battleframe_text = SubResource("Resource_dobon")
-manager = ExtResource("6_wpx7t")
-metadata/_custom_type_script = "uid://cesf1257lem3k"
+normal = ExtResource("6_wpx7t")
+metadata/_custom_type_script = "uid://ciq2r0dd5e2fx"
 
 [sub_resource type="Resource" id="Resource_iobrt"]
 script = ExtResource("5_wpx7t")
@@ -61,8 +61,8 @@ metadata/_custom_type_script = "uid://bk7lyrbkni0wr"
 [sub_resource type="Resource" id="Resource_mjwdl"]
 script = ExtResource("4_bfctp")
 battleframe_text = SubResource("Resource_iobrt")
-manager = ExtResource("7_g20j3")
-metadata/_custom_type_script = "uid://cesf1257lem3k"
+normal = ExtResource("7_g20j3")
+metadata/_custom_type_script = "uid://ciq2r0dd5e2fx"
 
 [sub_resource type="Resource" id="Resource_jepsn"]
 script = ExtResource("5_wpx7t")
@@ -72,8 +72,8 @@ metadata/_custom_type_script = "uid://bk7lyrbkni0wr"
 [sub_resource type="Resource" id="Resource_i8eta"]
 script = ExtResource("4_bfctp")
 battleframe_text = SubResource("Resource_jepsn")
-manager = ExtResource("8_4hfug")
-metadata/_custom_type_script = "uid://cesf1257lem3k"
+normal = ExtResource("8_4hfug")
+metadata/_custom_type_script = "uid://ciq2r0dd5e2fx"
 
 [sub_resource type="Resource" id="Resource_tg8uf"]
 script = ExtResource("5_wpx7t")
@@ -83,8 +83,8 @@ metadata/_custom_type_script = "uid://bk7lyrbkni0wr"
 [sub_resource type="Resource" id="Resource_43mcx"]
 script = ExtResource("4_bfctp")
 battleframe_text = SubResource("Resource_tg8uf")
-manager = ExtResource("9_xv16w")
-metadata/_custom_type_script = "uid://cesf1257lem3k"
+normal = ExtResource("9_xv16w")
+metadata/_custom_type_script = "uid://ciq2r0dd5e2fx"
 
 [sub_resource type="Resource" id="Resource_7dni1"]
 script = ExtResource("5_wpx7t")
@@ -94,8 +94,8 @@ metadata/_custom_type_script = "uid://bk7lyrbkni0wr"
 [sub_resource type="Resource" id="Resource_syyhe"]
 script = ExtResource("4_bfctp")
 battleframe_text = SubResource("Resource_7dni1")
-manager = ExtResource("10_tg8uf")
-metadata/_custom_type_script = "uid://cesf1257lem3k"
+normal = ExtResource("10_tg8uf")
+metadata/_custom_type_script = "uid://ciq2r0dd5e2fx"
 
 [sub_resource type="Resource" id="Resource_bfctp"]
 script = ExtResource("5_wpx7t")
@@ -105,8 +105,8 @@ metadata/_custom_type_script = "uid://bk7lyrbkni0wr"
 [sub_resource type="Resource" id="Resource_262o8"]
 script = ExtResource("4_bfctp")
 battleframe_text = SubResource("Resource_bfctp")
-manager = ExtResource("11_43mcx")
-metadata/_custom_type_script = "uid://cesf1257lem3k"
+normal = ExtResource("11_43mcx")
+metadata/_custom_type_script = "uid://ciq2r0dd5e2fx"
 
 [sub_resource type="Resource" id="Resource_wj2ea"]
 script = ExtResource("5_wpx7t")
@@ -116,8 +116,8 @@ metadata/_custom_type_script = "uid://bk7lyrbkni0wr"
 [sub_resource type="Resource" id="Resource_mhp6e"]
 script = ExtResource("4_bfctp")
 battleframe_text = SubResource("Resource_wj2ea")
-manager = ExtResource("12_bfctp")
-metadata/_custom_type_script = "uid://cesf1257lem3k"
+normal = ExtResource("12_bfctp")
+metadata/_custom_type_script = "uid://ciq2r0dd5e2fx"
 
 [sub_resource type="Resource" id="Resource_xnbb1"]
 script = ExtResource("5_wpx7t")
@@ -127,8 +127,8 @@ metadata/_custom_type_script = "uid://bk7lyrbkni0wr"
 [sub_resource type="Resource" id="Resource_3brck"]
 script = ExtResource("4_bfctp")
 battleframe_text = SubResource("Resource_xnbb1")
-manager = ExtResource("13_262o8")
-metadata/_custom_type_script = "uid://cesf1257lem3k"
+normal = ExtResource("13_262o8")
+metadata/_custom_type_script = "uid://ciq2r0dd5e2fx"
 
 [sub_resource type="Resource" id="Resource_yqq0k"]
 script = ExtResource("5_wpx7t")
@@ -138,8 +138,8 @@ metadata/_custom_type_script = "uid://bk7lyrbkni0wr"
 [sub_resource type="Resource" id="Resource_2h2ta"]
 script = ExtResource("4_bfctp")
 battleframe_text = SubResource("Resource_yqq0k")
-manager = ExtResource("14_3brck")
-metadata/_custom_type_script = "uid://cesf1257lem3k"
+normal = ExtResource("14_3brck")
+metadata/_custom_type_script = "uid://ciq2r0dd5e2fx"
 
 [sub_resource type="Resource" id="Resource_wwbb0"]
 script = ExtResource("5_wpx7t")
@@ -149,8 +149,8 @@ metadata/_custom_type_script = "uid://bk7lyrbkni0wr"
 [sub_resource type="Resource" id="Resource_8m7n8"]
 script = ExtResource("4_bfctp")
 battleframe_text = SubResource("Resource_wwbb0")
-manager = ExtResource("15_xnbb1")
-metadata/_custom_type_script = "uid://cesf1257lem3k"
+normal = ExtResource("15_xnbb1")
+metadata/_custom_type_script = "uid://ciq2r0dd5e2fx"
 
 [sub_resource type="Resource" id="Resource_tlf17"]
 script = ExtResource("5_wpx7t")
@@ -166,7 +166,7 @@ metadata/_custom_type_script = "uid://bk7lyrbkni0wr"
 script = ExtResource("4_bfctp")
 dialog_list = Array[ExtResource("5_wpx7t")]([SubResource("Resource_a5hvd")])
 battleframe_text = SubResource("Resource_tlf17")
-metadata/_custom_type_script = "uid://cesf1257lem3k"
+metadata/_custom_type_script = "uid://ciq2r0dd5e2fx"
 
 [resource]
 resource_local_to_scene = true

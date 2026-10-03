@@ -3,6 +3,10 @@ const RAND_UPDATE = preload("uid://chkncv4h7lp48")
 
 var fade_tween:Tween
 
+## 当前难度，战斗里按它取每轮的弹幕脚本。
+## 主菜单的 Difficulty 按钮以后改这里就行，现在默认普通。
+var difficulty:EnemyRoundSet.Difficulty=EnemyRoundSet.Difficulty.NORMAL
+
 #func _ready() -> void:
 	#TranslationServer.set_locale("en")
 

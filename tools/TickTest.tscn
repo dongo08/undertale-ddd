@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://d1o3g54tq7iyy"]
+
+[ext_resource type="Script" path="res://tools/tick_test.gd" id="1_x"]
+
+[node name="TickTest" type="Node"]
+script = ExtResource("1_x")

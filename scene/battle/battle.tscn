@@ -21,6 +21,7 @@
 [ext_resource type="AudioStream" uid="uid://c0m2og28em48w" path="res://assets/sounds/UI/menu/snd_select.wav" id="14_qyclh"]
 [ext_resource type="AudioStream" uid="uid://d358vjelxwsit" path="res://assets/sounds/battle/snd_vaporized.wav" id="23_qxgud"]
 [ext_resource type="AudioStream" uid="uid://dnmmmmckfe2ai" path="res://assets/sounds/UI/soul/snd_heal_c.wav" id="24_j2v24"]
+[ext_resource type="Texture2D" uid="uid://hqni76blspwk" path="res://assets/sprites/UI/battle_screen/bullet/大玉.png" id="30_qq7g6"]
 [ext_resource type="AudioStream" uid="uid://b0exrudoitwdv" path="res://assets/sounds/UI/text/SND_TXT1.wav" id="32_sev40"]
 [ext_resource type="Texture2D" uid="uid://bhcri1aocaoum" path="res://assets/sprites/UI/spr_test_zbutton_3.png" id="41_hqqfg"]
 [ext_resource type="Texture2D" uid="uid://ddyrq63qmdhb2" path="res://assets/sprites/UI/spr_test_zbutton_2.png" id="42_6p4sc"]
@@ -28,6 +29,7 @@
 [ext_resource type="Texture2D" uid="uid://rllimxwm6yr4" path="res://assets/sprites/UI/spr_test_xbutton_1.png" id="44_fnkvj"]
 [ext_resource type="Script" uid="uid://q80gar0bkm78" path="res://scripts/typewriter_label.gd" id="50_typewriter"]
 [ext_resource type="Resource" path="res://resource/portraits/eanaro_expressions.tres" id="51_eanaroexpr"]
+[ext_resource type="Script" uid="uid://crt3y1sc42aqe" path="res://scripts/dialog/dialog_director.gd" id="60_dirdlg"]
 
 [sub_resource type="Theme" id="Theme_14cdr"]
 RichTextLabel/fonts/normal_font = ExtResource("5_j1ccn")
@@ -41,7 +43,10 @@ texture_margin_bottom = 16.0
 
 [sub_resource type="AudioStreamPolyphonic" id="AudioStreamPolyphonic_6jj7y"]
 
-[node name="Control" type="Control" unique_id=55133942 node_paths=PackedStringArray("squeak_player", "select_player", "fight_button", "act_button", "item_button", "mercy_button", "soul", "attack_bar", "battle_frame_text", "battle_frame_border", "dialog_panels", "bullet_player", "enemy_dead_player", "snd_heal", "button_container", "player_status", "enemy_illustrations")]
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_j3pel"]
+blend_mode = 4
+
+[node name="Control" type="Control" unique_id=55133942 node_paths=PackedStringArray("squeak_player", "select_player", "fight_button", "act_button", "item_button", "mercy_button", "soul", "attack_bar", "battle_frame_text", "battle_frame_border", "dialog_director", "bullet_player", "enemy_dead_player", "snd_heal", "button_container", "player_status", "enemy_illustrations")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -61,7 +66,7 @@ soul = NodePath("Soul")
 attack_bar = NodePath("BattleFrame/Attack")
 battle_frame_text = NodePath("BattleFrameText")
 battle_frame_border = NodePath("BattleFrame/FrameBorder")
-dialog_panels = [NodePath("PanelContainer"), NodePath("PanelContainer2")]
+dialog_director = NodePath("DialogDirector")
 bullet_player = NodePath("Audio/BulletPlayer")
 enemy_dead_player = NodePath("Audio/EnemyDead")
 snd_heal = NodePath("Audio/SndHealC")
@@ -93,6 +98,10 @@ script = ExtResource("9_qxgud")
 expressions = ExtResource("51_eanaroexpr")
 dialog_source = NodePath("../PanelContainer")
 metadata/_custom_type_script = "uid://bak4twd7ph5ti"
+
+[node name="DialogDirector" type="Node" parent="." unique_id=393206742 node_paths=PackedStringArray("panels")]
+script = ExtResource("60_dirdlg")
+panels = [NodePath("../PanelContainer"), NodePath("../PanelContainer2")]
 
 [node name="PanelContainer" type="PanelContainer" parent="." unique_id=174031416 node_paths=PackedStringArray("dialog_label")]
 layout_mode = 0
@@ -268,6 +277,12 @@ texture_normal = ExtResource("43_slji3")
 texture_pressed = ExtResource("44_fnkvj")
 action = "accept"
 visibility_mode = 1
+
+[node name="大玉" type="Sprite2D" parent="." unique_id=827090418]
+material = SubResource("CanvasItemMaterial_j3pel")
+position = Vector2(315, 168)
+scale = Vector2(0.3028169, 0.3116198)
+texture = ExtResource("30_qq7g6")
 
 [connection signal="action_selected" from="buttons/FightButton" to="." method="_on_button_action_selected"]
 [connection signal="action_selected" from="buttons/ActButton" to="." method="_on_button_action_selected"]

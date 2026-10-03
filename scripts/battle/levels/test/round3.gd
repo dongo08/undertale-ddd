@@ -8,7 +8,7 @@ func start():
 	var emit_pos=Vector2(320,180)
 	for i in range(3000):
 		var dir=Vector2.DOWN
-		spawn_base_bullet(emit_pos,dir.rotated(randf()*TAU))
-		await get_tree().create_timer(0.003).timeout
-	await get_tree().create_timer(3).timeout
+		spawn_base_bullet(emit_pos,dir.rotated(BattleRNG.randf()*TAU))
+		await BattleClock.wait_seconds(0.003)
+	await BattleClock.wait_seconds(3)
 	end()

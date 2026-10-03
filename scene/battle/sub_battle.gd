@@ -14,16 +14,22 @@ func _ready() -> void:
 	await _encounter()
 	set_process_input(true)
 	super._ready()
-	dialog_finished.disconnect(enemy_turn_bullet)
+	if dialog_director:
+		dialog_director.finished.disconnect(enemy_turn_bullet)
 
 func _encounter():
 	#return
 	black.show()
 	encounter_player.play()
-	await encounter_player.finished
+	# 音频播完是真实时间，不能拿来当计时器：按音频长度等固定 tick（声音照放）
+	var encounter_length := 0.0
+	if encounter_player.stream:
+		encounter_length = encounter_player.stream.get_length()
+	await BattleClock.wait_seconds(encounter_length)
 	_encounter_tween=create_tween()
 	_encounter_tween.tween_property(black,"modulate:a",0,1)
-	await _encounter_tween.finished
+	# 淡入只是画面；流程等 tick，不能等 tween（tween 的起点会落在两帧之间）
+	await BattleClock.wait_seconds(1)
 
 
 func _display_button(hide:bool=false):

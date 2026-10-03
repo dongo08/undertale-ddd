@@ -16,8 +16,7 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
 	super._physics_process(delta)
-	
-func _process(delta: float) -> void:
+	# 物理帧驱动（原来在 _process 里，渲染帧驱动没法复现）
 	_elapsed += delta
 	var freq := TAU / period
 	position.x = center_x + amplitude * sin(freq * _elapsed + _phase)

@@ -40,7 +40,25 @@ func end():
 # ── 快捷方法 ──
 
 func wait(t: float):
-	await get_tree().create_timer(t).timeout
+	# 按物理帧等（tick 驱动，回放才能逐帧重现）
+	await BattleClock.wait_seconds(t)
+
+
+## 按物理帧把一个数值属性平滑插值（线性，跟 tween 默认的 TRANS_LINEAR 一致）。
+## gameplay 用的数值不能用 tween 驱动：tween 的起点会落在两个物理帧之间，
+## 实测两次同样输入的运行会差出 0.6 tick，弹幕就对不上了。
+func ramp_property(property: StringName, from: float, to: float, seconds: float) -> void:
+	var ticks := BattleClock.seconds_to_ticks(seconds)
+	if ticks <= 0:
+		set(property, to)
+		return
+	var step := (to - from) / float(ticks)
+	var value := from
+	for i in ticks:
+		value += step
+		set(property, value)
+		await get_tree().physics_frame
+	set(property, to)
 
 func get_soul_pos() -> Vector2:
 	return master.soul.global_position
@@ -130,7 +148,7 @@ func set_battleframe_polygon_trans(
 	polygon_tween.parallel().tween_method(
 		set_battleframe_polygon, p, polygon, duration
 	).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUAD)
-	await get_tree().create_timer(duration).timeout
+	await BattleClock.wait_seconds(duration)
 
 func play_sound(stream: AudioStream, from_offset: float = 0, volume_db: float = 0, pitch_scale: float = 1.0):
 	master.play_bullet_sound(stream,from_offset,volume_db,pitch_scale)
@@ -146,3 +164,6 @@ func create_explode_effect(pos:Vector2 ,explode_scale:Vector2=Vector2.ONE):
 	ex.scale=explode_scale
 	ex.position=pos
 	add_child(ex)
+
+func create_physics_tween()->Tween:
+	return create_tween().set_process_mode(Tween.TWEEN_PROCESS_PHYSICS)

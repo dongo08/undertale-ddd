@@ -32,10 +32,6 @@ gravity = Vector3(0, 0, 0)
 scale_curve = SubResource("CurveTexture_q4lci")
 alpha_curve = SubResource("CurveTexture_pj0hq")
 
-[sub_resource type="Environment" id="Environment_htemk"]
-background_mode = 3
-glow_enabled = true
-
 [node name="Node2D" type="Node2D" unique_id=702693612]
 position = Vector2(305, 230)
 script = ExtResource("1_l81tn")
@@ -51,6 +47,3 @@ fixed_fps = 60
 trail_enabled = true
 trail_lifetime = 0.2
 process_material = SubResource("ParticleProcessMaterial_14cdr")
-
-[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=399704714]
-environment = SubResource("Environment_htemk")

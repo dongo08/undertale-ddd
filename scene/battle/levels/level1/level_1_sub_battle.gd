@@ -6,14 +6,15 @@ extends SubBattleManager
 func _ready() -> void:
 	#await get_tree().create_timer(2).timeout
 	_hide_soul()
+	BattleReplay.begin_battle("res://scene/battle/levels/level1/level1_sub_battle.tscn")
 	super._ready()
 	ResourceLoader.load_threaded_request("res://scene/battle/levels/level1/level1.tscn")
-	await dialog_finished
+	await dialog_director.finished
 	battle_frame_text.show_dialog(dialog1)
 	await battle_frame_text.finished
 	battle_frame_text.hide_all()
-	play_dialog_list(dialog2)
-	dialog_panel.dialog_processed.connect(change_scene)
+	dialog_director.play(dialog2)
+	dialog_director.main_panel().dialog_processed.connect(change_scene)
 	
 func change_scene(index:int):
 	if index==2:

@@ -41,6 +41,7 @@
 [ext_resource type="Script" uid="uid://deltq24ei2ai4" path="res://scripts/dialog/expression_dialog.gd" id="41_exprdlg"]
 [ext_resource type="Resource" path="res://resource/portraits/toriel_expressions.tres" id="42_toriexpr"]
 [ext_resource type="Script" uid="uid://bak4twd7ph5ti" path="res://scene/battle/enemy_illustration.gd" id="43_illustration"]
+[ext_resource type="Script" uid="uid://crt3y1sc42aqe" path="res://scripts/dialog/dialog_director.gd" id="44_dirdlg"]
 
 [sub_resource type="Resource" id="Resource_7dni1"]
 script = ExtResource("3_1jdih")
@@ -791,7 +792,7 @@ glow_intensity = 1.4
 shader = ExtResource("36_7dni1")
 shader_parameter/update_prob = 0.15
 
-[node name="Control" type="Control" unique_id=55133942 node_paths=PackedStringArray("animation_player", "black", "fireball_l", "fireball_r", "overseer", "whole_wing", "whole_wing_particles", "gpu_particles_2d", "gpu_particles_2d_2", "gpu_particles_2d_3", "gpu_particles_2d_4", "beginning", "squeak_player", "select_player", "fight_button", "act_button", "item_button", "mercy_button", "soul", "attack_bar", "battle_frame_text", "battle_frame_border", "dialog_panels", "bullet_player", "enemy_dead_player", "snd_heal", "button_container", "debug_round_input", "player_status", "highest_layer", "enemy_illustrations")]
+[node name="Control" type="Control" unique_id=55133942 node_paths=PackedStringArray("animation_player", "black", "fireball_l", "fireball_r", "overseer", "whole_wing", "whole_wing_particles", "gpu_particles_2d", "gpu_particles_2d_2", "gpu_particles_2d_3", "gpu_particles_2d_4", "beginning", "squeak_player", "select_player", "fight_button", "act_button", "item_button", "mercy_button", "soul", "attack_bar", "battle_frame_text", "battle_frame_border", "dialog_director", "bullet_player", "enemy_dead_player", "snd_heal", "button_container", "debug_round_input", "player_status", "highest_layer", "enemy_illustrations")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -826,7 +827,7 @@ soul = NodePath("Soul")
 attack_bar = NodePath("BattleFrame/Attack")
 battle_frame_text = NodePath("BattleFrameText")
 battle_frame_border = NodePath("BattleFrame/FrameBorder")
-dialog_panels = [NodePath("DialogPanel")]
+dialog_director = NodePath("DialogDirector")
 bullet_player = NodePath("Audio/BulletPlayer")
 enemy_dead_player = NodePath("Audio/EnemyDead")
 snd_heal = NodePath("Audio/SndHealC")
@@ -880,6 +881,10 @@ master = NodePath("..")
 [node name="Soul" parent="." unique_id=172666121 node_paths=PackedStringArray("game") instance=ExtResource("22_5v8vk")]
 position = Vector2(63, 324)
 game = NodePath("..")
+
+[node name="DialogDirector" type="Node" parent="." unique_id=1054291593 node_paths=PackedStringArray("panels")]
+script = ExtResource("44_dirdlg")
+panels = [NodePath("../DialogPanel")]
 
 [node name="DialogPanel" type="PanelContainer" parent="." unique_id=174031416 node_paths=PackedStringArray("dialog_label")]
 layout_mode = 0
@@ -1150,7 +1155,6 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="debug" type="Control" parent="FrontLayer" unique_id=1908610093]
-visible = false
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0

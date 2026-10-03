@@ -6,7 +6,7 @@
 [ext_resource type="Script" uid="uid://dqix82jx8ed6c" path="res://scripts/battle/enemy_act.gd" id="2_r52bu"]
 [ext_resource type="Script" uid="uid://calkgasaaikbk" path="res://scripts/player/item.gd" id="2_resvl"]
 [ext_resource type="Resource" uid="uid://5vbdarryjsf8" path="res://resource/items/Pie.tres" id="3_g8072"]
-[ext_resource type="Script" uid="uid://cesf1257lem3k" path="res://scripts/battle/enemy_round.gd" id="3_yiiu4"]
+[ext_resource type="Script" uid="uid://ciq2r0dd5e2fx" path="res://scripts/battle/enemy_round_set.gd" id="3_yiiu4"]
 [ext_resource type="Resource" uid="uid://bt60wxaybgm4e" path="res://resource/items/SpdrCider.tres" id="4_r52bu"]
 [ext_resource type="Script" uid="uid://bk7lyrbkni0wr" path="res://scripts/dialog/base_dialog.gd" id="4_vak8k"]
 [ext_resource type="Resource" uid="uid://defybyqx63eqy" path="res://resource/items/SpdrDonut.tres" id="5_pvimt"]
@@ -73,8 +73,8 @@ metadata/_custom_type_script = "uid://0ay4tmujru25"
 script = ExtResource("3_yiiu4")
 dialog_list = Array[ExtResource("4_vak8k")]([SubResource("Resource_occno"), SubResource("Resource_r52bu")])
 battleframe_text = SubResource("Resource_v6wlq")
-manager = ExtResource("6_resvl")
-metadata/_custom_type_script = "uid://cesf1257lem3k"
+normal = ExtResource("6_resvl")
+metadata/_custom_type_script = "uid://ciq2r0dd5e2fx"
 
 [sub_resource type="Resource" id="Resource_dfgbn"]
 script = ExtResource("4_vak8k")
@@ -96,8 +96,8 @@ metadata/_custom_type_script = "uid://bk7lyrbkni0wr"
 script = ExtResource("3_yiiu4")
 dialog_list = Array[ExtResource("4_vak8k")]([SubResource("Resource_hk05n"), SubResource("Resource_8qtvr")])
 battleframe_text = SubResource("Resource_dfgbn")
-manager = ExtResource("7_j2st4")
-metadata/_custom_type_script = "uid://cesf1257lem3k"
+normal = ExtResource("7_j2st4")
+metadata/_custom_type_script = "uid://ciq2r0dd5e2fx"
 
 [sub_resource type="Resource" id="Resource_hq0h4"]
 script = ExtResource("4_vak8k")
@@ -128,8 +128,8 @@ metadata/_custom_type_script = "uid://bk7lyrbkni0wr"
 script = ExtResource("3_yiiu4")
 dialog_list = Array[ExtResource("4_vak8k")]([SubResource("Resource_resvl"), SubResource("Resource_kk2li"), SubResource("Resource_fo0pf"), SubResource("Resource_3diee")])
 battleframe_text = SubResource("Resource_hq0h4")
-manager = ExtResource("8_uhwnn")
-metadata/_custom_type_script = "uid://cesf1257lem3k"
+normal = ExtResource("8_uhwnn")
+metadata/_custom_type_script = "uid://ciq2r0dd5e2fx"
 
 [sub_resource type="Resource" id="Resource_j2st4"]
 script = ExtResource("4_vak8k")
@@ -145,8 +145,8 @@ metadata/_custom_type_script = "uid://bk7lyrbkni0wr"
 script = ExtResource("3_yiiu4")
 dialog_list = Array[ExtResource("4_vak8k")]([SubResource("Resource_uhwnn")])
 battleframe_text = SubResource("Resource_j2st4")
-manager = ExtResource("9_55jil")
-metadata/_custom_type_script = "uid://cesf1257lem3k"
+normal = ExtResource("9_55jil")
+metadata/_custom_type_script = "uid://ciq2r0dd5e2fx"
 
 [resource]
 resource_local_to_scene = true

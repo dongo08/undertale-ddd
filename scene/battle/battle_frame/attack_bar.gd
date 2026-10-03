@@ -40,7 +40,8 @@ func attack(index:int=0,coverage:float=-1):
 	enemy_index=index
 	coverage_damage=coverage
 	_aim_feedback_at_enemy()
-	await get_tree().process_frame
+	# 等一个物理帧（不能用 process_frame：渲染帧和物理帧的比值会变）
+	await BattleClock.wait_ticks(1)
 	set_process_input(true)
 
 
@@ -64,8 +65,9 @@ static func _place_control_center(control:Control,center:Vector2)->void:
 		return
 	control.global_position=center-control.size*0.5
 
-func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("accept"):
+func _physics_process(_delta: float) -> void:
+	# set_process_input 现在只当“攻击小游戏能不能收按键”的开关用，输入本身从 BattleInput 读
+	if is_processing_input() and BattleInput.just_pressed(&"accept"):
 		attack_cursor.effect()
 		
 func attack_cursor_effect(factor:float,best:bool):
@@ -73,7 +75,8 @@ func attack_cursor_effect(factor:float,best:bool):
 	attack_effect.show()
 	attack_effect.play("default")
 	snd_laz.play()
-	await attack_effect.animation_finished
+	# 视觉动画照放，逻辑按 tick 等（AnimatedSprite2D 是渲染帧驱动的，不能拿它当计时器）
+	await BattleClock.wait_seconds(0.875)
 	attack_effect.hide()
 	#await get_tree().create_timer(0.2).timeout
 	
@@ -104,7 +107,7 @@ func attack_cursor_effect(factor:float,best:bool):
 		snd_damage.play()
 		if master.battle_data.enemys[enemy_index].hp<=0:
 			enemy_dead.emit(enemy_index)
-	await get_tree().create_timer(0.8).timeout
+	await BattleClock.wait_seconds(0.8)
 	end()
 	dmg_miss.hide()
 func attack_cursor_miss():
@@ -112,7 +115,7 @@ func attack_cursor_miss():
 	dmg_miss.show()
 	
 	end()
-	await get_tree().create_timer(0.8).timeout
+	await BattleClock.wait_seconds(0.8)
 	dmg_miss.hide()
 
 func end():
@@ -124,5 +127,6 @@ func end():
 		return
 	attack_done.emit()
 
-static func _calculate_damage(atk:float,factor:float,hp:float,max_hp:float,best:bool=false,def:float=0)->float:
-	return max(0,atk*factor-def*(hp/max_hp)+randf_range(-atk*0.05,+atk*0.05))+(atk*0.1 if best else 0)
+## 注意：不是 static（要取 BattleRNG 这个 autoload）
+func _calculate_damage(atk:float,factor:float,hp:float,max_hp:float,best:bool=false,def:float=0)->float:
+	return max(0,atk*factor-def*(hp/max_hp)+BattleRNG.randf_range(-atk*0.05,+atk*0.05))+(atk*0.1 if best else 0)

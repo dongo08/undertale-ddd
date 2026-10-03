@@ -27,7 +27,7 @@ func _ready() -> void:
 	tween.parallel().tween_property(self,"radius3",200,0.2).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_IN)
 	tween.parallel().tween_property(self,"radius4",200,0.2).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_IN)
 	tween.parallel().tween_property(self,"modulate:a",0,0.2)
-	await get_tree().create_timer(0.5).timeout
+	await BattleClock.wait_seconds(0.5)
 	queue_free()
 	
 func _process(delta: float) -> void:

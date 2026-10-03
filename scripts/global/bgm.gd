@@ -63,7 +63,7 @@ func stop(fade: float = DEFAULT_FADE) -> void:
 		return
 	if fade > 0.0:
 		_fade_volume(MUTE_DB, fade)
-		await get_tree().create_timer(fade).timeout
+		await BattleClock.wait_seconds(fade)
 	_player.stop()
 	stopped.emit()
 
@@ -92,7 +92,7 @@ func set_slow(enabled: bool, fade: float = DEFAULT_FADE) -> void:
 		return
 	# 先淡出 → 切总线 → 再淡回目标音量，避免切换爆音
 	_fade_volume(MUTE_DB, fade / 2.0)
-	await get_tree().create_timer(fade / 2.0).timeout
+	await BattleClock.wait_seconds(fade / 2.0)
 	_player.bus = BUS_SLOW if enabled else BUS_BGM
 	_fade_volume(_volume_db, fade / 2.0)
 

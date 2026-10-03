@@ -7,11 +7,9 @@
 radius = 7.0
 
 [node name="Area2D" type="Area2D" unique_id=750267846]
-modulate = Color(0, 1, 1, 1)
 collision_layer = 4
 collision_mask = 2
 script = ExtResource("1_nqvua")
-type = 1
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1419066035]
 texture = ExtResource("2_nqvua")
