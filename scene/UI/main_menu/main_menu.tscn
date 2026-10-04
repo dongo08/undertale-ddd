@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://b8xv2f76e4m4f" path="res://assets/sprites/UI/main_menu/未标题-2.png" id="2_tkjf2"]
 [ext_resource type="Texture2D" uid="uid://c758lbo53dmuv" path="res://assets/sprites/UI/main_menu/未标题-3.png" id="3_tkjf2"]
 [ext_resource type="Texture2D" uid="uid://l3fb2xb6bb2e" path="res://assets/sprites/UI/main_menu/logo.png" id="5_2eoek"]
+[ext_resource type="Shader" uid="uid://dvay8trrcl7us" path="res://shader/flowing_diagonal_bands.gdshader" id="5_xitpx"]
 [ext_resource type="AudioStream" uid="uid://cmgl5wpwt8ak7" path="res://assets/sounds/UI/menu/确定.ogg" id="7_qv0cf"]
 [ext_resource type="AudioStream" uid="uid://et5mtmqyleg3" path="res://assets/sounds/UI/menu/选择.ogg" id="8_xitpx"]
 
@@ -31,39 +32,66 @@ gravity = Vector3(0, 0, 0)
 scale_min = 0.13
 scale_max = 0.13
 
-[sub_resource type="Gradient" id="Gradient_smsuw"]
-offsets = PackedFloat32Array(0)
-colors = PackedColorArray(0, 3.6610258, 5.2618666, 1)
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_ashne"]
+frequency = 0.0121
 
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_htemk"]
-gradient = SubResource("Gradient_smsuw")
-width = 16
-height = 16
-use_hdr = true
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_dtglo"]
+noise = SubResource("FastNoiseLite_ashne")
+seamless = true
 
-[sub_resource type="Curve" id="Curve_ugcl7"]
-_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.50938964, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
-point_count = 3
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_yex4w"]
+noise_type = 0
+frequency = 0.0189
 
-[sub_resource type="CurveTexture" id="CurveTexture_pj0hq"]
-curve = SubResource("Curve_ugcl7")
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_wt34f"]
+noise = SubResource("FastNoiseLite_yex4w")
+seamless = true
 
-[sub_resource type="Gradient" id="Gradient_tkjf2"]
-colors = PackedColorArray(0, 0, 0, 0, 1, 1, 1, 0.39215687)
-
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_q4lci"]
-gradient = SubResource("Gradient_tkjf2")
-
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_14cdr"]
-particle_flag_disable_z = true
-emission_shape = 3
-emission_box_extents = Vector3(320, 240, 1)
-spread = 0.0
-initial_velocity_max = 5.0
-gravity = Vector3(0, 0, 0)
-color = Color(1, 1, 1, 0.039215688)
-color_initial_ramp = SubResource("GradientTexture1D_q4lci")
-alpha_curve = SubResource("CurveTexture_pj0hq")
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_u0ya7"]
+shader = ExtResource("5_xitpx")
+shader_parameter/color_low = Color(0, 0, 0, 0)
+shader_parameter/color_mid = Color(0.14760001, 0.32253328, 0.41, 0.25882354)
+shader_parameter/color_high = Color(0.4392157, 0.8, 0.8392157, 1)
+shader_parameter/band_count = 24.00000095
+shader_parameter/band_round = 0.0
+shader_parameter/band_grout = 0.0
+shader_parameter/band_seed = 0.0870000041325
+shader_parameter/band_flat = 1.0
+shader_parameter/band_slope = 0.0
+shader_parameter/band_px = 60.0
+shader_parameter/color_source = 1.0
+shader_parameter/use_textures = true
+shader_parameter/noise_tex_a = SubResource("NoiseTexture2D_dtglo")
+shader_parameter/noise_tex_b = SubResource("NoiseTexture2D_wt34f")
+shader_parameter/noise_scale = Vector2(1.6, 1)
+shader_parameter/noise_contrast = 1.00500004121773
+shader_parameter/noise_blend = 0.50000002375
+shader_parameter/noise_b_curve = 1.25
+shader_parameter/flow_speed_a = 0.008
+shader_parameter/flow_speed_b = 0.02
+shader_parameter/flow_dir_a = Vector2(1, -0.2)
+shader_parameter/flow_dir_b = Vector2(-0.65, 0.85)
+shader_parameter/flow_scale_a = 0.85
+shader_parameter/flow_scale_b = 1.35
+shader_parameter/edge_wobble = 0.18
+shader_parameter/edge_quant = 64.0
+shader_parameter/stripe_follow = 0.12
+shader_parameter/wave_angle = -39.99999335000001
+shader_parameter/wave_len = 1.3310000599626202
+shader_parameter/wave_speed = 0.30000001425
+shader_parameter/wave_sharp = 0.5
+shader_parameter/wave_amp = 0.210000009975
+shader_parameter/wave_bright = 0.55
+shader_parameter/wave_lighting = 1.0
+shader_parameter/wave_deform = 0.4610000218975
+shader_parameter/wave_phase_noise = 0.0
+shader_parameter/overall_gain = 1.12
+shader_parameter/color_tint = Color(1, 1, 1, 1)
+shader_parameter/saturation = 1.0
+shader_parameter/vignette = 0.0
+shader_parameter/grain = 0.0
+shader_parameter/opacity = 0.490000023275
+shader_parameter/time_offset = 0.0
 
 [sub_resource type="Curve" id="Curve_q4lci"]
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.47887325, 1), 0.0, 0.0, 0, 0]
@@ -101,7 +129,7 @@ theme = ExtResource("1_qv0cf")
 script = ExtResource("1_2oduy")
 start_label = NodePath("VBoxContainer2/StartLabel")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=734281037]
+[node name="bg" type="VBoxContainer" parent="." unique_id=734281037]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -110,151 +138,152 @@ offset_bottom = 62.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Control" type="Control" parent="VBoxContainer" unique_id=1930053820]
+[node name="Control" type="Control" parent="bg" unique_id=1930053820]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="GPUParticles2D" type="GPUParticles2D" parent="VBoxContainer/Control" unique_id=458620687]
+[node name="GPUParticles2D" type="GPUParticles2D" parent="bg/Control" unique_id=458620687]
 amount = 5
 texture = ExtResource("1_smsuw")
 lifetime = 6.5
 preprocess = 6.22
 process_material = SubResource("ParticleProcessMaterial_v562b")
 
-[node name="GPUParticles2D2" type="GPUParticles2D" parent="VBoxContainer/Control" unique_id=987337188]
+[node name="GPUParticles2D2" type="GPUParticles2D" parent="bg/Control" unique_id=987337188]
 amount = 5
 texture = ExtResource("2_tkjf2")
 lifetime = 6.5
 preprocess = 6.22
 process_material = SubResource("ParticleProcessMaterial_smsuw")
 
-[node name="Control6" type="Control" parent="VBoxContainer" unique_id=1828986051]
+[node name="Control6" type="Control" parent="bg" unique_id=1828986051]
 layout_mode = 2
 size_flags_vertical = 3
 offset_transform_enabled = true
 offset_transform_position = Vector2(80, 0)
 
-[node name="GPUParticles2D" type="GPUParticles2D" parent="VBoxContainer/Control6" unique_id=672889496]
+[node name="GPUParticles2D" type="GPUParticles2D" parent="bg/Control6" unique_id=672889496]
 amount = 5
 texture = ExtResource("1_smsuw")
 lifetime = 6.5
 preprocess = 6.22
 process_material = SubResource("ParticleProcessMaterial_v562b")
 
-[node name="GPUParticles2D2" type="GPUParticles2D" parent="VBoxContainer/Control6" unique_id=891218407]
+[node name="GPUParticles2D2" type="GPUParticles2D" parent="bg/Control6" unique_id=891218407]
 amount = 5
 texture = ExtResource("2_tkjf2")
 lifetime = 6.5
 preprocess = 6.22
 process_material = SubResource("ParticleProcessMaterial_smsuw")
 
-[node name="Control7" type="Control" parent="VBoxContainer" unique_id=1062835118]
+[node name="Control7" type="Control" parent="bg" unique_id=1062835118]
 layout_mode = 2
 size_flags_vertical = 3
 offset_transform_enabled = true
 offset_transform_position = Vector2(160, 0)
 
-[node name="GPUParticles2D" type="GPUParticles2D" parent="VBoxContainer/Control7" unique_id=229301400]
+[node name="GPUParticles2D" type="GPUParticles2D" parent="bg/Control7" unique_id=229301400]
 amount = 5
 texture = ExtResource("1_smsuw")
 lifetime = 6.5
 preprocess = 6.22
 process_material = SubResource("ParticleProcessMaterial_v562b")
 
-[node name="GPUParticles2D2" type="GPUParticles2D" parent="VBoxContainer/Control7" unique_id=1064388039]
+[node name="GPUParticles2D2" type="GPUParticles2D" parent="bg/Control7" unique_id=1064388039]
 amount = 5
 texture = ExtResource("2_tkjf2")
 lifetime = 6.5
 preprocess = 6.22
 process_material = SubResource("ParticleProcessMaterial_smsuw")
 
-[node name="Control8" type="Control" parent="VBoxContainer" unique_id=711173559]
+[node name="Control8" type="Control" parent="bg" unique_id=711173559]
 layout_mode = 2
 size_flags_vertical = 3
 offset_transform_enabled = true
 offset_transform_position = Vector2(240, 0)
 
-[node name="GPUParticles2D" type="GPUParticles2D" parent="VBoxContainer/Control8" unique_id=1772823995]
+[node name="GPUParticles2D" type="GPUParticles2D" parent="bg/Control8" unique_id=1772823995]
 amount = 5
 texture = ExtResource("1_smsuw")
 lifetime = 6.5
 preprocess = 6.22
 process_material = SubResource("ParticleProcessMaterial_v562b")
 
-[node name="GPUParticles2D2" type="GPUParticles2D" parent="VBoxContainer/Control8" unique_id=1418143065]
+[node name="GPUParticles2D2" type="GPUParticles2D" parent="bg/Control8" unique_id=1418143065]
 amount = 5
 texture = ExtResource("2_tkjf2")
 lifetime = 6.5
 preprocess = 6.22
 process_material = SubResource("ParticleProcessMaterial_smsuw")
 
-[node name="Control9" type="Control" parent="VBoxContainer" unique_id=617479907]
+[node name="Control9" type="Control" parent="bg" unique_id=617479907]
 layout_mode = 2
 size_flags_vertical = 3
 offset_transform_enabled = true
 offset_transform_position = Vector2(320, 0)
 
-[node name="GPUParticles2D" type="GPUParticles2D" parent="VBoxContainer/Control9" unique_id=1378717706]
+[node name="GPUParticles2D" type="GPUParticles2D" parent="bg/Control9" unique_id=1378717706]
 amount = 5
 texture = ExtResource("1_smsuw")
 lifetime = 6.5
 preprocess = 6.22
 process_material = SubResource("ParticleProcessMaterial_v562b")
 
-[node name="GPUParticles2D2" type="GPUParticles2D" parent="VBoxContainer/Control9" unique_id=1155542699]
+[node name="GPUParticles2D2" type="GPUParticles2D" parent="bg/Control9" unique_id=1155542699]
 amount = 5
 texture = ExtResource("2_tkjf2")
 lifetime = 6.5
 preprocess = 6.22
 process_material = SubResource("ParticleProcessMaterial_smsuw")
 
-[node name="Control10" type="Control" parent="VBoxContainer" unique_id=351697379]
+[node name="Control10" type="Control" parent="bg" unique_id=351697379]
 layout_mode = 2
 size_flags_vertical = 3
 offset_transform_enabled = true
 offset_transform_position = Vector2(400, 0)
 
-[node name="GPUParticles2D" type="GPUParticles2D" parent="VBoxContainer/Control10" unique_id=1207665869]
+[node name="GPUParticles2D" type="GPUParticles2D" parent="bg/Control10" unique_id=1207665869]
 amount = 5
 texture = ExtResource("1_smsuw")
 lifetime = 6.5
 preprocess = 6.22
 process_material = SubResource("ParticleProcessMaterial_v562b")
 
-[node name="GPUParticles2D2" type="GPUParticles2D" parent="VBoxContainer/Control10" unique_id=240697360]
+[node name="GPUParticles2D2" type="GPUParticles2D" parent="bg/Control10" unique_id=240697360]
 amount = 5
 texture = ExtResource("2_tkjf2")
 lifetime = 6.5
 preprocess = 6.22
 process_material = SubResource("ParticleProcessMaterial_smsuw")
 
-[node name="Control11" type="Control" parent="VBoxContainer" unique_id=796759588]
+[node name="Control11" type="Control" parent="bg" unique_id=796759588]
 layout_mode = 2
 size_flags_vertical = 3
 offset_transform_enabled = true
 offset_transform_position = Vector2(480, 0)
 
-[node name="GPUParticles2D" type="GPUParticles2D" parent="VBoxContainer/Control11" unique_id=763891043]
+[node name="GPUParticles2D" type="GPUParticles2D" parent="bg/Control11" unique_id=763891043]
 amount = 5
 texture = ExtResource("1_smsuw")
 lifetime = 6.5
 preprocess = 6.22
 process_material = SubResource("ParticleProcessMaterial_v562b")
 
-[node name="GPUParticles2D2" type="GPUParticles2D" parent="VBoxContainer/Control11" unique_id=1620005867]
+[node name="GPUParticles2D2" type="GPUParticles2D" parent="bg/Control11" unique_id=1620005867]
 amount = 5
 texture = ExtResource("2_tkjf2")
 lifetime = 6.5
 preprocess = 6.22
 process_material = SubResource("ParticleProcessMaterial_smsuw")
 
-[node name="GPUParticles2D" type="GPUParticles2D" parent="." unique_id=1650029689]
-position = Vector2(320, 240)
-amount = 8000
-texture = SubResource("GradientTexture2D_htemk")
-lifetime = 5.0
-preprocess = 5.07
-process_material = SubResource("ParticleProcessMaterial_14cdr")
+[node name="bg2" type="ColorRect" parent="." unique_id=1649463199]
+material = SubResource("ShaderMaterial_u0ya7")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="GPUParticles2D2" type="GPUParticles2D" parent="." unique_id=1417368903]
 position = Vector2(663, 248)
@@ -323,12 +352,6 @@ bus = &"Sounds"
 stream = ExtResource("8_xitpx")
 volume_db = -6.0
 bus = &"Sounds"
-
-[node name="ColorRect" type="ColorRect" parent="." unique_id=2021287466]
-visible = false
-layout_mode = 0
-offset_right = 470.0
-offset_bottom = 379.0
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1152073077]
 environment = SubResource("Environment_u0ya7")
