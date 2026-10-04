@@ -6,6 +6,12 @@
 [ext_resource type="Script" uid="uid://bgsmn2fvofrpt" path="res://scripts/player/player_status.gd" id="2_ioju8"]
 [ext_resource type="Script" uid="uid://6na4kknsdbd1" path="res://scene/battle/soul/hitbox.gd" id="3_gk3hd"]
 [ext_resource type="AudioStream" uid="uid://cbxrn1wp0gmy7" path="res://assets/sounds/UI/soul/snd_hurt1.wav" id="4_tqpi5"]
+[ext_resource type="AudioStream" uid="uid://d021lya3ohvnb" path="res://assets/sounds/UI/soul/pldead00.wav" id="7_3djkw"]
+[ext_resource type="Texture2D" uid="uid://bxfs5c128wfbv" path="res://assets/sprites/UI/battle_screen/SOUL/spr_heartbreak_0.png" id="8_odonl"]
+[ext_resource type="Texture2D" uid="uid://cbdqjoq6u46ad" path="res://assets/sprites/UI/battle_screen/SOUL/spr_heartshards_0.png" id="15_vypy4"]
+[ext_resource type="Texture2D" uid="uid://vvf8vhhpnq4v" path="res://assets/sprites/UI/battle_screen/SOUL/spr_heartshards_1.png" id="16_qyqro"]
+[ext_resource type="Texture2D" uid="uid://bkvrqnnkmj1bw" path="res://assets/sprites/UI/battle_screen/SOUL/spr_heartshards_2.png" id="17_qfwml"]
+[ext_resource type="Texture2D" uid="uid://bjgvtukqxgapg" path="res://assets/sprites/UI/battle_screen/SOUL/spr_heartshards_3.png" id="18_i6qnj"]
 
 [sub_resource type="Resource" id="Resource_6jj7y"]
 script = ExtResource("2_ioju8")
@@ -14,7 +20,184 @@ metadata/_custom_type_script = "uid://bgsmn2fvofrpt"
 [sub_resource type="CircleShape2D" id="CircleShape2D_htemk"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_14cdr"]
-radius = 2.0
+radius = 4.0
+
+[sub_resource type="Animation" id="Animation_f7wjb"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("2_0wo8r")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Shards/CPUParticles2D:emitting")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Shards/CPUParticles2D2:emitting")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_42hsi"]
+resource_name = "dead"
+length = 2.0666666
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [ExtResource("2_0wo8r"), ExtResource("8_odonl")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Shards/CPUParticles2D:emitting")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Shards/CPUParticles2D2:emitting")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 1.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/4/type = "method"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Pldead00")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [0.0],
+"method": &"play"
+}]
+}
+tracks/5/type = "method"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath(".")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(),
+"transitions": PackedFloat32Array(),
+"values": []
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_mqhb7"]
+_data = {
+&"RESET": SubResource("Animation_f7wjb"),
+&"dead": SubResource("Animation_42hsi")
+}
+
+[sub_resource type="AnimatedTexture" id="AnimatedTexture_u0ya7"]
+frames = 4
+speed_scale = 2.0
+frame_0/texture = ExtResource("15_vypy4")
+frame_1/texture = ExtResource("16_qyqro")
+frame_1/duration = 1.0
+frame_2/texture = ExtResource("17_qfwml")
+frame_2/duration = 1.0
+frame_3/texture = ExtResource("18_i6qnj")
+frame_3/duration = 1.0
+
+[sub_resource type="Curve" id="Curve_dtglo"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.7474916, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_u0ya7"]
+curve = SubResource("Curve_dtglo")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_u0ya7"]
+particle_flag_disable_z = true
+spread = 180.0
+initial_velocity_min = 168.97
+initial_velocity_max = 168.97
+gravity = Vector3(0, 200, 0)
+alpha_curve = SubResource("CurveTexture_u0ya7")
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_bpr1e"]
+load_path = "res://.godot/imported/spr_heartshards_1.png-324bf7373a047b8e748b348cf896cfa9.ctex"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_hg2nx"]
+load_path = "res://.godot/imported/spr_heartshards_3.png-9d26448d8ab54292b77ee665b0ec2360.ctex"
+
+[sub_resource type="AnimatedTexture" id="AnimatedTexture_gp8js"]
+frames = 4
+speed_scale = 2.0
+frame_0/texture = ExtResource("17_qfwml")
+frame_1/texture = SubResource("CompressedTexture2D_bpr1e")
+frame_1/duration = 1.0
+frame_2/texture = ExtResource("15_vypy4")
+frame_2/duration = 1.0
+frame_3/texture = SubResource("CompressedTexture2D_hg2nx")
+frame_3/duration = 1.0
 
 [node name="Soul" type="CharacterBody2D" unique_id=172666121 node_paths=PackedStringArray("hitbox")]
 z_index = 20
@@ -43,6 +226,34 @@ debug_color = Color(0.22989714, 0.5097512, 1, 0.41960785)
 [node name="SndHurt1" type="AudioStreamPlayer" parent="." unique_id=72091548]
 stream = ExtResource("4_tqpi5")
 bus = &"Sounds"
+
+[node name="Pldead00" type="AudioStreamPlayer" parent="." unique_id=238161735]
+stream = ExtResource("7_3djkw")
+bus = &"Sounds"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=84535291]
+process_mode = 3
+libraries/ = SubResource("AnimationLibrary_mqhb7")
+
+[node name="Shards" type="Node2D" parent="." unique_id=1343788470]
+
+[node name="CPUParticles2D" type="GPUParticles2D" parent="Shards" unique_id=433392478]
+emitting = false
+amount = 3
+texture = SubResource("AnimatedTexture_u0ya7")
+lifetime = 4.0
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_u0ya7")
+
+[node name="CPUParticles2D2" type="GPUParticles2D" parent="Shards" unique_id=82907916]
+emitting = false
+amount = 3
+texture = SubResource("AnimatedTexture_gp8js")
+lifetime = 4.0
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_u0ya7")
 
 [connection signal="area_entered" from="Hitbox" to="Hitbox" method="_on_area_entered"]
 [connection signal="area_exited" from="Hitbox" to="Hitbox" method="_on_area_exited"]

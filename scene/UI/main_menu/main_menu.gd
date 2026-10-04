@@ -10,7 +10,6 @@ enum Option{
 }
 
 
-@onready var bg_particles: GPUParticles2D = $GPUParticles2D
 @onready var line_particles: GPUParticles2D = $GPUParticles2D2
 @onready var 确定: AudioStreamPlayer = $确定
 @onready var 选择: AudioStreamPlayer = $选择

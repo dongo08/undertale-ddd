@@ -21,6 +21,7 @@
 [ext_resource type="AudioStream" uid="uid://c0m2og28em48w" path="res://assets/sounds/UI/menu/snd_select.wav" id="14_qyclh"]
 [ext_resource type="AudioStream" uid="uid://d358vjelxwsit" path="res://assets/sounds/battle/snd_vaporized.wav" id="23_qxgud"]
 [ext_resource type="AudioStream" uid="uid://dnmmmmckfe2ai" path="res://assets/sounds/UI/soul/snd_heal_c.wav" id="24_j2v24"]
+[ext_resource type="AudioStream" uid="uid://d021lya3ohvnb" path="res://assets/sounds/UI/soul/pldead00.wav" id="26_6bxan"]
 [ext_resource type="Texture2D" uid="uid://hqni76blspwk" path="res://assets/sprites/UI/battle_screen/bullet/大玉.png" id="30_qq7g6"]
 [ext_resource type="AudioStream" uid="uid://b0exrudoitwdv" path="res://assets/sounds/UI/text/SND_TXT1.wav" id="32_sev40"]
 [ext_resource type="Texture2D" uid="uid://bhcri1aocaoum" path="res://assets/sprites/UI/spr_test_zbutton_3.png" id="41_hqqfg"]
@@ -152,6 +153,7 @@ snd_txt = NodePath("../../Audio/SndTxt2")
 [node name="Soul" parent="." unique_id=172666121 node_paths=PackedStringArray("game") instance=ExtResource("6_qyclh")]
 position = Vector2(63, 324)
 game = NodePath("..")
+type = 1
 
 [node name="BattleFrame" type="Node2D" parent="." unique_id=1053110815]
 z_index = 1
@@ -247,6 +249,10 @@ bus = &"Sounds"
 stream = ExtResource("23_qxgud")
 bus = &"Sounds"
 
+[node name="PlayerDead" type="AudioStreamPlayer" parent="Audio" unique_id=356902230]
+stream = ExtResource("26_6bxan")
+bus = &"Sounds"
+
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1890787532]
 layer = 2
 
@@ -280,7 +286,7 @@ visibility_mode = 1
 
 [node name="大玉" type="Sprite2D" parent="." unique_id=827090418]
 material = SubResource("CanvasItemMaterial_j3pel")
-position = Vector2(315, 168)
+position = Vector2(210, 143.00002)
 scale = Vector2(0.3028169, 0.3116198)
 texture = ExtResource("30_qq7g6")
 

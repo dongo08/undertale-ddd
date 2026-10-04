@@ -10,6 +10,8 @@ const SPR_SPAREBT_0 = preload("uid://6jjmmkw7g1v6")
 const SPR_SPAREBT_1 = preload("uid://jcu2kptuk5l2")
 const EXPLODE_EFFECT = preload("uid://djpv4bs5mo5ui")
 const BLOOD_EFFECT = preload("uid://bqrgv5a3m6dys")
+const DEAD_EFFECT = preload("uid://dfroi6v588n3k")
+const GAME_OVER = preload("uid://b8rgd3l78wg6x")
 
 const SOUL_BUTTON_OFFSET=Vector2(16,21)
 const SOUL_CHOICE_OFFSET=Vector2(-18,14)
@@ -69,6 +71,7 @@ var enemy_illustration: EnemyIllustration:
 		return enemy_illustrations[0] if not enemy_illustrations.is_empty() else null
 @onready var buttons:Array[BattleActionButton]=[fight_button,act_button,item_button,mercy_button]
 
+var enemy_turn_manager:BaseEnemyTurnManager
 var choice_progress:Choice:
 	set(value):
 		if choice_progress!=value:
@@ -118,6 +121,7 @@ func _ready() -> void:
 	attack_bar.attack_done.connect(enemy_turn_start)
 	attack_bar.enemy_dead.connect(_on_enemy_dead)
 	soul.player_status=battle_data.player_status
+	soul.dead.connect(_on_player_dead)
 	player_status.player_status=battle_data.player_status
 	player_status.init()
 	battle_frame_text.hide_all()
@@ -133,7 +137,7 @@ func action_start():
 	soul.global_position=buttons[button_index].global_position+SOUL_BUTTON_OFFSET
 	_action_change_button()
 	# 等一个物理帧（不能用 process_frame：渲染帧和物理帧的比值会变，回放就对不上了）
-	await BattleClock.wait_ticks(1)
+	#await BattleClock.wait_ticks(1)
 	state=BattleState.ACTION
 	round_start.emit(round_index)
 	
@@ -175,7 +179,7 @@ func enemy_turn_bullet():
 	if !manager_script:
 		enemy_turn_finished()
 		return
-	var enemy_turn_manager=manager_script.new() as BaseEnemyTurnManager
+	enemy_turn_manager=manager_script.new() as BaseEnemyTurnManager
 	enemy_turn_manager.master=self
 	enemy_turn_manager.finished.connect(enemy_turn_finished)
 	battle_frame_border.add_sibling(enemy_turn_manager)
@@ -674,6 +678,20 @@ func _on_enemy_dead(index:int):
 		finish_replay(BattleReplay.Result.WIN)
 		all_enemies_dead.emit()
 
+func _on_player_dead():
+	# 死了：先把这次录的回放存下来（reload 会把场景整个换掉）
+	finish_replay(BattleReplay.Result.DEAD)
+	var dead_effect=DEAD_EFFECT.instantiate() as Node2D
+	dead_effect.position=soul.position
+	if enemy_turn_manager:
+		enemy_turn_manager.queue_free()
+	for i in get_children():
+		if i !=soul and i.has_method("hide"):
+			i.hide()
+		BGM.stop(0)
+	soul.reparent(get_tree().root)
+	await get_tree().create_timer(2).timeout
+	Global.change_scene_to_packed(GAME_OVER,1,Color.BLACK)
 
 ## 回放的校验值：录制和播放结束时各算一次，对不上说明这份回放跑歪了
 func replay_checksum() -> int:

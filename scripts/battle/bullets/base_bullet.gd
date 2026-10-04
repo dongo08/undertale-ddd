@@ -17,3 +17,8 @@ func _physics_process(delta: float) -> void:
 	lifetime-=delta
 	if lifetime<0:
 		queue_free()
+
+func disable_collision():
+	for i in get_children():
+		if i is CollisionShape2D:
+			i.disabled=true

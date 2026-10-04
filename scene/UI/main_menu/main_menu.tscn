@@ -33,7 +33,6 @@ scale_min = 0.13
 scale_max = 0.13
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_ashne"]
-frequency = 0.0121
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_dtglo"]
 noise = SubResource("FastNoiseLite_ashne")
@@ -41,7 +40,7 @@ seamless = true
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_yex4w"]
 noise_type = 0
-frequency = 0.0189
+frequency = 0.015
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_wt34f"]
 noise = SubResource("FastNoiseLite_yex4w")
@@ -51,7 +50,7 @@ seamless = true
 shader = ExtResource("5_xitpx")
 shader_parameter/color_low = Color(0, 0, 0, 0)
 shader_parameter/color_mid = Color(0.14760001, 0.32253328, 0.41, 0.25882354)
-shader_parameter/color_high = Color(0.4392157, 0.8, 0.8392157, 1)
+shader_parameter/color_high = Color(0.3848, 0.70448005, 0.74, 1)
 shader_parameter/band_count = 24.00000095
 shader_parameter/band_round = 0.0
 shader_parameter/band_grout = 0.0
@@ -147,6 +146,7 @@ amount = 5
 texture = ExtResource("1_smsuw")
 lifetime = 6.5
 preprocess = 6.22
+local_coords = true
 process_material = SubResource("ParticleProcessMaterial_v562b")
 
 [node name="GPUParticles2D2" type="GPUParticles2D" parent="bg/Control" unique_id=987337188]
@@ -154,6 +154,7 @@ amount = 5
 texture = ExtResource("2_tkjf2")
 lifetime = 6.5
 preprocess = 6.22
+local_coords = true
 process_material = SubResource("ParticleProcessMaterial_smsuw")
 
 [node name="Control6" type="Control" parent="bg" unique_id=1828986051]
@@ -167,6 +168,7 @@ amount = 5
 texture = ExtResource("1_smsuw")
 lifetime = 6.5
 preprocess = 6.22
+local_coords = true
 process_material = SubResource("ParticleProcessMaterial_v562b")
 
 [node name="GPUParticles2D2" type="GPUParticles2D" parent="bg/Control6" unique_id=891218407]
@@ -174,6 +176,7 @@ amount = 5
 texture = ExtResource("2_tkjf2")
 lifetime = 6.5
 preprocess = 6.22
+local_coords = true
 process_material = SubResource("ParticleProcessMaterial_smsuw")
 
 [node name="Control7" type="Control" parent="bg" unique_id=1062835118]
@@ -187,6 +190,7 @@ amount = 5
 texture = ExtResource("1_smsuw")
 lifetime = 6.5
 preprocess = 6.22
+local_coords = true
 process_material = SubResource("ParticleProcessMaterial_v562b")
 
 [node name="GPUParticles2D2" type="GPUParticles2D" parent="bg/Control7" unique_id=1064388039]
@@ -194,6 +198,7 @@ amount = 5
 texture = ExtResource("2_tkjf2")
 lifetime = 6.5
 preprocess = 6.22
+local_coords = true
 process_material = SubResource("ParticleProcessMaterial_smsuw")
 
 [node name="Control8" type="Control" parent="bg" unique_id=711173559]
@@ -207,6 +212,7 @@ amount = 5
 texture = ExtResource("1_smsuw")
 lifetime = 6.5
 preprocess = 6.22
+local_coords = true
 process_material = SubResource("ParticleProcessMaterial_v562b")
 
 [node name="GPUParticles2D2" type="GPUParticles2D" parent="bg/Control8" unique_id=1418143065]
@@ -214,6 +220,7 @@ amount = 5
 texture = ExtResource("2_tkjf2")
 lifetime = 6.5
 preprocess = 6.22
+local_coords = true
 process_material = SubResource("ParticleProcessMaterial_smsuw")
 
 [node name="Control9" type="Control" parent="bg" unique_id=617479907]
@@ -227,6 +234,7 @@ amount = 5
 texture = ExtResource("1_smsuw")
 lifetime = 6.5
 preprocess = 6.22
+local_coords = true
 process_material = SubResource("ParticleProcessMaterial_v562b")
 
 [node name="GPUParticles2D2" type="GPUParticles2D" parent="bg/Control9" unique_id=1155542699]
@@ -234,6 +242,7 @@ amount = 5
 texture = ExtResource("2_tkjf2")
 lifetime = 6.5
 preprocess = 6.22
+local_coords = true
 process_material = SubResource("ParticleProcessMaterial_smsuw")
 
 [node name="Control10" type="Control" parent="bg" unique_id=351697379]
@@ -247,6 +256,7 @@ amount = 5
 texture = ExtResource("1_smsuw")
 lifetime = 6.5
 preprocess = 6.22
+local_coords = true
 process_material = SubResource("ParticleProcessMaterial_v562b")
 
 [node name="GPUParticles2D2" type="GPUParticles2D" parent="bg/Control10" unique_id=240697360]
@@ -254,6 +264,7 @@ amount = 5
 texture = ExtResource("2_tkjf2")
 lifetime = 6.5
 preprocess = 6.22
+local_coords = true
 process_material = SubResource("ParticleProcessMaterial_smsuw")
 
 [node name="Control11" type="Control" parent="bg" unique_id=796759588]
@@ -267,6 +278,7 @@ amount = 5
 texture = ExtResource("1_smsuw")
 lifetime = 6.5
 preprocess = 6.22
+local_coords = true
 process_material = SubResource("ParticleProcessMaterial_v562b")
 
 [node name="GPUParticles2D2" type="GPUParticles2D" parent="bg/Control11" unique_id=1620005867]
@@ -274,6 +286,7 @@ amount = 5
 texture = ExtResource("2_tkjf2")
 lifetime = 6.5
 preprocess = 6.22
+local_coords = true
 process_material = SubResource("ParticleProcessMaterial_smsuw")
 
 [node name="bg2" type="ColorRect" parent="." unique_id=1649463199]

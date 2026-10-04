@@ -7,6 +7,8 @@ var fade_tween:Tween
 ## 主菜单的 Difficulty 按钮以后改这里就行，现在默认普通。
 var difficulty:EnemyRoundSet.Difficulty=EnemyRoundSet.Difficulty.NORMAL
 
+var fade_layer:CanvasLayer
+
 #func _ready() -> void:
 	#TranslationServer.set_locale("en")
 
@@ -25,18 +27,20 @@ func create_rand_update_effect(node:Node)->Node:
 
 
 func change_scene_to_packed(scene:PackedScene,fade_duration:float=2,fade_color:Color=Color.WHITE):
-	var canvas:=CanvasLayer.new()
-	canvas.layer=100
+	if fade_layer:
+		fade_layer.queue_free()
+	fade_layer=CanvasLayer.new()
+	fade_layer.layer=100
 	var fade:=ColorRect.new()
 	fade.size=Vector2(10000,10000)
 	fade.color=fade_color
-	get_tree().root.add_child(canvas)
-	canvas.add_child(fade)
+	get_tree().root.add_child(fade_layer)
+	fade_layer.add_child(fade)
 	if fade_tween and fade_tween.is_running():
 		fade_tween.kill()
 	fade_tween=create_tween()
 	fade_tween.tween_property(fade,"modulate:a",1,fade_duration/2).from(0)
 	fade_tween.tween_callback(func():get_tree().change_scene_to_packed(scene))
 	fade_tween.tween_property(fade,"modulate:a",0,fade_duration/2)
-	fade_tween.tween_callback(canvas.queue_free)
+	fade_tween.tween_callback(fade_layer.queue_free)
 	

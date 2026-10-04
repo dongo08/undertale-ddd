@@ -26,15 +26,20 @@ const SLOW_SPEED:float=75
 @export var player_status:PlayerStatus
 @export var hitbox:HitBox
 @onready var snd_hurt_1: AudioStreamPlayer = $SndHurt1
+@onready var animation_player: AnimationPlayer = $AnimationPlayer
 var invincible:bool=false
 var g_velosity:float
 var movement_locked:bool=false
+
+
+signal dead()
 
 func _ready() -> void:
 	hitbox.apply_damage.connect(apply_damage)
 
 func _physics_process(delta: float) -> void:
 	if movement_locked:
+		g_velosity=0
 		return
 	velocity=Vector2.ZERO
 	if !game or game.state==game.BattleState.ENEMY_TURN:
@@ -147,14 +152,16 @@ func _hurt(damage:float):
 			player_status.hp-=damage
 	else:
 		player_status.hp-=damage
+	if player_status.hp<=0:
+		dead.emit()
+		animation_player.play("dead")
+		set_process_input(false)
+		set_physics_process(false)
+		await get_tree().create_timer(4).timeout
+		queue_free()
+		return
 	snd_hurt_1.play()
 	modulate.v=0.5
-	if player_status.hp<=0:
-		# 死了：先把这次录的回放存下来（reload 会把场景整个换掉）
-		if game:
-			game.finish_replay(BattleReplay.Result.DEAD)
-		get_tree().call_deferred("reload_current_scene")
-
 	invincible=true
 	await BattleClock.wait_seconds(invincible_time)
 	modulate.v=1

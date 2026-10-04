@@ -61,6 +61,8 @@ func spawn_2_bullet(pos,direction,speed,to_right:bool=true,ofspeed:float=1):
 	bullet.position = pos
 	bullet.manager=self
 	bullet.direction=direction
+	if bullet.direction.y<0:
+		bullet.disable_collision()
 	bullet.speed=speed
 	bullet.to_right=to_right
 	bullet.offset_speed=ofspeed

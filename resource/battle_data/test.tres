@@ -32,12 +32,12 @@ metadata/_custom_type_script = "uid://bow5y3q3seleq"
 script = ExtResource("1_700o5")
 metadata/_custom_type_script = "uid://bow5y3q3seleq"
 
-[sub_resource type="Resource" id="Resource_htemk"]
+[sub_resource type="Resource" id="Resource_g88ds"]
 resource_local_to_scene = true
 script = ExtResource("2_miks1")
 LOVE = 3
-max_hp = 28
-hp = 28
+max_hp = 6
+hp = 6
 attack = 1100.0
 backpack = Array[ExtResource("2_resvl")]([ExtResource("3_g8072"), ExtResource("4_r52bu"), ExtResource("5_pvimt"), ExtResource("5_pvimt"), ExtResource("6_kg0i0"), ExtResource("6_kg0i0"), ExtResource("6_kg0i0"), ExtResource("6_kg0i0")])
 metadata/_custom_type_script = "uid://bgsmn2fvofrpt"
@@ -151,7 +151,7 @@ metadata/_custom_type_script = "uid://ciq2r0dd5e2fx"
 [resource]
 resource_local_to_scene = true
 script = ExtResource("2_g0110")
-player_status = SubResource("Resource_htemk")
+player_status = SubResource("Resource_g88ds")
 enemys = Array[ExtResource("1_700o5")]([SubResource("Resource_miks1"), SubResource("Resource_kg0i0")])
 rounds = Array[ExtResource("3_yiiu4")]([SubResource("Resource_6jj7y"), SubResource("Resource_ivfpn"), SubResource("Resource_vak8k"), SubResource("Resource_sev40")])
 metadata/_custom_type_script = "uid://b6innblij3fdk"

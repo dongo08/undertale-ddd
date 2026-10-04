@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://cmyb810k6dw7d"]
 
 [ext_resource type="Script" uid="uid://but4ur02fb1sx" path="res://scene/battle/tools/enemy_round_test.gd" id="1_3uysb"]
-[ext_resource type="Script" uid="uid://c6owigye2tjp1" path="res://scripts/battle/levels/test/round4.gd" id="2_jepsn"]
+[ext_resource type="Script" uid="uid://ddyui65b8dqlk" path="res://scripts/battle/levels/level1/round2.gd" id="2_jepsn"]
 [ext_resource type="Script" uid="uid://bxxkmygk51k30" path="res://scene/battle/battle_frame/battle_frame_border.gd" id="3_ago2a"]
 [ext_resource type="PackedScene" uid="uid://b5ry1mecij7jb" path="res://scene/battle/battle_frame/attack_bar.tscn" id="4_mjwdl"]
 [ext_resource type="Script" uid="uid://calkgasaaikbk" path="res://scripts/player/item.gd" id="6_i8eta"]
