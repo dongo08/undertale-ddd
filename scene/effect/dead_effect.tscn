@@ -2,10 +2,11 @@
 
 [ext_resource type="Script" uid="uid://og1b2dqu0320" path="res://scene/effect/dead_effect.gd" id="1_5bjnb"]
 [ext_resource type="Texture2D" uid="uid://btpa8jhqrnqm3" path="res://assets/sprites/levels/level1/Ring.png" id="1_5pvhu"]
+[ext_resource type="Texture2D" uid="uid://b0ogks3o0ncno" path="res://assets/sprites/UI/battle_screen/bullet/ball16.png" id="3_sl626"]
 
 [sub_resource type="Curve" id="Curve_arba8"]
-_data = [Vector2(0, 1), 0.0, -2.014251, 0, 0, Vector2(1, 0), -0.105888315, 0.0, 0, 0]
-point_count = 2
+_data = [Vector2(0, 1), 0.0, -2.014251, 0, 0, Vector2(0.02341137, 0.8015872), -2.8129578, -2.8129578, 0, 0, Vector2(1, 0), -0.105888315, 0.0, 0, 0]
+point_count = 3
 
 [sub_resource type="CurveTexture" id="CurveTexture_mkvl2"]
 curve = SubResource("Curve_arba8")
@@ -49,6 +50,7 @@ gravity = Vector3(0, 0, 0)
 scale_min = 8.0
 scale_max = 8.0
 scale_curve = SubResource("CurveTexture_2t48w")
+color = Color(1.353256, 1.353256, 1.353256, 1)
 alpha_curve = SubResource("CurveTexture_mkvl2")
 
 [sub_resource type="Gradient" id="Gradient_sl626"]
@@ -123,6 +125,10 @@ color = Color(1.8247963, 1.8247963, 1.8247963, 1)
 color_initial_ramp = SubResource("GradientTexture1D_8xkks")
 alpha_curve = SubResource("CurveTexture_kwmae")
 
+[sub_resource type="Environment" id="Environment_u0ya7"]
+background_mode = 3
+glow_enabled = true
+
 [node name="DeadEffect" type="Node2D" unique_id=232473156]
 position = Vector2(292, 213)
 script = ExtResource("1_5bjnb")
@@ -144,3 +150,10 @@ lifetime = 1.5
 one_shot = true
 explosiveness = 1.0
 process_material = SubResource("ParticleProcessMaterial_dtglo")
+
+[node name="Ball16" type="Sprite2D" parent="." unique_id=663409686]
+modulate = Color(18.892157, 18.892157, 18.892157, 1)
+texture = ExtResource("3_sl626")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1483595509]
+environment = SubResource("Environment_u0ya7")

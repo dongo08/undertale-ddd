@@ -9,6 +9,8 @@ const SE_TAN_02 = preload("uid://bhbpd23lvqvvc")
 @export var master: BattleManager
 var bullets: Array[BaseBullet]
 var polygon_tween: Tween
+## 战斗框过渡的代次号（同上：有更新的过渡时让位）
+var _polygon_trans_id: int = 0
 
 var lu: Vector2
 var ru: Vector2
@@ -143,12 +145,23 @@ func set_battleframe_polygon_trans(
 ):
 	if polygon_tween and polygon_tween.is_running():
 		polygon_tween.kill()
-	polygon_tween = create_tween()
-	var p = get_battleframe_polygon()
-	polygon_tween.parallel().tween_method(
-		set_battleframe_polygon, p, polygon, duration
-	).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUAD)
-	await BattleClock.wait_seconds(duration)
+	# 碰撞多边形是 gameplay（灵魂会撞它），逐 tick 插值，不能由 tween 驱动
+	_polygon_trans_id += 1
+	var my_id := _polygon_trans_id
+	var from = get_battleframe_polygon()
+	var ticks := BattleClock.seconds_to_ticks(duration)
+	for i in ticks:
+		if _polygon_trans_id != my_id:
+			return
+		var t := float(i + 1) / float(ticks)
+		var eased := 1.0 - pow(1.0 - t, 2.0)
+		if from.size() == polygon.size():
+			var points := PackedVector2Array()
+			for k in from.size():
+				points.append(from[k].lerp(polygon[k], eased))
+			set_battleframe_polygon(points)
+		await get_tree().physics_frame
+	set_battleframe_polygon(polygon)
 
 func play_sound(stream: AudioStream, from_offset: float = 0, volume_db: float = 0, pitch_scale: float = 1.0):
 	master.play_bullet_sound(stream,from_offset,volume_db,pitch_scale)

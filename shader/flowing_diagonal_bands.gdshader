@@ -88,6 +88,7 @@ uniform float vignette : hint_range(0.0, 1.0) = 0.22;       // 四角压暗
 uniform float grain : hint_range(0.0, 0.3) = 0.022;         // 颗粒
 uniform float opacity : hint_range(0.0, 1.0) = 1.0;         // 整体不透明度（配合 ColorRect 的 color.a 一起乘）
 uniform float time_offset = 0.0;                            // 手动推动画相位（截图对比用）
+uniform float freeze : hint_range(0.0, 1.0) = 0.0;          // 仅调试用：=1 时冻结时间，方便逐像素对比两次渲染
 
 const vec3 LUMA = vec3(0.2126, 0.7152, 0.0722);
 
@@ -152,19 +153,25 @@ float noise_lum(vec2 uv, float t) {
 	return clamp(mix(a, b, noise_blend), 0.0, 1.0);
 }
 
-// 斜向波浪：返回 0..1 的波场，1 在波峰。
+// 斜向波浪：一次算出 (主波, 泛音波)，都是 0..1、1 在波峰。
+// 一次返回两个，省掉在 fragment 里把同一个三角函数算两遍。
 // phase_off 用来让波浪位置轻微游动（保持相干，不会被噪声打散）。
-float wave_field(vec2 uv, float t, float phase_off) {
+vec2 wave_field_pair(vec2 uv, float t, float phase_off) {
 	float ang = radians(wave_angle);
 	vec2 dir = vec2(cos(ang), sin(ang));
 	float z = (dot(uv, dir) - 0.5 * (dir.x + dir.y)) * wave_len + phase_off - t * wave_speed;
 	// 主频保证波带连贯，叠一点低频让波浪有起伏、不机械
 	float w = sin(z * 6.28318) * 0.82 + sin(z * 6.28318 * 0.41 + 2.3) * 0.18;
-	return pow(clamp(0.5 + 0.5 * w, 0.0, 1.0), wave_sharp);
+	float main_wave = pow(clamp(0.5 + 0.5 * w, 0.0, 1.0), wave_sharp);
+	// 泛音：同一相位、低频 0.55 倍，形变时混一点进去，波浪更顺
+	float z2 = z * 0.55;
+	float w2 = sin(z2 * 6.28318) * 0.82 + sin(z2 * 6.28318 * 0.41 + 2.3) * 0.18;
+	float soft_wave = pow(clamp(0.5 + 0.5 * w2, 0.0, 1.0), wave_sharp);
+	return vec2(main_wave, soft_wave);
 }
 
 void fragment() {
-	float t = TIME + time_offset;
+	float t = mix(TIME + time_offset, 7.0, freeze);
 	vec2 uv = UV;
 	float px = max(1.0, 1.0 / max(SCREEN_PIXEL_SIZE.y, 1e-6));   // 屏幕高度（像素）
 
@@ -174,8 +181,9 @@ void fragment() {
 	// 注意：波浪本身要“相干”才看得出是斜向的；所以只让噪声轻微游动它的相位，
 	// 而不是让噪声直接改变它的强度（否则会变成一圈圈等高线）。
 	float wave_wobble = (n - 0.5) * wave_phase_noise;
-	float wave = wave_field(uv, t, wave_wobble);
-	float wave_shape = wave_field(uv, t, wave_wobble * 0.55);
+	vec2 waves = wave_field_pair(uv, t, wave_wobble);
+	float wave = waves.x;
+	float wave_shape = waves.y;
 
 	// ---- 长条取样坐标 ----------------------------------------------------
 	// 条高按“屏幕像素”定，和分辨率无关；wave_deform 让条纹在波浪处被向上挤，
@@ -184,12 +192,12 @@ void fragment() {
 	float deform = mix(wave, wave_shape, 0.35);
 	float shift = deform * wave_deform * band_h_uv;
 	float stripe_follow_amt = (n - 0.5) * stripe_follow * band_h_uv;
-	float wob = floor(n * edge_quant) / edge_quant;              // 量化：保住长条的硬边
+	// 条边左右摆动：把噪声量化后再推条边，条缝就不会是一条条笔直的平行线
+	float wob = floor(n * edge_quant) / edge_quant;
 	float x_wobble = (wob - 0.5) * edge_wobble * band_h_uv;
 
 	float y = uv.y + shift - stripe_follow_amt + uv.x * band_slope;  // 向上挤（+y 是屏幕下方）
-	float x = uv.x + x_wobble;
-	float raw = y * band_count;
+	float raw = y * band_count - x_wobble * band_count;              // x 方向的摆动 = 往下推同样多的条高
 	float idx = floor(raw);
 	float f = fract(raw);
 

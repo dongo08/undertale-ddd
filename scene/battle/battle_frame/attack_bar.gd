@@ -52,7 +52,9 @@ func _aim_feedback_at_enemy()->void:
 	var portrait:=master.portrait_for_enemy(enemy_index)
 	if portrait==null:
 		return
-	var center:=portrait.global_position
+	# 用立绘自己的"视觉中心"：拆图 / 换尺寸后调立绘的 center_offset 就行，
+	# 不用回来重调下面这一堆偏移
+	var center:=portrait.get_center()
 	_place_control_center(hp_bar,center+hp_bar_center_offset)
 	_place_control_center(damage_label,center+damage_label_center_offset)
 	if attack_effect:

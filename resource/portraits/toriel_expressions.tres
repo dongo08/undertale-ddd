@@ -1,25 +1,25 @@
-[gd_resource type="Resource" script_class="ExpressionSet" format=3]
+[gd_resource type="Resource" script_class="ExpressionSet" format=3 uid="uid://qkeluwi8lgqh"]
 
-[ext_resource type="Texture2D" path="res://assets/sprites/levels/level1/enemy/Toriel-1.png" id="1_tigbn"]
-[ext_resource type="Texture2D" path="res://assets/sprites/levels/level1/enemy/Toriel-2.png" id="2_2xg51"]
-[ext_resource type="Texture2D" path="res://assets/sprites/levels/level1/enemy/Toriel-3.png" id="3_srt26"]
-[ext_resource type="Texture2D" path="res://assets/sprites/levels/level1/enemy/Toriel-4.png" id="4_wat0b"]
-[ext_resource type="Texture2D" path="res://assets/sprites/levels/level1/enemy/Toriel-5.png" id="5_g4rol"]
-[ext_resource type="Texture2D" path="res://assets/sprites/levels/level1/enemy/Toriel-6.png" id="6_u78v4"]
-[ext_resource type="Texture2D" path="res://assets/sprites/levels/level1/enemy/Toriel-8.png" id="7_7sko1"]
-[ext_resource type="Texture2D" path="res://assets/sprites/levels/level1/enemy/Toriel-9.png" id="8_rc38b"]
-[ext_resource type="Script" path="res://scripts/dialog/expression_set.gd" id="9_jgnue"]
+[ext_resource type="Texture2D" uid="uid://oulq55qx8bvl" path="res://assets/sprites/levels/level1/enemy/Toriel-1.png" id="1_tigbn"]
+[ext_resource type="Texture2D" uid="uid://cw56b7s1nayfv" path="res://assets/sprites/levels/level1/enemy/Toriel-2.png" id="2_2xg51"]
+[ext_resource type="Texture2D" uid="uid://cj7a6tcgynwt2" path="res://assets/sprites/levels/level1/enemy/Toriel-3.png" id="3_srt26"]
+[ext_resource type="Texture2D" uid="uid://cpyoh4qvdarn3" path="res://assets/sprites/levels/level1/enemy/Toriel-4.png" id="4_wat0b"]
+[ext_resource type="Texture2D" uid="uid://cbsdp83atakq2" path="res://assets/sprites/levels/level1/enemy/Toriel-5.png" id="5_g4rol"]
+[ext_resource type="Texture2D" uid="uid://dfdychk55fcgv" path="res://assets/sprites/levels/level1/enemy/Toriel-6.png" id="6_u78v4"]
+[ext_resource type="Texture2D" uid="uid://de34hgfasagr1" path="res://assets/sprites/levels/level1/enemy/Toriel-8.png" id="7_7sko1"]
+[ext_resource type="Texture2D" uid="uid://c02epjkd4m8gi" path="res://assets/sprites/levels/level1/enemy/Toriel-9.png" id="8_rc38b"]
+[ext_resource type="Script" uid="uid://ikogmmn2rxlf" path="res://scripts/dialog/expression_set.gd" id="9_jgnue"]
 
 [resource]
 resource_name = "toriel_expressions"
 script = ExtResource("9_jgnue")
-expressions = Dictionary[StringName, Texture2D]({
-&"ANGRY": ExtResource("1_tigbn"),
-&"CRY": ExtResource("8_rc38b"),
-&"DEFEATED": ExtResource("4_wat0b"),
-&"EYES_CLOSED": ExtResource("6_u78v4"),
-&"HURT": ExtResource("7_7sko1"),
-&"NORMAL": ExtResource("5_g4rol"),
-&"SAD": ExtResource("2_2xg51"),
-&"WORRIED": ExtResource("3_srt26")
+expressions = Dictionary[String, Texture2D]({
+"ANGRY": ExtResource("1_tigbn"),
+"CRY": ExtResource("8_rc38b"),
+"DEFEATED": ExtResource("4_wat0b"),
+"EYES_CLOSED": ExtResource("6_u78v4"),
+"HURT": ExtResource("7_7sko1"),
+"NORMAL": ExtResource("5_g4rol"),
+"SAD": ExtResource("2_2xg51"),
+"WORRIED": ExtResource("3_srt26")
 })

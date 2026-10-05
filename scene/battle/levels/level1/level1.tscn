@@ -28,18 +28,14 @@
 [ext_resource type="AudioStream" uid="uid://bxr8labkw3e11" path="res://assets/sounds/UI/menu/snd_squeak.wav" id="28_pjdq5"]
 [ext_resource type="AudioStream" uid="uid://c0m2og28em48w" path="res://assets/sounds/UI/menu/snd_select.wav" id="29_yy1qd"]
 [ext_resource type="PackedScene" uid="uid://4elr5pr674ya" path="res://scene/battle/player_status_panel.tscn" id="33_sq6dg"]
-[ext_resource type="Texture2D" uid="uid://bhcri1aocaoum" path="res://assets/sprites/UI/spr_test_zbutton_3.png" id="33_u6qo6"]
-[ext_resource type="Texture2D" uid="uid://ddyrq63qmdhb2" path="res://assets/sprites/UI/spr_test_zbutton_2.png" id="34_1jlks"]
 [ext_resource type="AudioStream" uid="uid://dnmmmmckfe2ai" path="res://assets/sounds/UI/soul/snd_heal_c.wav" id="34_bvdym"]
 [ext_resource type="AudioStream" uid="uid://d358vjelxwsit" path="res://assets/sounds/battle/snd_vaporized.wav" id="35_bvdym"]
 [ext_resource type="Texture2D" uid="uid://bwaim8orr6o2q" path="res://assets/sprites/levels/level1/Overseer.png" id="35_dobon"]
-[ext_resource type="Texture2D" uid="uid://c64m48xjhrqlp" path="res://assets/sprites/UI/spr_test_xbutton_3.png" id="35_rm87g"]
 [ext_resource type="Texture2D" uid="uid://c2ptcc8lkmdc" path="res://assets/sprites/levels/level1/Overseer 15.png" id="35_vrygm"]
 [ext_resource type="Shader" uid="uid://6bitngsffj2n" path="res://shader/123.gdshader" id="36_7dni1"]
-[ext_resource type="Texture2D" uid="uid://rllimxwm6yr4" path="res://assets/sprites/UI/spr_test_xbutton_1.png" id="36_pkfs4"]
 [ext_resource type="Texture2D" uid="uid://btpa8jhqrnqm3" path="res://assets/sprites/levels/level1/Ring.png" id="40_dobon"]
 [ext_resource type="Script" uid="uid://deltq24ei2ai4" path="res://scripts/dialog/expression_dialog.gd" id="41_exprdlg"]
-[ext_resource type="Resource" path="res://resource/portraits/toriel_expressions.tres" id="42_toriexpr"]
+[ext_resource type="Resource" uid="uid://qkeluwi8lgqh" path="res://resource/portraits/toriel_expressions.tres" id="42_toriexpr"]
 [ext_resource type="Script" uid="uid://bak4twd7ph5ti" path="res://scene/battle/enemy_illustration.gd" id="43_illustration"]
 [ext_resource type="Script" uid="uid://crt3y1sc42aqe" path="res://scripts/dialog/dialog_director.gd" id="44_dirdlg"]
 
@@ -835,7 +831,7 @@ button_container = NodePath("buttons")
 debug_round_input = NodePath("FrontLayer/debug/HBoxContainer/SpinBox")
 player_status = NodePath("FrontLayer/player_status")
 highest_layer = NodePath("HighestLayer")
-enemy_illustrations = [NodePath("Enemy/Toriel")]
+enemy_illustrations = [null]
 
 [node name="Enemy" type="Node2D" parent="." unique_id=1032742607]
 
@@ -852,15 +848,17 @@ visible = false
 position = Vector2(320, 150)
 texture = ExtResource("7_7dni1")
 
-[node name="Toriel" type="Sprite2D" parent="Enemy" unique_id=1845950988 node_paths=PackedStringArray("dialog_source")]
+[node name="Toriel" type="Node2D" parent="Enemy" unique_id=1048419151 node_paths=PackedStringArray("dialog_source", "parts")]
 material = SubResource("ShaderMaterial_vrygm")
 position = Vector2(320, 150)
 scale = Vector2(0.5, 0.5)
-texture = ExtResource("9_8m7n8")
 script = ExtResource("10_nuqra")
 expressions = ExtResource("42_toriexpr")
 dialog_source = NodePath("../../DialogPanel")
-metadata/_custom_type_script = "uid://bak4twd7ph5ti"
+parts = [NodePath("Sprite2D")]
+
+[node name="Sprite2D" type="Sprite2D" parent="Enemy/Toriel" unique_id=516403056]
+texture = ExtResource("9_8m7n8")
 
 [node name="FireBallL" type="AnimatedSprite2D" parent="Enemy" unique_id=287194783]
 position = Vector2(210, 150)
@@ -1061,38 +1059,6 @@ grow_vertical = 2
 
 [node name="HighestLayer" type="CanvasLayer" parent="." unique_id=755489557]
 layer = 10
-
-[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1890787532]
-layer = 2
-
-[node name="VirtualJoystick" type="VirtualJoystick" parent="CanvasLayer" unique_id=1614904449]
-offset_left = 33.0
-offset_top = 388.0
-offset_right = 73.0
-offset_bottom = 428.0
-joystick_mode = 1
-deadzone_ratio = 0.5
-action_left = &"left"
-action_right = &"right"
-action_up = &"up"
-action_down = &"down"
-visibility_mode = 1
-
-[node name="TouchScreenButton" type="TouchScreenButton" parent="CanvasLayer" unique_id=1505233899]
-position = Vector2(459, 385)
-scale = Vector2(3.1818182, 2.121212)
-texture_normal = ExtResource("33_u6qo6")
-texture_pressed = ExtResource("34_1jlks")
-action = "accept"
-visibility_mode = 1
-
-[node name="TouchScreenButton2" type="TouchScreenButton" parent="CanvasLayer" unique_id=474588818]
-position = Vector2(539, 384)
-scale = Vector2(3.1818182, 2.121212)
-texture_normal = ExtResource("35_rm87g")
-texture_pressed = ExtResource("36_pkfs4")
-action = "cancel"
-visibility_mode = 1
 
 [node name="bg" type="CanvasLayer" parent="." unique_id=1758856075]
 layer = -1

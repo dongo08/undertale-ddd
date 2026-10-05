@@ -40,7 +40,19 @@ func change_scene_to_packed(scene:PackedScene,fade_duration:float=2,fade_color:C
 		fade_tween.kill()
 	fade_tween=create_tween()
 	fade_tween.tween_property(fade,"modulate:a",1,fade_duration/2).from(0)
-	fade_tween.tween_callback(func():get_tree().change_scene_to_packed(scene))
+	# 切场景这一步按物理帧等：放在 tween 回调里的话，落在哪一 tick 不确定，
+	# 跨场景的战斗回放就会错开（淡入淡出本身仍然交给 tween 做画面）
+	_switch_after_fade(scene,fade,fade_duration)
+
+
+func _switch_after_fade(scene:PackedScene,fade:ColorRect,fade_duration:float) -> void:
+	if !is_zero_approx(fade_duration) :
+		await BattleClock.wait_seconds(fade_duration/2.0)
+	get_tree().change_scene_to_packed(scene)
+	fade_tween=create_tween()
 	fade_tween.tween_property(fade,"modulate:a",0,fade_duration/2)
-	fade_tween.tween_callback(fade_layer.queue_free)
+	if !is_zero_approx(fade_duration) :
+		await BattleClock.wait_seconds(fade_duration/2.0)
+	if is_instance_valid(fade_layer):
+		fade_layer.queue_free()
 	

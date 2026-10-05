@@ -42,7 +42,9 @@ func _on_exit_label_pressed() -> void:
 
 
 func _on_replay_label_pressed() -> void:
+	print(Time.get_ticks_msec())
 	var a=BattleReplay.list_replays()[0]
 	print(a)
+	print(Time.get_ticks_msec())
 	BattleReplay.prepare_playback(a["path"])
 	Global.change_scene_to_packed(load(a["scene"]))

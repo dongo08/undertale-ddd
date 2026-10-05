@@ -12,6 +12,10 @@ const MAGIC := "DDDRPL"
 const FORMAT_VERSION := 1
 ## 一帧最多多少步物理模拟（超过就认为引擎在追赶、丢过帧）
 const DROP_TOLERANCE := 0
+## 一份回放最多多少 tick（1 小时）：坏档读出来的天文数字在这里被挡住
+const MAX_TICKS := 5184000
+## 头部里的短字符串（场景路径 / 日期 / 引擎版本）最多多少字节
+const MAX_STRING_BYTES := 4096
 
 var recording: bool = false
 var playing: bool = false
@@ -107,7 +111,9 @@ func end_battle(result: Result = Result.UNKNOWN, checksum: int = 0) -> String:
 
 ## 准备好播放：读档 + 设难度/种子/输入源。调用方随后加载 header.scene 那个场景。
 func prepare_playback(path: String) -> bool:
+	print(Time.get_ticks_msec())
 	var data := load_replay(path)
+
 	if data.is_empty():
 		return false
 	var header: Dictionary = data["header"]
@@ -117,8 +123,11 @@ func prepare_playback(path: String) -> bool:
 	_dropped = false
 	Global.difficulty = header["difficulty"]
 	BattleRNG.begin(int(header["seed"]))
+
 	BattleInput.begin_playback(data["frames"])
+
 	print("开始回放：%s（%d tick，种子 %d）" % [path.get_file(), header["ticks"], header["seed"]])
+
 	return true
 
 
@@ -173,24 +182,65 @@ func _write_string(file: FileAccess, text: String) -> void:
 
 func _read_string(file: FileAccess) -> String:
 	var size := file.get_32()
-	if size <= 0:
+	var remaining := file.get_length() - file.get_position()
+	# 长度必须先跟文件剩余大小对比再 get_buffer：
+	# 坏档（比如裸 MAGIC 的旧文件）读出来的长度可能是 13 亿，直接分配 1.4GB
+	if size <= 0 or size > remaining or size > MAX_STRING_BYTES:
 		return ""
 	return file.get_buffer(size).get_string_from_utf8()
 
 
 func load_replay(path: String) -> Dictionary:
-	if not FileAccess.file_exists(path):
-		push_warning("回放文件不存在：%s" % path)
+	var file := _open_replay(path)
+	if file == null:
 		return {}
-	var file := FileAccess.open(path, FileAccess.READ)
+	var header := _read_header(file, false)
+	if header.is_empty():
+		file.close()
+		return {}
+	var byte_count := file.get_32()
+	var remaining := file.get_length() - file.get_position()
+	if byte_count <= 0 or byte_count > remaining:
+		push_warning("回放数据长度不对，这份档坏了：%s" % path)
+		file.close()
+		return {}
+	var bytes := file.get_buffer(byte_count)
+	file.close()
+	return {"header": header, "frames": decode_frames(bytes, int(header["ticks"]))}
+
+
+## 只读头部（列表用）：不解帧数据，坏档安静跳过
+func read_header_only(path: String) -> Dictionary:
+	var file := _open_replay(path, true)
+	if file == null:
+		return {}
+	var header := _read_header(file, true)
+	file.close()
+	return header
+
+
+func _open_replay(path: String, quiet: bool = false) -> FileAccess:
+	if not FileAccess.file_exists(path):
+		if not quiet:
+			push_warning("回放文件不存在：%s" % path)
+		return null
+	return FileAccess.open(path, FileAccess.READ)
+
+
+## 读头部。旧格式 / 截断的坏档在这里就被挡住 ——
+## 这一步很关键：长度字段在使用前一定要跟文件剩余大小对比，
+## 否则一个坏档就能让我们去 get_buffer(1.4GB)，列表直接卡 0.2 秒（实测过）。
+func _read_header(file: FileAccess, quiet: bool) -> Dictionary:
 	if file == null:
 		return {}
 	if _read_string(file) != MAGIC:
-		push_warning("这不是回放文件：%s" % path)
+		if not quiet:
+			push_warning("这不是回放文件（或格式太旧）")
 		return {}
 	var version := file.get_32()
 	if version != FORMAT_VERSION:
-		push_warning("回放格式版本不符（文件 %d，当前 %d），放不了。" % [version, FORMAT_VERSION])
+		if not quiet:
+			push_warning("回放格式版本不符（文件 %d，当前 %d），放不了。" % [version, FORMAT_VERSION])
 		return {}
 	file.get_32()                                           # 玩法哈希占位
 	var header := {
@@ -204,13 +254,18 @@ func load_replay(path: String) -> Dictionary:
 		"engine": _read_string(file),
 		"checksum": file.get_32(),
 	}
-	var byte_count := file.get_32()
-	var bytes := file.get_buffer(byte_count)
-	file.close()
-	return {"header": header, "frames": decode_frames(bytes, int(header["ticks"]))}
+	if not str(header["scene"]).begins_with("res://"):
+		if not quiet:
+			push_warning("回放头部坏了（场景字段不对）")
+		return {}
+	if int(header["ticks"]) <= 0 or int(header["ticks"]) > MAX_TICKS:
+		if not quiet:
+			push_warning("回放头部坏了（tick 数不对：%d）" % int(header["ticks"]))
+		return {}
+	return header
 
 
-## 列举所有回放（只读头部，给以后的主菜单用）
+## 列举所有回放（只读头部，给主菜单用）
 func list_replays() -> Array:
 	var out: Array = []
 	var dir := DirAccess.open(REPLAY_DIR)
@@ -220,9 +275,8 @@ func list_replays() -> Array:
 	var name := dir.get_next()
 	while name != "":
 		if not dir.current_is_dir() and name.get_extension() == "rpy":
-			var data := load_replay(REPLAY_DIR.path_join(name))
-			if not data.is_empty():
-				var header: Dictionary = data["header"]
+			var header := read_header_only(REPLAY_DIR.path_join(name))
+			if not header.is_empty():
 				header["path"] = REPLAY_DIR.path_join(name)
 				out.append(header)
 		name = dir.get_next()

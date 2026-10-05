@@ -79,6 +79,8 @@ var choice_progress:Choice:
 			choice_changed.emit()
 var button_container_tween:Tween
 var polygon_tween:Tween
+## 战斗框过渡的代次号：有更新的过渡时，旧的自己让位（碰撞框是 gameplay，必须逐 tick 插值）
+var _polygon_trans_id: int = 0
 var button_index:int=0
 var choice_index:int=0
 var page_index:int=0
@@ -184,6 +186,7 @@ func enemy_turn_bullet():
 	enemy_turn_manager.finished.connect(enemy_turn_finished)
 	battle_frame_border.add_sibling(enemy_turn_manager)
 	soul.show()
+	soul.move_init()
 	enemy_turn_manager.start()
 	enemy_round_start.emit(round_index)
 
@@ -608,10 +611,25 @@ func set_battleframe_polygon(polygon:PackedVector2Array=[Vector2(28.0,288.0),Vec
 func set_battleframe_polygon_trans(polygon:PackedVector2Array=[Vector2(28.0,288.0),Vector2(612.0,288.0),Vector2(612.0,420.0),Vector2(28.0,420.0)],duration:float=0.8,trans:Tween.TransitionType=Tween.TransitionType.TRANS_QUAD,ease:Tween.EaseType=Tween.EaseType.EASE_OUT):
 	if polygon_tween and polygon_tween.is_running():
 		polygon_tween.kill()
-	polygon_tween=create_tween()
-	var p=battle_frame_border.collision.polygon
-	polygon_tween.parallel().tween_method(set_battleframe_polygon,p,polygon,duration).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUAD)
-	await BattleClock.wait_seconds(duration)
+	# 战斗框的碰撞多边形决定灵魂能不能走过去 —— 这属于 gameplay，
+	# 不能交给 tween（tween 的起点落在两个物理帧之间，实测灵魂坐标会差 0.3 像素），逐 tick 插值。
+	# 缓动跟原来的 TRANS_QUAD + EASE_OUT 等价：1-(1-t)^2
+	_polygon_trans_id += 1
+	var my_id := _polygon_trans_id
+	var from=battle_frame_border.collision.polygon
+	var ticks := BattleClock.seconds_to_ticks(duration)
+	for i in ticks:
+		if _polygon_trans_id != my_id:
+			return                      # 有更新的过渡，让位
+		var t := float(i + 1) / float(ticks)
+		var eased := 1.0 - pow(1.0 - t, 2.0)
+		if from.size() == polygon.size():
+			var points := PackedVector2Array()
+			for k in from.size():
+				points.append(from[k].lerp(polygon[k], eased))
+			set_battleframe_polygon(points)
+		await get_tree().physics_frame
+	set_battleframe_polygon(polygon)
 	
 func play_bullet_sound(stream: AudioStream, from_offset: float = 0, volume_db: float = 0, pitch_scale: float = 1.0):
 	if bullet_player == null or stream == null:
@@ -689,9 +707,10 @@ func _on_player_dead():
 		if i !=soul and i.has_method("hide"):
 			i.hide()
 		BGM.stop(0)
+	add_child(dead_effect)
 	soul.reparent(get_tree().root)
-	await get_tree().create_timer(2).timeout
-	Global.change_scene_to_packed(GAME_OVER,1,Color.BLACK)
+	await BattleClock.wait_seconds(3)
+	Global.change_scene_to_packed(GAME_OVER,0)
 
 ## 回放的校验值：录制和播放结束时各算一次，对不上说明这份回放跑歪了
 func replay_checksum() -> int:

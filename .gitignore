@@ -17,3 +17,5 @@ addons/windows_desktop/src/*.obj.import
 assets/新建 XLSX 工作表.xlsx
 /.tmp_shader_test
 /.tmp_band_preview
+/UndertaleAssets
+/scene/UI/fight_selection

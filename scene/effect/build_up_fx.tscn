@@ -1,0 +1,77 @@
+[gd_scene format=3 uid="uid://bkc7u6l8bj7yu"]
+
+[ext_resource type="Texture2D" uid="uid://cfm3baet21a83" path="res://assets/sprites/UI/battle_screen/bullet/ball512.png" id="1_a86m6"]
+
+[sub_resource type="Curve" id="Curve_ogr1d"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.495671, 1), 0.0, 0.0, 0, 0, Vector2(0.6017316, 0.55026454), -0.09777778, -0.09777778, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_kwmae"]
+curve = SubResource("Curve_ogr1d")
+
+[sub_resource type="Curve" id="Curve_f01jw"]
+_limits = [-360.0, 360.0, 0.0, 1.0]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_ashne"]
+curve = SubResource("Curve_f01jw")
+
+[sub_resource type="Curve" id="Curve_dsll4"]
+_limits = [-2.0, 2.0, 0.0, 1.0]
+_data = [Vector2(0, 2), 0.0, 0.0, 0, 0, Vector2(1, 0.022471905), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_mkvl2"]
+curve = SubResource("Curve_dsll4")
+
+[sub_resource type="Curve" id="Curve_8g7pp"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -2.13995, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_cyitb"]
+curve = SubResource("Curve_8g7pp")
+
+[sub_resource type="Curve" id="Curve_3w457"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.15476185), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_arba8"]
+curve = SubResource("Curve_3w457")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_u0ya7"]
+lifetime_randomness = 0.2
+particle_flag_disable_z = true
+emission_shape = 6
+emission_ring_axis = Vector3(0, 0, 1)
+emission_ring_height = 0.0
+emission_ring_radius = 180.0
+emission_ring_inner_radius = 100.0
+emission_ring_cone_angle = 90.0
+angular_velocity_min = 287.99997
+angular_velocity_max = 287.99997
+angular_velocity_curve = SubResource("CurveTexture_ashne")
+orbit_velocity_min = 0.25
+orbit_velocity_max = 0.25
+orbit_velocity_curve = SubResource("CurveTexture_mkvl2")
+radial_velocity_min = -140.00002
+radial_velocity_max = -140.00002
+radial_velocity_curve = SubResource("CurveTexture_cyitb")
+gravity = Vector3(0, 0, 0)
+scale_min = 0.14999999
+scale_max = 0.22
+scale_curve = SubResource("CurveTexture_arba8")
+alpha_curve = SubResource("CurveTexture_kwmae")
+
+[node name="BuildUpFX" type="Node2D" unique_id=368919934]
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="." unique_id=1327237283]
+position = Vector2(334, 182)
+emitting = false
+amount = 16
+texture = ExtResource("1_a86m6")
+lifetime = 1.5
+one_shot = true
+explosiveness = 0.7
+fixed_fps = 60
+process_material = SubResource("ParticleProcessMaterial_u0ya7")

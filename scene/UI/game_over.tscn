@@ -1,6 +1,43 @@
 [gd_scene format=3 uid="uid://b8rgd3l78wg6x"]
 
 [ext_resource type="Script" uid="uid://edwsprb2yha7" path="res://scene/UI/game_over.gd" id="1_vqvsb"]
+[ext_resource type="Texture2D" uid="uid://olb7ukofo1a1" path="res://assets/sprites/UI/battle_screen/spr_gameoverbg_0.png" id="2_bbsvs"]
+
+[sub_resource type="Animation" id="Animation_bbsvs"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 0, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_b5j1h"]
+resource_name = "new_animation"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 1), Color(0, 0, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_g262q"]
+_data = {
+&"RESET": SubResource("Animation_bbsvs"),
+&"new_animation": SubResource("Animation_b5j1h")
+}
 
 [node name="GameOver" type="Control" unique_id=437295598]
 layout_mode = 3
@@ -11,11 +48,18 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_vqvsb")
 
-[node name="Label" type="Label" parent="." unique_id=1014589646]
-layout_mode = 0
-offset_left = 194.0
-offset_top = 118.0
-offset_right = 455.0
-offset_bottom = 337.0
-theme_override_font_sizes/font_size = 160
-text = "LLL"
+[node name="SprGameoverbg0" type="Sprite2D" parent="." unique_id=883358228]
+position = Vector2(320, 160)
+texture = ExtResource("2_bbsvs")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1714463781]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=764353051]
+libraries/ = SubResource("AnimationLibrary_g262q")

@@ -1,0 +1,267 @@
+[gd_scene format=3 uid="uid://dqhm41c75rk5u"]
+
+[ext_resource type="FontFile" uid="uid://ikbkbdwpo0mf" path="res://assets/font/普通字体.ttf" id="1_va7bj"]
+[ext_resource type="Script" uid="uid://dk4dufirqosiy" path="res://scene/battle/levels/level2/level_2.gd" id="2_dtnli"]
+[ext_resource type="Script" uid="uid://bow5y3q3seleq" path="res://scripts/battle/enemy_status.gd" id="3_6h2cb"]
+[ext_resource type="Script" uid="uid://dqix82jx8ed6c" path="res://scripts/battle/enemy_act.gd" id="4_jj5h3"]
+[ext_resource type="PackedScene" uid="uid://4elr5pr674ya" path="res://scene/battle/player_status_panel.tscn" id="4_jvbu0"]
+[ext_resource type="Script" uid="uid://calkgasaaikbk" path="res://scripts/player/item.gd" id="5_wlefj"]
+[ext_resource type="PackedScene" uid="uid://bn43oxp12t87k" path="res://scene/battle/battle_frame/battle_frame_text.tscn" id="5_wxxlf"]
+[ext_resource type="Script" uid="uid://ikogmmn2rxlf" path="res://scripts/dialog/expression_set.gd" id="6_0lfit"]
+[ext_resource type="Script" uid="uid://bgsmn2fvofrpt" path="res://scripts/player/player_status.gd" id="6_vdqhv"]
+[ext_resource type="Script" uid="uid://bak4twd7ph5ti" path="res://scene/battle/enemy_illustration.gd" id="7_0hh5q"]
+[ext_resource type="Script" uid="uid://ciq2r0dd5e2fx" path="res://scripts/battle/enemy_round_set.gd" id="7_g2nd6"]
+[ext_resource type="Texture2D" uid="uid://lpll8iys3hiv" path="res://assets/sprites/levels/level2/enemy/BB Papyrus 1.png" id="7_rhxxy"]
+[ext_resource type="Script" uid="uid://bk7lyrbkni0wr" path="res://scripts/dialog/base_dialog.gd" id="8_nin10"]
+[ext_resource type="Texture2D" uid="uid://1ua5yxoha7tj" path="res://assets/sprites/levels/level2/enemy/BB Papyrus 2.png" id="8_x66mw"]
+[ext_resource type="Texture2D" uid="uid://cn3m36tng67pu" path="res://assets/sprites/levels/level2/enemy/BB Papyrus 3.png" id="9_f7825"]
+[ext_resource type="Script" uid="uid://crt3y1sc42aqe" path="res://scripts/dialog/dialog_director.gd" id="9_gq5tn"]
+[ext_resource type="Script" uid="uid://b6innblij3fdk" path="res://scripts/battle/battle_data.gd" id="9_rknid"]
+[ext_resource type="Texture2D" uid="uid://ky0glcmhfiq3" path="res://assets/sprites/UI/battle_screen/spr_blconwdshrt_0.png" id="10_gss4g"]
+[ext_resource type="Script" uid="uid://6oxqy74sbkkx" path="res://scene/battle/battle_frame/dialog_panel.gd" id="11_jhd3a"]
+[ext_resource type="Script" uid="uid://q80gar0bkm78" path="res://scripts/typewriter_label.gd" id="12_1cs2t"]
+[ext_resource type="PackedScene" uid="uid://b82oy4rbbvmky" path="res://scene/battle/soul/soul.tscn" id="13_r4qxj"]
+[ext_resource type="Script" uid="uid://bxxkmygk51k30" path="res://scene/battle/battle_frame/battle_frame_border.gd" id="14_dxrg5"]
+[ext_resource type="PackedScene" uid="uid://b5ry1mecij7jb" path="res://scene/battle/battle_frame/attack_bar.tscn" id="15_e6upi"]
+[ext_resource type="Texture2D" uid="uid://badvkitid30pw" path="res://assets/sprites/UI/battle_screen/spr_fightbt_center_1.png" id="16_mh78e"]
+[ext_resource type="Script" uid="uid://4qp8jj5pw28t" path="res://scene/battle/action_button.gd" id="17_noehi"]
+[ext_resource type="Texture2D" uid="uid://bsqjsm41smset" path="res://assets/sprites/UI/battle_screen/spr_actbt_center_0.png" id="18_p3c4t"]
+[ext_resource type="Texture2D" uid="uid://3c3lvhsqifwx" path="res://assets/sprites/UI/battle_screen/spr_itembt_0.png" id="19_ntqd6"]
+[ext_resource type="Texture2D" uid="uid://6jjmmkw7g1v6" path="res://assets/sprites/UI/battle_screen/spr_sparebt_0.png" id="20_ew06d"]
+[ext_resource type="AudioStream" uid="uid://bxr8labkw3e11" path="res://assets/sounds/UI/menu/snd_squeak.wav" id="21_myn03"]
+[ext_resource type="AudioStream" uid="uid://c0m2og28em48w" path="res://assets/sounds/UI/menu/snd_select.wav" id="22_uoh2x"]
+[ext_resource type="AudioStream" uid="uid://b0exrudoitwdv" path="res://assets/sounds/UI/text/SND_TXT1.wav" id="23_h0isk"]
+[ext_resource type="AudioStream" uid="uid://dnmmmmckfe2ai" path="res://assets/sounds/UI/soul/snd_heal_c.wav" id="24_mpn0e"]
+[ext_resource type="AudioStream" uid="uid://d358vjelxwsit" path="res://assets/sounds/battle/snd_vaporized.wav" id="25_piran"]
+
+[sub_resource type="Theme" id="Theme_14cdr"]
+RichTextLabel/fonts/normal_font = ExtResource("1_va7bj")
+
+[sub_resource type="Resource" id="Resource_rhxxy"]
+script = ExtResource("3_6h2cb")
+metadata/_custom_type_script = "uid://bow5y3q3seleq"
+
+[sub_resource type="Resource" id="Resource_0lfit"]
+script = ExtResource("6_vdqhv")
+metadata/_custom_type_script = "uid://bgsmn2fvofrpt"
+
+[sub_resource type="Resource" id="Resource_x66mw"]
+script = ExtResource("7_g2nd6")
+metadata/_custom_type_script = "uid://ciq2r0dd5e2fx"
+
+[sub_resource type="Resource" id="Resource_dtnli"]
+script = ExtResource("9_rknid")
+player_status = SubResource("Resource_0lfit")
+enemys = Array[ExtResource("3_6h2cb")]([SubResource("Resource_rhxxy")])
+rounds = Array[ExtResource("7_g2nd6")]([SubResource("Resource_x66mw")])
+metadata/_custom_type_script = "uid://b6innblij3fdk"
+
+[sub_resource type="AnimatedTexture" id="AnimatedTexture_4bnby"]
+frames = 4
+speed_scale = 2.0
+frame_0/texture = ExtResource("7_rhxxy")
+frame_1/texture = ExtResource("8_x66mw")
+frame_1/duration = 1.0
+frame_2/texture = ExtResource("9_f7825")
+frame_2/duration = 1.0
+frame_3/texture = ExtResource("8_x66mw")
+frame_3/duration = 1.0
+
+[sub_resource type="Resource" id="Resource_u0ya7"]
+script = ExtResource("6_0lfit")
+expressions = Dictionary[String, Texture2D]({
+"NORMAL": SubResource("AnimatedTexture_4bnby")
+})
+metadata/_custom_type_script = "uid://ikogmmn2rxlf"
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_htemk"]
+texture = ExtResource("10_gss4g")
+texture_margin_left = 40.0
+texture_margin_top = 16.0
+texture_margin_right = 16.0
+texture_margin_bottom = 16.0
+
+[sub_resource type="AudioStreamPolyphonic" id="AudioStreamPolyphonic_6jj7y"]
+
+[node name="Control" type="Control" unique_id=55133942 node_paths=PackedStringArray("squeak_player", "select_player", "fight_button", "act_button", "item_button", "mercy_button", "soul", "attack_bar", "battle_frame_text", "battle_frame_border", "dialog_director", "bullet_player", "enemy_dead_player", "snd_heal", "button_container", "player_status", "enemy_illustrations")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_14cdr")
+script = ExtResource("2_dtnli")
+squeak_player = NodePath("Audio/SqueakPlayer")
+select_player = NodePath("Audio/SelectPlayer")
+battle_data = SubResource("Resource_dtnli")
+fight_button = NodePath("buttons/FightButton")
+act_button = NodePath("buttons/ActButton")
+item_button = NodePath("buttons/ItemButton")
+mercy_button = NodePath("buttons/MercyButton")
+soul = NodePath("Soul")
+attack_bar = NodePath("BattleFrame/Attack")
+battle_frame_text = NodePath("BattleFrameText")
+battle_frame_border = NodePath("BattleFrame/FrameBorder")
+dialog_director = NodePath("DialogDirector")
+bullet_player = NodePath("Audio/BulletPlayer")
+enemy_dead_player = NodePath("Audio/EnemyDead")
+snd_heal = NodePath("Audio/SndHealC")
+button_container = NodePath("buttons")
+player_status = NodePath("player_status")
+enemy_illustrations = [NodePath("EnemyIllustration")]
+
+[node name="DialogDirector" type="Node" parent="." unique_id=393206742 node_paths=PackedStringArray("panels")]
+script = ExtResource("9_gq5tn")
+panels = [NodePath("../PanelContainer")]
+
+[node name="EnemyIllustration" type="Node2D" parent="." unique_id=1816253810]
+position = Vector2(320, 166)
+script = ExtResource("7_0hh5q")
+expressions = SubResource("Resource_u0ya7")
+metadata/_custom_type_script = "uid://bak4twd7ph5ti"
+
+[node name="Sprite2D" type="Sprite2D" parent="EnemyIllustration" unique_id=315188761]
+texture = SubResource("AnimatedTexture_4bnby")
+
+[node name="player_status" parent="." unique_id=1176279467 instance=ExtResource("4_jvbu0")]
+layout_mode = 0
+
+[node name="BattleFrameText" parent="." unique_id=638351971 node_paths=PackedStringArray("master") instance=ExtResource("5_wxxlf")]
+layout_mode = 0
+master = NodePath("..")
+
+[node name="PanelContainer" type="PanelContainer" parent="." unique_id=174031416 node_paths=PackedStringArray("dialog_label")]
+layout_mode = 0
+offset_left = 355.0
+offset_top = 13.0
+offset_right = 624.0
+offset_bottom = 151.0
+theme_override_styles/panel = SubResource("StyleBoxTexture_htemk")
+script = ExtResource("11_jhd3a")
+dialog_label = NodePath("DialogText")
+
+[node name="DialogText" type="RichTextLabel" parent="PanelContainer" unique_id=745890034 node_paths=PackedStringArray("snd_txt")]
+clip_contents = false
+layout_mode = 2
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_constants/line_separation = 8
+theme_override_font_sizes/normal_font_size = 16
+bbcode_enabled = true
+text = "if your soul is greenif your soul is greenif your soul is greenif your soul is green"
+scroll_active = false
+visible_characters_behavior = 1
+script = ExtResource("12_1cs2t")
+snd_txt = NodePath("../../Audio/SndTxt2")
+
+[node name="Soul" parent="." unique_id=172666121 node_paths=PackedStringArray("game") instance=ExtResource("13_r4qxj")]
+position = Vector2(63, 324)
+game = NodePath("..")
+type = 1
+
+[node name="BattleFrame" type="Node2D" parent="." unique_id=1053110815]
+z_index = 1
+
+[node name="FrameBorder" type="AnimatableBody2D" parent="BattleFrame" unique_id=178722229 node_paths=PackedStringArray("collision")]
+position = Vector2(1, 2)
+script = ExtResource("14_dxrg5")
+collision = NodePath("CollisionPolygon2D")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="BattleFrame/FrameBorder" unique_id=292015208]
+build_mode = 1
+polygon = PackedVector2Array(28, 288, 612, 288, 612, 420, 28, 420)
+
+[node name="Attack" parent="BattleFrame" unique_id=1466610130 node_paths=PackedStringArray("master") instance=ExtResource("15_e6upi")]
+master = NodePath("../..")
+
+[node name="buttons" type="HBoxContainer" parent="." unique_id=1982057885]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -290.0
+offset_top = -50.0
+offset_right = 290.0
+offset_bottom = -8.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="FightButton" type="TextureRect" parent="buttons" unique_id=586113080]
+layout_mode = 2
+mouse_filter = 2
+texture = ExtResource("16_mh78e")
+script = ExtResource("17_noehi")
+
+[node name="Control" type="Control" parent="buttons" unique_id=1960610242]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ActButton" type="TextureRect" parent="buttons" unique_id=1637053516]
+layout_mode = 2
+mouse_filter = 2
+texture = ExtResource("18_p3c4t")
+script = ExtResource("17_noehi")
+type = 1
+
+[node name="Control3" type="Control" parent="buttons" unique_id=359069011]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ItemButton" type="TextureRect" parent="buttons" unique_id=362768708]
+layout_mode = 2
+mouse_filter = 2
+texture = ExtResource("19_ntqd6")
+script = ExtResource("17_noehi")
+type = 2
+
+[node name="Control2" type="Control" parent="buttons" unique_id=1087570725]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="MercyButton" type="TextureRect" parent="buttons" unique_id=197171731]
+layout_mode = 2
+mouse_filter = 2
+texture = ExtResource("20_ew06d")
+script = ExtResource("17_noehi")
+type = 3
+
+[node name="Audio" type="Node" parent="." unique_id=1090687409]
+
+[node name="SqueakPlayer" type="AudioStreamPlayer" parent="Audio" unique_id=1979936531]
+stream = ExtResource("21_myn03")
+bus = &"Sounds"
+
+[node name="SelectPlayer" type="AudioStreamPlayer" parent="Audio" unique_id=1239444292]
+stream = ExtResource("22_uoh2x")
+bus = &"Sounds"
+
+[node name="SndTxt2" type="AudioStreamPlayer" parent="Audio" unique_id=1957019575]
+stream = ExtResource("23_h0isk")
+bus = &"Sounds"
+
+[node name="SndHealC" type="AudioStreamPlayer" parent="Audio" unique_id=2070926976]
+stream = ExtResource("24_mpn0e")
+bus = &"Sounds"
+
+[node name="BulletPlayer" type="AudioStreamPlayer" parent="Audio" unique_id=674805961]
+stream = SubResource("AudioStreamPolyphonic_6jj7y")
+bus = &"Sounds"
+
+[node name="EnemyDead" type="AudioStreamPlayer" parent="Audio" unique_id=503130301]
+stream = ExtResource("25_piran")
+bus = &"Sounds"
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=323826184]
+layer = 20
+
+[node name="BGLayer" type="CanvasLayer" parent="." unique_id=1359344940]
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="BGLayer" unique_id=454026148]
+position = Vector2(310, 242)
+
+[connection signal="action_selected" from="buttons/FightButton" to="." method="_on_button_action_selected"]
+[connection signal="action_selected" from="buttons/ActButton" to="." method="_on_button_action_selected"]
+[connection signal="action_selected" from="buttons/ItemButton" to="." method="_on_button_action_selected"]
+[connection signal="action_selected" from="buttons/MercyButton" to="." method="_on_button_action_selected"]

@@ -17,6 +17,7 @@ const DIRECTION:Array[String]=["down","right","up","left"]
 
 const NORMAL_SPEED:float=150
 const SLOW_SPEED:float=75
+const JUMP_SPEED:float=160
 
 @export var game:BattleManager
 @export var battle_state:BattleManager.BattleState
@@ -25,6 +26,8 @@ const SLOW_SPEED:float=75
 @export var invincible_time:float=1
 @export var player_status:PlayerStatus
 @export var hitbox:HitBox
+@export var gravity:float=800
+@export var jump_speed:float=160
 @onready var snd_hurt_1: AudioStreamPlayer = $SndHurt1
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 var invincible:bool=false
@@ -51,10 +54,13 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 	#print(is_on_floor())
 
+func move_init():
+	g_velosity=0
+
 func move_blue(delta:float)->Vector2:
 	motion_mode=CharacterBody2D.MOTION_MODE_GROUNDED
 	var horizon_vel:float
-	var g=get_gravity().y
+	var g=gravity
 	var soul_up:bool
 	var soul_down:bool
 	var soul_left:bool
@@ -91,12 +97,12 @@ func move_blue(delta:float)->Vector2:
 		horizon_vel+=-1
 	if is_on_floor():
 		if soul_up:
-			g_velosity=-160
+			g_velosity=-jump_speed
 	else:
 		if is_on_ceiling():
 			g_velosity=0
 		if  soul_up and g_velosity<0:
-			g_velosity+=g*((g_velosity+165)/165)*delta
+			g_velosity+=g*((g_velosity+jump_speed*1.05)/(jump_speed*1.05))*delta
 		else:
 			if g_velosity<0:
 				g_velosity+=g*delta*2
@@ -157,7 +163,7 @@ func _hurt(damage:float):
 		animation_player.play("dead")
 		set_process_input(false)
 		set_physics_process(false)
-		await get_tree().create_timer(4).timeout
+		await BattleClock.wait_seconds(4)
 		queue_free()
 		return
 	snd_hurt_1.play()
