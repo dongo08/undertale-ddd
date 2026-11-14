@@ -33,6 +33,8 @@ func _check_bullet():
 		elif i.type==BaseBullet.Type.BLUE:
 			if !(bbullet and bbullet.damage>=i.damage):
 				bbullet=i
+		if i.can_destory:
+			i.destroy()
 	if master:
 		if master.get_real_velocity().length()>0.01:
 			is_move=true

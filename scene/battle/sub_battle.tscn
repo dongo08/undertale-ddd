@@ -2,6 +2,7 @@
 
 [ext_resource type="FontFile" uid="uid://ikbkbdwpo0mf" path="res://assets/font/普通字体.ttf" id="1_yhlma"]
 [ext_resource type="Script" uid="uid://dca5pa58d35pb" path="res://scene/battle/sub_battle.gd" id="2_odx28"]
+[ext_resource type="Script" uid="uid://cpahmgkq7a1li" path="res://scripts/UI/touch_controls.gd" id="2_touch"]
 [ext_resource type="PackedScene" uid="uid://c6txdl820vhkq" path="res://scene/battle/player_status_bar.tscn" id="3_odx28"]
 [ext_resource type="Script" uid="uid://bow5y3q3seleq" path="res://scripts/battle/enemy_status.gd" id="3_tikkl"]
 [ext_resource type="Script" uid="uid://calkgasaaikbk" path="res://scripts/player/item.gd" id="4_y16f6"]
@@ -28,10 +29,6 @@
 [ext_resource type="AudioStream" uid="uid://c0m2og28em48w" path="res://assets/sounds/UI/menu/snd_select.wav" id="21_ml6d6"]
 [ext_resource type="AudioStream" uid="uid://co1mrm3wris8w" path="res://assets/sounds/UI/text/SND_TXT2.wav" id="22_y1jvj"]
 [ext_resource type="AudioStream" uid="uid://b0exrudoitwdv" path="res://assets/sounds/UI/text/SND_TXT1.wav" id="23_bt7d8"]
-[ext_resource type="Texture2D" uid="uid://bhcri1aocaoum" path="res://assets/sprites/UI/spr_test_zbutton_3.png" id="24_8kec0"]
-[ext_resource type="Texture2D" uid="uid://ddyrq63qmdhb2" path="res://assets/sprites/UI/spr_test_zbutton_2.png" id="25_iue86"]
-[ext_resource type="Texture2D" uid="uid://c64m48xjhrqlp" path="res://assets/sprites/UI/spr_test_xbutton_3.png" id="26_gs5ua"]
-[ext_resource type="Texture2D" uid="uid://rllimxwm6yr4" path="res://assets/sprites/UI/spr_test_xbutton_1.png" id="27_xpo8u"]
 [ext_resource type="AudioStream" uid="uid://bbr5ecs56y27u" path="res://assets/sounds/UI/encounter.ogg" id="29_84c2m"]
 [ext_resource type="Resource" path="res://resource/portraits/eanaro_expressions.tres" id="90_eanaroexpr"]
 [ext_resource type="Script" uid="uid://crt3y1sc42aqe" path="res://scripts/dialog/dialog_director.gd" id="91_dirdlg"]
@@ -139,7 +136,7 @@ grow_vertical = 2
 theme = SubResource("Theme_14cdr")
 script = ExtResource("2_odx28")
 encounter_player = NodePath("Audio/Encounter")
-black = NodePath("CanvasLayer/ColorRect")
+black = NodePath("TouchControls/ColorRect")
 squeak_player = NodePath("Audio/SqueakPlayer")
 select_player = NodePath("Audio/SelectPlayer")
 battle_data = SubResource("Resource_yhlma")
@@ -368,38 +365,10 @@ stream = ExtResource("29_84c2m")
 volume_db = -6.0
 bus = &"Sounds"
 
-[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1890787532]
-layer = 2
+[node name="TouchControls" type="CanvasLayer" parent="." unique_id=1890787532]
+script = ExtResource("2_touch")
 
-[node name="VirtualJoystick" type="VirtualJoystick" parent="CanvasLayer" unique_id=1614904449]
-offset_left = 33.0
-offset_top = 388.0
-offset_right = 73.0
-offset_bottom = 428.0
-joystick_mode = 1
-action_left = &"left"
-action_right = &"right"
-action_up = &"up"
-action_down = &"down"
-visibility_mode = 1
-
-[node name="TouchScreenButton" type="TouchScreenButton" parent="CanvasLayer" unique_id=1505233899]
-position = Vector2(459, 385)
-scale = Vector2(3.1818182, 2.121212)
-texture_normal = ExtResource("24_8kec0")
-texture_pressed = ExtResource("25_iue86")
-action = "accept"
-visibility_mode = 1
-
-[node name="TouchScreenButton2" type="TouchScreenButton" parent="CanvasLayer" unique_id=474588818]
-position = Vector2(539, 384)
-scale = Vector2(3.1818182, 2.121212)
-texture_normal = ExtResource("26_gs5ua")
-texture_pressed = ExtResource("27_xpo8u")
-action = "accept"
-visibility_mode = 1
-
-[node name="ColorRect" type="ColorRect" parent="CanvasLayer" unique_id=243128001]
+[node name="ColorRect" type="ColorRect" parent="TouchControls" unique_id=243128001]
 visible = false
 anchors_preset = 15
 anchor_right = 1.0

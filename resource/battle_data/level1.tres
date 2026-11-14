@@ -42,14 +42,14 @@ attack = 1100.0
 backpack = Array[ExtResource("2_kkwpa")]([ExtResource("3_wwbb0"), ExtResource("4_me6tl"), ExtResource("5_3koeo"), ExtResource("5_3koeo"), ExtResource("6_dutl5"), ExtResource("6_dutl5"), ExtResource("6_dutl5"), ExtResource("6_dutl5")])
 metadata/_custom_type_script = "uid://bgsmn2fvofrpt"
 
-[sub_resource type="Resource" id="Resource_dobon"]
+[sub_resource type="Resource" id="Resource_od3jj"]
 script = ExtResource("5_wpx7t")
 content = "BATTLE_TORIEL_FRAME_0"
 metadata/_custom_type_script = "uid://bk7lyrbkni0wr"
 
-[sub_resource type="Resource" id="Resource_vrygm"]
+[sub_resource type="Resource" id="Resource_h2aho"]
 script = ExtResource("4_bfctp")
-battleframe_text = SubResource("Resource_dobon")
+battleframe_text = SubResource("Resource_od3jj")
 normal = ExtResource("6_wpx7t")
 metadata/_custom_type_script = "uid://ciq2r0dd5e2fx"
 
@@ -86,14 +86,14 @@ battleframe_text = SubResource("Resource_tg8uf")
 normal = ExtResource("9_xv16w")
 metadata/_custom_type_script = "uid://ciq2r0dd5e2fx"
 
-[sub_resource type="Resource" id="Resource_7dni1"]
+[sub_resource type="Resource" id="Resource_n0uns"]
 script = ExtResource("5_wpx7t")
 content = "* 汗水从你脸上流下。"
 metadata/_custom_type_script = "uid://bk7lyrbkni0wr"
 
 [sub_resource type="Resource" id="Resource_syyhe"]
 script = ExtResource("4_bfctp")
-battleframe_text = SubResource("Resource_7dni1")
+battleframe_text = SubResource("Resource_n0uns")
 normal = ExtResource("10_tg8uf")
 metadata/_custom_type_script = "uid://ciq2r0dd5e2fx"
 
@@ -119,53 +119,53 @@ battleframe_text = SubResource("Resource_wj2ea")
 normal = ExtResource("12_bfctp")
 metadata/_custom_type_script = "uid://ciq2r0dd5e2fx"
 
-[sub_resource type="Resource" id="Resource_xnbb1"]
+[sub_resource type="Resource" id="Resource_yfymp"]
 script = ExtResource("5_wpx7t")
 content = "* Toriel 发出了一个奇异的光环。"
 metadata/_custom_type_script = "uid://bk7lyrbkni0wr"
 
-[sub_resource type="Resource" id="Resource_3brck"]
+[sub_resource type="Resource" id="Resource_jn3su"]
 script = ExtResource("4_bfctp")
-battleframe_text = SubResource("Resource_xnbb1")
+battleframe_text = SubResource("Resource_yfymp")
 normal = ExtResource("13_262o8")
 metadata/_custom_type_script = "uid://ciq2r0dd5e2fx"
 
-[sub_resource type="Resource" id="Resource_yqq0k"]
+[sub_resource type="Resource" id="Resource_wr8te"]
 script = ExtResource("5_wpx7t")
 content = "* Toriel 的呼吸变得沉重。"
 metadata/_custom_type_script = "uid://bk7lyrbkni0wr"
 
-[sub_resource type="Resource" id="Resource_2h2ta"]
+[sub_resource type="Resource" id="Resource_i4bnh"]
 script = ExtResource("4_bfctp")
-battleframe_text = SubResource("Resource_yqq0k")
+battleframe_text = SubResource("Resource_wr8te")
 normal = ExtResource("14_3brck")
 metadata/_custom_type_script = "uid://ciq2r0dd5e2fx"
 
-[sub_resource type="Resource" id="Resource_wwbb0"]
+[sub_resource type="Resource" id="Resource_4iyr8"]
 script = ExtResource("5_wpx7t")
 content = "* Toriel 感到绝望。"
 metadata/_custom_type_script = "uid://bk7lyrbkni0wr"
 
 [sub_resource type="Resource" id="Resource_8m7n8"]
 script = ExtResource("4_bfctp")
-battleframe_text = SubResource("Resource_wwbb0")
+battleframe_text = SubResource("Resource_4iyr8")
 normal = ExtResource("15_xnbb1")
 metadata/_custom_type_script = "uid://ciq2r0dd5e2fx"
 
-[sub_resource type="Resource" id="Resource_tlf17"]
+[sub_resource type="Resource" id="Resource_lphyb"]
 script = ExtResource("5_wpx7t")
 content = "[color=red]* Toriel 在饶恕你。[/color]"
 metadata/_custom_type_script = "uid://bk7lyrbkni0wr"
 
-[sub_resource type="Resource" id="Resource_a5hvd"]
+[sub_resource type="Resource" id="Resource_g25ei"]
 script = ExtResource("5_wpx7t")
 content = "..."
 metadata/_custom_type_script = "uid://bk7lyrbkni0wr"
 
-[sub_resource type="Resource" id="Resource_me6tl"]
+[sub_resource type="Resource" id="Resource_2o6ji"]
 script = ExtResource("4_bfctp")
-dialog_list = Array[ExtResource("5_wpx7t")]([SubResource("Resource_a5hvd")])
-battleframe_text = SubResource("Resource_tlf17")
+dialog_list = Array[ExtResource("5_wpx7t")]([SubResource("Resource_g25ei")])
+battleframe_text = SubResource("Resource_lphyb")
 metadata/_custom_type_script = "uid://ciq2r0dd5e2fx"
 
 [resource]
@@ -173,5 +173,5 @@ resource_local_to_scene = true
 script = ExtResource("10_2h2ta")
 player_status = SubResource("Resource_htemk")
 enemys = Array[ExtResource("1_xv16w")]([SubResource("Resource_miks1")])
-rounds = Array[ExtResource("4_bfctp")]([SubResource("Resource_vrygm"), SubResource("Resource_mjwdl"), SubResource("Resource_i8eta"), SubResource("Resource_43mcx"), SubResource("Resource_syyhe"), SubResource("Resource_262o8"), SubResource("Resource_mhp6e"), SubResource("Resource_3brck"), SubResource("Resource_2h2ta"), SubResource("Resource_8m7n8"), SubResource("Resource_me6tl")])
+rounds = Array[ExtResource("4_bfctp")]([SubResource("Resource_h2aho"), SubResource("Resource_mjwdl"), SubResource("Resource_i8eta"), SubResource("Resource_43mcx"), SubResource("Resource_syyhe"), SubResource("Resource_262o8"), SubResource("Resource_mhp6e"), SubResource("Resource_jn3su"), SubResource("Resource_i4bnh"), SubResource("Resource_8m7n8"), SubResource("Resource_2o6ji")])
 metadata/_custom_type_script = "uid://b6innblij3fdk"

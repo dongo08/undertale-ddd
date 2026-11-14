@@ -6,6 +6,7 @@
 [ext_resource type="Script" uid="uid://bgsmn2fvofrpt" path="res://scripts/player/player_status.gd" id="2_ioju8"]
 [ext_resource type="Script" uid="uid://6na4kknsdbd1" path="res://scene/battle/soul/hitbox.gd" id="3_gk3hd"]
 [ext_resource type="AudioStream" uid="uid://cbxrn1wp0gmy7" path="res://assets/sounds/UI/soul/snd_hurt1.wav" id="4_tqpi5"]
+[ext_resource type="Texture2D" uid="uid://c0i7x1rkqfp4t" path="res://assets/sprites/UI/battle_screen/SOUL/slow_effect.png" id="5_lut7q"]
 [ext_resource type="AudioStream" uid="uid://d021lya3ohvnb" path="res://assets/sounds/UI/soul/pldead00.wav" id="7_3djkw"]
 [ext_resource type="Texture2D" uid="uid://bxfs5c128wfbv" path="res://assets/sprites/UI/battle_screen/SOUL/spr_heartbreak_0.png" id="8_odonl"]
 [ext_resource type="AudioStream" uid="uid://xa62sci23ijc" path="res://assets/sounds/UI/soul/snd_break1.wav" id="9_djeec"]
@@ -22,7 +23,7 @@ metadata/_custom_type_script = "uid://bgsmn2fvofrpt"
 [sub_resource type="CircleShape2D" id="CircleShape2D_htemk"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_14cdr"]
-radius = 4.0
+radius = 2.0
 
 [sub_resource type="Animation" id="Animation_f7wjb"]
 length = 0.001
@@ -209,15 +210,20 @@ frame_2/duration = 1.0
 frame_3/texture = SubResource("CompressedTexture2D_hg2nx")
 frame_3/duration = 1.0
 
-[node name="Soul" type="CharacterBody2D" unique_id=172666121 node_paths=PackedStringArray("hitbox")]
-z_index = 20
+[node name="Soul" type="CharacterBody2D" unique_id=172666121 node_paths=PackedStringArray("hitbox", "slow_effect")]
+z_index = 5
 collision_layer = 2
 script = ExtResource("1_0wo8r")
 player_status = SubResource("Resource_6jj7y")
 hitbox = NodePath("Hitbox")
+slow_effect = NodePath("SlowEffect")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1634283015]
 texture = ExtResource("2_0wo8r")
+
+[node name="SlowEffect" type="Sprite2D" parent="." unique_id=1660830347]
+z_index = 20
+texture = ExtResource("5_lut7q")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=856021566]
 shape = SubResource("CircleShape2D_htemk")

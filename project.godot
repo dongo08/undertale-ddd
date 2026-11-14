@@ -32,6 +32,7 @@ BattleClock="*res://scripts/replay/battle_clock.gd"
 BattleInput="*res://scripts/replay/battle_input.gd"
 BattleRNG="*res://scripts/replay/battle_rng.gd"
 BattleReplay="*res://scripts/replay/battle_replay.gd"
+TouchInput="*uid://bwc7umlgv6yuk"
 
 [display]
 

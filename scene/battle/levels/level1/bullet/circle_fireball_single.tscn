@@ -11,6 +11,7 @@ collision_layer = 4
 collision_mask = 2
 script = ExtResource("1_t3lrn")
 damage = 4.0
+autofree = false
 metadata/_custom_type_script = "uid://cspenvdti3f5f"
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=2085730807]

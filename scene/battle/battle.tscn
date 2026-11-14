@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://n8e5jppqeksd"]
 
 [ext_resource type="Script" uid="uid://doialricfl821" path="res://scene/battle/battle.gd" id="1_74lao"]
+[ext_resource type="Script" uid="uid://cpahmgkq7a1li" path="res://scripts/UI/touch_controls.gd" id="1_touch"]
 [ext_resource type="Resource" uid="uid://olxqlmr77bo7" path="res://resource/battle_data/test.tres" id="2_288au"]
 [ext_resource type="PackedScene" uid="uid://4elr5pr674ya" path="res://scene/battle/player_status_panel.tscn" id="4_1ba6n"]
 [ext_resource type="FontFile" uid="uid://ikbkbdwpo0mf" path="res://assets/font/普通字体.ttf" id="5_j1ccn"]
@@ -23,10 +24,6 @@
 [ext_resource type="AudioStream" uid="uid://dnmmmmckfe2ai" path="res://assets/sounds/UI/soul/snd_heal_c.wav" id="24_j2v24"]
 [ext_resource type="Texture2D" uid="uid://hqni76blspwk" path="res://assets/sprites/UI/battle_screen/bullet/大玉.png" id="30_qq7g6"]
 [ext_resource type="AudioStream" uid="uid://b0exrudoitwdv" path="res://assets/sounds/UI/text/SND_TXT1.wav" id="32_sev40"]
-[ext_resource type="Texture2D" uid="uid://bhcri1aocaoum" path="res://assets/sprites/UI/spr_test_zbutton_3.png" id="41_hqqfg"]
-[ext_resource type="Texture2D" uid="uid://ddyrq63qmdhb2" path="res://assets/sprites/UI/spr_test_zbutton_2.png" id="42_6p4sc"]
-[ext_resource type="Texture2D" uid="uid://c64m48xjhrqlp" path="res://assets/sprites/UI/spr_test_xbutton_3.png" id="43_slji3"]
-[ext_resource type="Texture2D" uid="uid://rllimxwm6yr4" path="res://assets/sprites/UI/spr_test_xbutton_1.png" id="44_fnkvj"]
 [ext_resource type="Script" uid="uid://q80gar0bkm78" path="res://scripts/typewriter_label.gd" id="50_typewriter"]
 [ext_resource type="Resource" path="res://resource/portraits/eanaro_expressions.tres" id="51_eanaroexpr"]
 [ext_resource type="Script" uid="uid://crt3y1sc42aqe" path="res://scripts/dialog/dialog_director.gd" id="60_dirdlg"]
@@ -156,7 +153,6 @@ snd_txt = NodePath("../../Audio/SndTxt2")
 [node name="Soul" parent="." unique_id=172666121 node_paths=PackedStringArray("game") instance=ExtResource("6_qyclh")]
 position = Vector2(63, 324)
 game = NodePath("..")
-type = 1
 
 [node name="BattleFrame" type="Node2D" parent="." unique_id=1053110815]
 z_index = 1
@@ -252,40 +248,12 @@ bus = &"Sounds"
 stream = ExtResource("23_qxgud")
 bus = &"Sounds"
 
-[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1890787532]
-layer = 2
-
-[node name="VirtualJoystick" type="VirtualJoystick" parent="CanvasLayer" unique_id=1614904449]
-offset_left = 33.0
-offset_top = 388.0
-offset_right = 73.0
-offset_bottom = 428.0
-joystick_mode = 1
-action_left = &"left"
-action_right = &"right"
-action_up = &"up"
-action_down = &"down"
-visibility_mode = 1
-
-[node name="TouchScreenButton" type="TouchScreenButton" parent="CanvasLayer" unique_id=1505233899]
-position = Vector2(459, 385)
-scale = Vector2(3.1818182, 2.121212)
-texture_normal = ExtResource("41_hqqfg")
-texture_pressed = ExtResource("42_6p4sc")
-action = "accept"
-visibility_mode = 1
-
-[node name="TouchScreenButton2" type="TouchScreenButton" parent="CanvasLayer" unique_id=474588818]
-position = Vector2(539, 384)
-scale = Vector2(3.1818182, 2.121212)
-texture_normal = ExtResource("43_slji3")
-texture_pressed = ExtResource("44_fnkvj")
-action = "accept"
-visibility_mode = 1
+[node name="TouchControls" type="CanvasLayer" parent="." unique_id=1614904449]
+script = ExtResource("1_touch")
 
 [node name="大玉" type="Sprite2D" parent="." unique_id=827090418]
 material = SubResource("CanvasItemMaterial_j3pel")
-position = Vector2(210, 143.00002)
+position = Vector2(241, 155)
 scale = Vector2(0.3028169, 0.3116198)
 texture = ExtResource("30_qq7g6")
 

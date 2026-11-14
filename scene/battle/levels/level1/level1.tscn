@@ -831,7 +831,7 @@ button_container = NodePath("buttons")
 debug_round_input = NodePath("FrontLayer/debug/HBoxContainer/SpinBox")
 player_status = NodePath("FrontLayer/player_status")
 highest_layer = NodePath("HighestLayer")
-enemy_illustrations = [null]
+enemy_illustrations = [NodePath("Enemy/Toriel")]
 
 [node name="Enemy" type="Node2D" parent="." unique_id=1032742607]
 
@@ -848,17 +848,14 @@ visible = false
 position = Vector2(320, 150)
 texture = ExtResource("7_7dni1")
 
-[node name="Toriel" type="Node2D" parent="Enemy" unique_id=1048419151 node_paths=PackedStringArray("dialog_source", "parts")]
+[node name="Toriel" type="Sprite2D" parent="Enemy" unique_id=336162653 node_paths=PackedStringArray("dialog_source")]
 material = SubResource("ShaderMaterial_vrygm")
 position = Vector2(320, 150)
 scale = Vector2(0.5, 0.5)
+texture = ExtResource("9_8m7n8")
 script = ExtResource("10_nuqra")
 expressions = ExtResource("42_toriexpr")
 dialog_source = NodePath("../../DialogPanel")
-parts = [NodePath("Sprite2D")]
-
-[node name="Sprite2D" type="Sprite2D" parent="Enemy/Toriel" unique_id=516403056]
-texture = ExtResource("9_8m7n8")
 
 [node name="FireBallL" type="AnimatedSprite2D" parent="Enemy" unique_id=287194783]
 position = Vector2(210, 150)

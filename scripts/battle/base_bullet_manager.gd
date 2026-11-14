@@ -1,6 +1,6 @@
 extends Node2D
 class_name BaseEnemyTurnManager
-const BASE_BULLET = preload("uid://dc41q0lfey1qr")
+const BASE_BULLET = preload("uid://c7koqprdebrfr")
 const EXPLODE_EFFECT = preload("uid://djpv4bs5mo5ui")
 const SE_TAN_00 = preload("uid://oie1o8543ko7")
 const 弹幕嗡声 = preload("uid://xuishfumuwcu")
@@ -98,7 +98,7 @@ func lock_soul(locked: bool):
 # ── 子弹生成 ──
 
 func spawn_base_bullet(pos: Vector2, direction: Vector2, speed: float = 300,lifetime:float=16):
-	var bullet = BASE_BULLET.instantiate() as NormalBullet
+	var bullet = BASE_BULLET.instantiate() as BaseBullet
 	bullet.position = pos
 	bullet.manager=self
 	bullet.direction=direction

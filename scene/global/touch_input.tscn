@@ -1,0 +1,84 @@
+[gd_scene format=3 uid="uid://bwc7umlgv6yuk"]
+
+[ext_resource type="Script" uid="uid://bhip2jqapwpm5" path="res://scene/global/touch_input.gd" id="1_3vqa0"]
+[ext_resource type="Texture2D" uid="uid://wxpgi2to0g5k" path="res://assets/sprites/UI/spr_test_cbutton_3.png" id="1_t0j1l"]
+[ext_resource type="Texture2D" uid="uid://d2mqtlitwe4l4" path="res://assets/sprites/UI/spr_test_cbutton_2.png" id="2_3vqa0"]
+[ext_resource type="Texture2D" uid="uid://bhcri1aocaoum" path="res://assets/sprites/UI/spr_test_zbutton_3.png" id="3_axqvg"]
+[ext_resource type="Texture2D" uid="uid://dg36lvdu8pvko" path="res://assets/sprites/UI/spr_test_zbutton_1.png" id="4_mgubl"]
+[ext_resource type="Texture2D" uid="uid://c64m48xjhrqlp" path="res://assets/sprites/UI/spr_test_xbutton_3.png" id="5_j5j7d"]
+[ext_resource type="Texture2D" uid="uid://rllimxwm6yr4" path="res://assets/sprites/UI/spr_test_xbutton_1.png" id="6_uduwd"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yex4w"]
+size = Vector2(24, 36)
+
+[node name="CanvasLayer" type="CanvasLayer" unique_id=1741145658]
+layer = 1000
+script = ExtResource("1_3vqa0")
+
+[node name="Control" type="Control" parent="." unique_id=259002962]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="VirtualJoystick" type="VirtualJoystick" parent="Control" unique_id=1718028832]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -245.0
+offset_right = 302.0
+grow_vertical = 0
+joystick_mode = 1
+joystick_size = 150.0
+tip_size = 75.0
+deadzone_ratio = 0.2
+initial_offset_ratio = Vector2(0.29, 0.65)
+action_left = &"left"
+action_right = &"right"
+action_up = &"up"
+action_down = &"down"
+
+[node name="Control2" type="Control" parent="." unique_id=688249578]
+visible = false
+layout_mode = 3
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -40.0
+offset_top = -40.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="TouchScreenButton3" type="TouchScreenButton" parent="Control2" unique_id=594553335]
+modulate = Color(1, 1, 1, 0.49803922)
+position = Vector2(-42, -88)
+scale = Vector2(3, 3)
+texture_normal = ExtResource("1_t0j1l")
+texture_pressed = ExtResource("2_3vqa0")
+shape = SubResource("RectangleShape2D_yex4w")
+action = "skip"
+
+[node name="TouchScreenButton" type="TouchScreenButton" parent="Control2" unique_id=1426795157]
+modulate = Color(1, 1, 1, 0.49803922)
+position = Vector2(-188, -88)
+scale = Vector2(3, 3)
+texture_normal = ExtResource("3_axqvg")
+texture_pressed = ExtResource("4_mgubl")
+shape = SubResource("RectangleShape2D_yex4w")
+action = "accept"
+
+[node name="TouchScreenButton2" type="TouchScreenButton" parent="Control2" unique_id=1814294858]
+modulate = Color(1, 1, 1, 0.49803922)
+position = Vector2(-115, -88)
+scale = Vector2(3, 3)
+texture_normal = ExtResource("5_j5j7d")
+texture_pressed = ExtResource("6_uduwd")
+shape = SubResource("RectangleShape2D_yex4w")
+action = "cancel"

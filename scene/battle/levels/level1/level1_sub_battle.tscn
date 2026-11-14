@@ -5,6 +5,7 @@
 [ext_resource type="Script" uid="uid://bow5y3q3seleq" path="res://scripts/battle/enemy_status.gd" id="3_tqvh3"]
 [ext_resource type="Script" uid="uid://calkgasaaikbk" path="res://scripts/player/item.gd" id="4_sufcd"]
 [ext_resource type="Script" uid="uid://bgsmn2fvofrpt" path="res://scripts/player/player_status.gd" id="5_3jhfr"]
+[ext_resource type="Script" uid="uid://dqix82jx8ed6c" path="res://scripts/battle/enemy_act.gd" id="6_d86ti"]
 [ext_resource type="Script" uid="uid://ciq2r0dd5e2fx" path="res://scripts/battle/enemy_round_set.gd" id="6_h5thf"]
 [ext_resource type="Script" uid="uid://bk7lyrbkni0wr" path="res://scripts/dialog/base_dialog.gd" id="7_1j7dk"]
 [ext_resource type="Script" uid="uid://b6innblij3fdk" path="res://scripts/battle/battle_data.gd" id="8_y7tvw"]
@@ -27,14 +28,10 @@
 [ext_resource type="AudioStream" uid="uid://bxr8labkw3e11" path="res://assets/sounds/UI/menu/snd_squeak.wav" id="25_syi34"]
 [ext_resource type="AudioStream" uid="uid://c0m2og28em48w" path="res://assets/sounds/UI/menu/snd_select.wav" id="26_67ln0"]
 [ext_resource type="AudioStream" uid="uid://co1mrm3wris8w" path="res://assets/sounds/UI/text/SND_TXT2.wav" id="27_w45b8"]
-[ext_resource type="Texture2D" uid="uid://bhcri1aocaoum" path="res://assets/sprites/UI/spr_test_zbutton_3.png" id="29_362b6"]
 [ext_resource type="AudioStream" uid="uid://c3cc280i0wmp5" path="res://assets/sounds/UI/text/snd_txttor.wav" id="30_g26pf"]
-[ext_resource type="Texture2D" uid="uid://ddyrq63qmdhb2" path="res://assets/sprites/UI/spr_test_zbutton_2.png" id="30_mxvif"]
-[ext_resource type="Texture2D" uid="uid://c64m48xjhrqlp" path="res://assets/sprites/UI/spr_test_xbutton_3.png" id="31_xevq8"]
 [ext_resource type="AudioStream" uid="uid://bbr5ecs56y27u" path="res://assets/sounds/UI/encounter.ogg" id="32_gskto"]
-[ext_resource type="Texture2D" uid="uid://rllimxwm6yr4" path="res://assets/sprites/UI/spr_test_xbutton_1.png" id="32_o00t7"]
 [ext_resource type="Script" uid="uid://deltq24ei2ai4" path="res://scripts/dialog/expression_dialog.gd" id="33_exprdlg"]
-[ext_resource type="Resource" path="res://resource/portraits/toriel_expressions.tres" id="34_toriexpr"]
+[ext_resource type="Resource" uid="uid://qkeluwi8lgqh" path="res://resource/portraits/toriel_expressions.tres" id="34_toriexpr"]
 [ext_resource type="Script" uid="uid://crt3y1sc42aqe" path="res://scripts/dialog/dialog_director.gd" id="35_dirdlg"]
 
 [sub_resource type="Theme" id="Theme_14cdr"]
@@ -52,8 +49,8 @@ metadata/_custom_type_script = "uid://bk7lyrbkni0wr"
 
 [sub_resource type="Resource" id="Resource_gskto"]
 script = ExtResource("33_exprdlg")
-content = "我必须要把你留在这里，除非你能证明我的猜测是错的。"
 expression = &"SAD"
+content = "我必须要把你留在这里，除非你能证明我的猜测是错的。"
 metadata/_custom_type_script = "uid://deltq24ei2ai4"
 
 [sub_resource type="Resource" id="Resource_fgjx5"]
@@ -84,8 +81,8 @@ metadata/_custom_type_script = "uid://bk7lyrbkni0wr"
 
 [sub_resource type="Resource" id="Resource_t0uwl"]
 script = ExtResource("33_exprdlg")
-content = "除了有一股不祥的声音在叫我逃走。"
 expression = &"SAD"
+content = "除了有一股不祥的声音在叫我逃走。"
 metadata/_custom_type_script = "uid://deltq24ei2ai4"
 
 [sub_resource type="Resource" id="Resource_pmkru"]
@@ -95,8 +92,8 @@ metadata/_custom_type_script = "uid://bk7lyrbkni0wr"
 
 [sub_resource type="Resource" id="Resource_fpb41"]
 script = ExtResource("33_exprdlg")
-content = "那些并不是从你来时就有的。"
 expression = &"ANGRY"
+content = "那些并不是从你来时就有的。"
 metadata/_custom_type_script = "uid://deltq24ei2ai4"
 
 [sub_resource type="Resource" id="Resource_bcd3e"]
@@ -106,14 +103,14 @@ metadata/_custom_type_script = "uid://bk7lyrbkni0wr"
 
 [sub_resource type="Resource" id="Resource_kadyx"]
 script = ExtResource("33_exprdlg")
-content = "我一直想说服是自己想的太多。"
 expression = &"DEFEATED"
+content = "我一直想说服是自己想的太多。"
 metadata/_custom_type_script = "uid://deltq24ei2ai4"
 
 [sub_resource type="Resource" id="Resource_tvbmv"]
 script = ExtResource("33_exprdlg")
-content = "但每当我看到你时我都知道这不是。"
 expression = &"WORRIED"
+content = "但每当我看到你时我都知道这不是。"
 metadata/_custom_type_script = "uid://deltq24ei2ai4"
 
 [sub_resource type="Resource" id="Resource_40430"]
@@ -123,20 +120,20 @@ metadata/_custom_type_script = "uid://bk7lyrbkni0wr"
 
 [sub_resource type="Resource" id="Resource_7ipx1"]
 script = ExtResource("33_exprdlg")
-content = "而且你玩具刀挥得这么轻松。"
 expression = &"DEFEATED"
+content = "而且你玩具刀挥得这么轻松。"
 metadata/_custom_type_script = "uid://deltq24ei2ai4"
 
 [sub_resource type="Resource" id="Resource_p1usd"]
 script = ExtResource("33_exprdlg")
-content = "我也许是在做无用功，但尽管如此，我还是希望你能停下。"
 expression = &"WORRIED"
+content = "我也许是在做无用功，但尽管如此，我还是希望你能停下。"
 metadata/_custom_type_script = "uid://deltq24ei2ai4"
 
 [sub_resource type="Resource" id="Resource_3ongg"]
 script = ExtResource("33_exprdlg")
-content = "现在，回去。"
 expression = &"ANGRY"
+content = "现在，回去。"
 metadata/_custom_type_script = "uid://deltq24ei2ai4"
 
 [sub_resource type="Resource" id="Resource_uhg5j"]
@@ -173,7 +170,7 @@ script = ExtResource("2_g26pf")
 dialog1 = Array[ExtResource("7_1j7dk")]([SubResource("Resource_g26pf")])
 dialog2 = Array[ExtResource("7_1j7dk")]([SubResource("Resource_62146"), SubResource("Resource_gskto"), SubResource("Resource_fgjx5")])
 encounter_player = NodePath("Audio/Encounter")
-black = NodePath("CanvasLayer/ColorRect")
+black = NodePath("ColorRect")
 squeak_player = NodePath("Audio/SqueakPlayer")
 select_player = NodePath("Audio/SelectPlayer")
 battle_data = SubResource("Resource_djoff")
@@ -301,7 +298,7 @@ expressions = ExtResource("34_toriexpr")
 dialog_source = NodePath("../PanelContainer")
 metadata/_custom_type_script = "uid://bak4twd7ph5ti"
 
-[node name="DialogDirector" type="Node" parent="." node_paths=PackedStringArray("panels")]
+[node name="DialogDirector" type="Node" parent="." unique_id=1332835453 node_paths=PackedStringArray("panels")]
 script = ExtResource("35_dirdlg")
 panels = [NodePath("../PanelContainer")]
 
@@ -428,38 +425,9 @@ stream = ExtResource("32_gskto")
 volume_db = -6.0
 bus = &"Sounds"
 
-[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1890787532]
-layer = 2
-
-[node name="VirtualJoystick" type="VirtualJoystick" parent="CanvasLayer" unique_id=1614904449]
-offset_left = 33.0
-offset_top = 388.0
-offset_right = 73.0
-offset_bottom = 428.0
-joystick_mode = 1
-action_left = &"left"
-action_right = &"right"
-action_up = &"up"
-action_down = &"down"
-visibility_mode = 1
-
-[node name="TouchScreenButton" type="TouchScreenButton" parent="CanvasLayer" unique_id=1505233899]
-position = Vector2(459, 385)
-scale = Vector2(3.1818182, 2.121212)
-texture_normal = ExtResource("29_362b6")
-texture_pressed = ExtResource("30_mxvif")
-action = "accept"
-visibility_mode = 1
-
-[node name="TouchScreenButton2" type="TouchScreenButton" parent="CanvasLayer" unique_id=474588818]
-position = Vector2(539, 384)
-scale = Vector2(3.1818182, 2.121212)
-texture_normal = ExtResource("31_xevq8")
-texture_pressed = ExtResource("32_o00t7")
-action = "accept"
-visibility_mode = 1
-
-[node name="ColorRect" type="ColorRect" parent="CanvasLayer" unique_id=399304753]
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1079364654]
+z_index = 30
+layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0

@@ -26,6 +26,7 @@ const JUMP_SPEED:float=160
 @export var invincible_time:float=1
 @export var player_status:PlayerStatus
 @export var hitbox:HitBox
+@export var slow_effect: Sprite2D
 @export var gravity:float=800
 @export var jump_speed:float=160
 @onready var snd_hurt_1: AudioStreamPlayer = $SndHurt1
@@ -46,6 +47,10 @@ func _physics_process(delta: float) -> void:
 		return
 	velocity=Vector2.ZERO
 	if !game or game.state==game.BattleState.ENEMY_TURN:
+		if BattleInput.pressed(&"slow"):
+			slow_effect.show()
+		else:
+			slow_effect.hide()
 		if type==Type.BLUE:
 			velocity=move_blue(delta)
 		else:

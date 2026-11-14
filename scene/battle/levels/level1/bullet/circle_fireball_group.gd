@@ -30,7 +30,7 @@ func _ready() -> void:
 		add_child(bullet)
 	await BattleClock.wait_seconds(explode_duration)
 	# 收束动画只是画面；爆炸信号和回收按 tick 走，不然子弹消失的时机也会漂
-	ball_tween=create_tween()
+	ball_tween=create_tween().set_process_mode(Tween.TWEEN_PROCESS_PHYSICS)
 	for i in bullets:
 		ball_tween.parallel().tween_property(i,"position",Vector2.ZERO,0.3)
 	await BattleClock.wait_seconds(0.3)
